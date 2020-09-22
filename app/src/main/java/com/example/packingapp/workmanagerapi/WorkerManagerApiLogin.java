@@ -1,7 +1,11 @@
-package com.example.packingapp;
+package com.example.packingapp.workmanagerapi;
 
 import android.content.Context;
 import android.util.Log;
+
+import com.example.packingapp.Retrofit.APIRetrofit;
+import com.example.packingapp.Retrofit.ApiClient;
+import com.example.packingapp.model.Response;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -16,11 +20,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class WorkerManagerApi extends Worker {
-    static MutableLiveData<Response> mutableLiveData = new MutableLiveData<>();
-    static MutableLiveData<String> mutableLiveDataError = new MutableLiveData<>();
+public class WorkerManagerApiLogin extends Worker {
+    public static MutableLiveData<Response> mutableLiveData = new MutableLiveData<>();
+    public static MutableLiveData<String> mutableLiveDataError = new MutableLiveData<>();
 
-    public WorkerManagerApi(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    public WorkerManagerApiLogin(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
 

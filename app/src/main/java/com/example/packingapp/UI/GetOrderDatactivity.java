@@ -1,8 +1,10 @@
-package com.example.packingapp;
+package com.example.packingapp.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.packingapp.R;
 
 public class GetOrderDatactivity extends AppCompatActivity {
 

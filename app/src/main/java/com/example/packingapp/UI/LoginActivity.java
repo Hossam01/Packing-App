@@ -1,4 +1,4 @@
-package com.example.packingapp;
+package com.example.packingapp.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.packingapp.model.Response;
+import com.example.packingapp.workmanagerapi.WorkerManagerApiLogin;
 import com.example.packingapp.databinding.ActivityLoginBinding;
+import com.example.packingapp.viewmodel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding;
@@ -28,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
                 lgoinViewModel.fetchdata(binding.username.getText().toString(), binding.password.getText().toString());
             }
         });
-        WorkerManagerApi.mutableLiveDataError.observe(this, new Observer<String>() {
+        WorkerManagerApiLogin.mutableLiveDataError.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 if (s.equals("HTTP 503 Service Unavailable")) {
@@ -38,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        WorkerManagerApi.mutableLiveData.observe(LoginActivity.this, new Observer<Response>() {
+        WorkerManagerApiLogin.mutableLiveData.observe(LoginActivity.this, new Observer<Response>() {
             @Override
             public void onChanged(Response response) {
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);

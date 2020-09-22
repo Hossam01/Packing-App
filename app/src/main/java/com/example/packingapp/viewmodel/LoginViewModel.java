@@ -1,4 +1,6 @@
-package com.example.packingapp;
+package com.example.packingapp.viewmodel;
+
+import com.example.packingapp.workmanagerapi.WorkerManagerApiLogin;
 
 import androidx.lifecycle.ViewModel;
 import androidx.work.Constraints;
@@ -19,7 +21,7 @@ public class LoginViewModel extends ViewModel {
         data.putString("password", password);
 
 
-        final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(WorkerManagerApi.class)
+        final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(WorkerManagerApiLogin.class)
                 .addTag("Sync")
                 .setInputData(data.build())
                 .setConstraints(builder.build())

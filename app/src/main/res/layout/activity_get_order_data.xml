@@ -7,7 +7,7 @@
         android:orientation="vertical"
         android:gravity="center_horizontal|center_vertical"
         android:background="@color/main_background_color"
-        tools:context=".GetOrderDatactivity">
+        tools:context=".UI.GetOrderDatactivity">
 
         <EditText
             android:id="@+id/edit_magentoorder"

@@ -1,4 +1,6 @@
-package com.example.packingapp;
+package com.example.packingapp.Retrofit;
+
+import com.example.packingapp.model.Response;
 
 import java.util.Map;
 

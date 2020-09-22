@@ -1,10 +1,12 @@
-package com.example.packingapp;
+package com.example.packingapp.UI;
 
 import android.os.Bundle;
 
+import com.example.packingapp.databinding.ActivityMainBinding;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.packingapp.databinding.ActivityMainBinding;
+
 
 public class MainActivity extends AppCompatActivity {
 

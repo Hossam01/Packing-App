@@ -13,10 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GetOrderDatactivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".UI.GetOrderDatactivity"/>
+        <activity android:name=".UI.MainActivity"/>
         <activity
-            android:name=".LoginActivity"
+            android:name=".UI.LoginActivity"
             android:theme="@style/NoAction">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,9 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
 
-        </activity>
     </application>
 
 </manifest>
