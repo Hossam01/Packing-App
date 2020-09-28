@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">PackingApp</string>
-    <string name="enter_your_name">EnterUserName</string>
-    <string name="Password">Enter Password</string>
+    <string name="enter_your_name">UserName</string>
+    <string name="enter_your_password">Password</string>
 </resources>
