@@ -1,24 +1,69 @@
 package com.example.packingapp.model;
 
-import com.google.gson.annotations.SerializedName;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import com.google.gson.annotations.SerializedName;
+@Entity(tableName = "user")
 public class RecordsItem {
+	@PrimaryKey(autoGenerate = true)
+	private int uid;
+	@ColumnInfo(name = "User_Department")
 	@SerializedName("User_Department")
 	private String userDepartment;
+	@ColumnInfo(name = "User_status")
 	@SerializedName("User_status")
 	private String userStatus;
+	@ColumnInfo(name = "ComplexID")
 	@SerializedName("ComplexID")
 	private String complexID;
+	@ColumnInfo(name = "Group_Name")
 	@SerializedName("Group_Name")
 	private String groupName;
+	@ColumnInfo(name = "company")
 	@SerializedName("company")
 	private String company;
+	@ColumnInfo(name = "user_id")
 	@SerializedName("id")
-	private String id;
+	private String user_id;
+	@ColumnInfo(name = "User_Description")
 	@SerializedName("User_Description")
 	private String userDescription;
+	@ColumnInfo(name = "GroupID")
 	@SerializedName("GroupID")
 	private String groupID;
+
+	public RecordsItem() {
+	}
+
+	public RecordsItem(String userDepartment, String userStatus, String complexID, String groupName, String company, String user_id, String userDescription, String groupID) {
+		this.userDepartment = userDepartment;
+		this.userStatus = userStatus;
+		this.complexID = complexID;
+		this.groupName = groupName;
+		this.company = company;
+		this.user_id = user_id;
+		this.userDescription = userDescription;
+		this.groupID = groupID;
+	}
+
+	public int getUid() {
+		return uid;
+	}
+
+	public void setUid(int uid) {
+		this.uid = uid;
+	}
+
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 
 	public void setUserDepartment(String userDepartment) {
 		this.userDepartment = userDepartment;
@@ -58,14 +103,6 @@ public class RecordsItem {
 
 	public String getCompany() {
 		return company;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getId() {
-		return id;
 	}
 
 	public void setUserDescription(String userDescription) {
