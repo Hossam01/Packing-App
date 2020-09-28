@@ -10,7 +10,6 @@ import com.example.packingapp.model.RecordsItem;
 
 
 @Database(entities = {RecordsItem.class}, version = 1, exportSchema = false)
-
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase mInstance;
     private static final String DATABASE_NAME = "Packing-database";
@@ -30,4 +29,5 @@ public abstract class AppDatabase extends RoomDatabase {
     public static void destroyInstance() {
         mInstance = null;
     }
+
 }

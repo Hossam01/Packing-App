@@ -1,5 +1,6 @@
 package com.example.packingapp.model;
 
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -8,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "user")
 public class RecordsItem {
 	@PrimaryKey(autoGenerate = true)
-	private int id;
+	private int uid;
 	@ColumnInfo(name = "User_Department")
 	@SerializedName("User_Department")
 	private String userDepartment;
@@ -48,12 +49,12 @@ public class RecordsItem {
 		this.groupID = groupID;
 	}
 
-	public int getId() {
-		return id;
+	public int getUid() {
+		return uid;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setUid(int uid) {
+		this.uid = uid;
 	}
 
 	public String getUser_id() {
