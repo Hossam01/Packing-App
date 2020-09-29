@@ -29,5 +29,8 @@ public interface UserDao {
     @Update
     void updateUser(RecordsItem mUser);
 
+    @Query("DELETE FROM user")
+    void deleteAll();
+
 
 }

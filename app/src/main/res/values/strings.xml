@@ -2,4 +2,17 @@
     <string name="app_name">PackingApp</string>
     <string name="enter_your_name">UserName</string>
     <string name="enter_your_password">Password</string>
+    <string name="way">Way</string>
+    <string name="NameArabic">Name Arabic</string>
+    <string name="NameEnglish">Name English</string>
+    <string name="LienceNumber">" Lience Number"</string>
+    <string name="Weight">Weight</string>
+    <string name="Status">Status</string>
+    <string name="Company">Company</string>
+    <string name="Phone">Phone</string>
+    <string name="Address">Address</string>
+    <string name="Vechile_ID">Vechile_ID</string>
+    <string name="Estimation_Time">Estimation Time</string>
+    <string name="Stations">Stations</string>
+    <string name="Driver_ID">Driver_ID</string>
 </resources>

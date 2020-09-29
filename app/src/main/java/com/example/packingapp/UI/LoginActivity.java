@@ -2,7 +2,6 @@ package com.example.packingapp.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -12,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.databinding.ActivityLoginBinding;
-import com.example.packingapp.model.Response;
+import com.example.packingapp.model.ResponseLogin;
 import com.example.packingapp.viewmodel.LoginViewModel;
 import com.example.packingapp.workmanagerapi.WorkerManagerApiLogin;
 
@@ -43,10 +42,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        WorkerManagerApiLogin.mutableLiveData.observe(LoginActivity.this, new Observer<Response>() {
+        WorkerManagerApiLogin.mutableLiveData.observe(LoginActivity.this, new Observer<ResponseLogin>() {
             @Override
-            public void onChanged(Response response) {
-                database.userDao().insertUser(response.getRecords().get(0));
+            public void onChanged(ResponseLogin responseLogin) {
+                database.userDao().deleteAll();
+                database.userDao().insertUser(responseLogin.getRecords().get(0));
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
             }

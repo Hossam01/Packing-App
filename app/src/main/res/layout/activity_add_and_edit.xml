@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.AddAndEditActivity">
+    <RadioGroup
+        android:id="@+id/chooser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <RadioButton
+            android:id="@+id/radio0"
+            android:layout_width="@dimen/_80sdp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@android:color/transparent"
+            android:checked="true"
+            android:paddingLeft="@dimen/_16sdp"
+            android:paddingTop="@dimen/_3sdp"
+            android:paddingRight="@dimen/_16sdp"
+            android:paddingBottom="@dimen/_3sdp"
+            android:text="Vehicle"
+            android:textColor="@color/radio_flat_text_selector" />
+
+        <RadioButton
+            android:id="@+id/radio1"
+            android:gravity="center"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@android:color/transparent"
+            android:paddingLeft="@dimen/_16sdp"
+            android:paddingTop="@dimen/_3sdp"
+            android:paddingRight="@dimen/_16sdp"
+            android:paddingBottom="@dimen/_3sdp"
+            android:text="Driver"
+            android:textColor="@color/radio_flat_text_selector" />
+        <RadioButton
+            android:id="@+id/radio2"
+            android:gravity="center"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@android:color/transparent"
+            android:paddingLeft="@dimen/_16sdp"
+            android:paddingTop="@dimen/_3sdp"
+            android:paddingRight="@dimen/_16sdp"
+            android:paddingBottom="@dimen/_3sdp"
+            android:text="Way"
+            android:textColor="@color/radio_flat_text_selector" />
+
+    </RadioGroup>
+
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chooser"
+        app:navGraph="@navigation/nav_graph" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

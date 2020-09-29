@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="font_size_for_text_of_app">18sp</dimen>
+    <dimen name="_80sdp">80dp</dimen>
+    <dimen name="_16sdp">16dp</dimen>
+    <dimen name="_3sdp">3dp</dimen>
 </resources>

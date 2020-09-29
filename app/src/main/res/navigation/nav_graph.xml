@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    app:startDestination="@id/vehicleManage">
+    <fragment
+        android:id="@+id/vehicleManage"
+        android:name="com.example.packingapp.UI.Fragments.VehicleManage"
+        android:label="VehicleManage" >
+        <action
+            android:id="@+id/action_vehicleManage_to_driverManage"
+            app:destination="@id/driverManage" />
+        <action
+            android:id="@+id/action_vehicleManage_to_wayManage"
+            app:destination="@id/wayManage" />
+    </fragment>
+    <fragment
+        android:id="@+id/driverManage"
+        android:name="com.example.packingapp.UI.Fragments.DriverManage"
+        android:label="DriverManage" >
+        <action
+            android:id="@+id/action_driverManage_to_wayManage"
+            app:destination="@id/wayManage" />
+        <action
+            android:id="@+id/action_driverManage_to_vehicleManage"
+            app:destination="@id/vehicleManage" />
+    </fragment>
+    <fragment
+        android:id="@+id/wayManage"
+        android:name="com.example.packingapp.UI.Fragments.WayManage"
+        android:label="WayManage" >
+        <action
+            android:id="@+id/action_wayManage_to_vehicleManage"
+            app:destination="@id/vehicleManage" />
+        <action
+            android:id="@+id/action_wayManage_to_driverManage"
+            app:destination="@id/driverManage" />
+    </fragment>
+</navigation>
