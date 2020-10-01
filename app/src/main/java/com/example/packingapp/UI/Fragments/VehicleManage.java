@@ -40,9 +40,11 @@ public class VehicleManage extends Fragment {
         binding.VechileID.setAdapter(spinnerAdapter);
 
         ReadDataWorkManageVehicle.mutableLiveData.observe(getViewLifecycleOwner(), responseVehicle -> {
-            for (int i = 0; i < responseVehicle.getRecords().size(); i++) {
-            categories.add(responseVehicle.getRecords().get(i).getVechileID());
-       }
+            if (categories.size()==0) {
+                for (int i = 0; i < responseVehicle.getRecords().size(); i++) {
+                    categories.add(responseVehicle.getRecords().get(i).getVechileID());
+                }
+            }
             spinnerAdapter.notifyDataSetChanged();
         });
 

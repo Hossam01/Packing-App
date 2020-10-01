@@ -47,8 +47,10 @@ public class WayManage extends Fragment {
         spinnerAdapterWay.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.WayID.setAdapter(spinnerAdapterWay);
         ReadDataWorkManageVehicle.mutableLiveData.observe(getViewLifecycleOwner(), responseVehicle -> {
-            for (int i = 0; i < responseVehicle.getRecords().size(); i++) {
-                way.add(responseVehicle.getRecords().get(i).getVechileID());
+            if (way.size()==0) {
+                for (int i = 0; i < responseVehicle.getRecords().size(); i++) {
+                    way.add(responseVehicle.getRecords().get(i).getVechileID());
+                }
             }
             spinnerAdapterWay.notifyDataSetChanged();
         });
@@ -58,9 +60,12 @@ public class WayManage extends Fragment {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.VechileID.setAdapter(spinnerAdapter);
         ReadDataWorkManageVehicle.mutableLiveData.observe(getViewLifecycleOwner(), responseVehicle -> {
-            for (int i = 0; i < responseVehicle.getRecords().size(); i++) {
-           vehicle.add(responseVehicle.getRecords().get(i).getVechileID());
-        }
+            if (vehicle.size()==0) {
+                for (int i = 0; i < responseVehicle.getRecords().size(); i++) {
+                    vehicle.add(responseVehicle.getRecords().get(i).getVechileID());
+                }
+
+            }
             spinnerAdapter.notifyDataSetChanged();
         });
 
@@ -69,10 +74,11 @@ public class WayManage extends Fragment {
         binding.DriverID.setAdapter(spinnerAdapterDriver);
 
         ReadDataWorkManageDriver.mutableLiveData.observe(getViewLifecycleOwner(), responseDriver -> {
-            for (int i = 0; i< responseDriver.getRecords().size(); i++)
-       {
-           driver.add(responseDriver.getRecords().get(i).getDriverID());
-       }
+            if (driver.size()==0) {
+                for (int i = 0; i < responseDriver.getRecords().size(); i++) {
+                    driver.add(responseDriver.getRecords().get(i).getDriverID());
+                }
+            }
             spinnerAdapterDriver.notifyDataSetChanged();
         });
 

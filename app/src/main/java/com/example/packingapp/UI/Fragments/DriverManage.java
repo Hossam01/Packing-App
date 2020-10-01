@@ -45,9 +45,10 @@ public class DriverManage extends Fragment {
         binding.DriverID.setAdapter(spinnerAdapterDriver);
 
         ReadDataWorkManageDriver.mutableLiveData.observe(getViewLifecycleOwner(), responseDriver -> {
-            for (int i = 0; i< responseDriver.getRecords().size(); i++)
-            {
-                driver.add(responseDriver.getRecords().get(i).getDriverID());
+            if (driver.size()==0) {
+                for (int i = 0; i < responseDriver.getRecords().size(); i++) {
+                    driver.add(responseDriver.getRecords().get(i).getDriverID());
+                }
             }
             spinnerAdapterDriver.notifyDataSetChanged();
         });
@@ -56,9 +57,11 @@ public class DriverManage extends Fragment {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.VechileID.setAdapter(spinnerAdapter);
         ReadDataWorkManageVehicle.mutableLiveData.observe(getViewLifecycleOwner(), responseVehicle -> {
-            for (int i = 0; i < responseVehicle.getRecords().size(); i++) {
-              categories.add(responseVehicle.getRecords().get(i).getVechileID());
-        }
+            if (categories.size()==0) {
+                for (int i = 0; i < responseVehicle.getRecords().size(); i++) {
+                    categories.add(responseVehicle.getRecords().get(i).getVechileID());
+                }
+            }
             spinnerAdapter.notifyDataSetChanged();
         });
 
