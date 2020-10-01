@@ -27,4 +27,16 @@ public interface APIRetrofit {
 
     @GET("Packing_Api/Vechile/Read.php")
     Observable<ResponseVehicle> readVehicle();
+
+    @GET("Packing_Api/Direction/Read.php")
+    Observable<ResponseWay> readWay();
+
+    @POST("Packing_Api/Vechile/Update.php")
+    Observable<Message> updateVehicle(@Body Map<String, String> mobile);
+
+    @POST("Packing_Api/Driver/Update.php")
+    Observable<Message> updateDriver(@Body Map<String, String> mobile);
+
+    @POST("Packing_Api/Direction/Update.php")
+    Observable<Message> updateWay(@Body Map<String, String> mobile);
 }

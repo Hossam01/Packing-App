@@ -3,7 +3,6 @@ package com.example.packingapp.workmanagerapi;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.work.Data;
 import androidx.work.Worker;
@@ -21,25 +20,25 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class WorkerManagerApiVehicle extends Worker {
-    public static MutableLiveData<Message> mutableLiveData = new MutableLiveData<>();
+public class UpdateWorkerManagerApiVehicle extends Worker {
+    public static MutableLiveData<Message> mutableLiveData = new MutableLiveData<>(); ;
 
-    public WorkerManagerApiVehicle(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    public UpdateWorkerManagerApiVehicle(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
 
     @NonNull
     @Override
     public Result doWork() {
-        Data outputData ;
-        String testmessage;
 
+        String id = getInputData().getString("Vechile_ID");
         String nameArabic = getInputData().getString("NameArabic");
         String nameEnglish = getInputData().getString("NameEnglish");
         String lienceNumber = getInputData().getString("LienceNumber");
         String weight = getInputData().getString("Weight");
 
         HashMap<String, String> map = new HashMap<>();
+        map.put("Vechile_ID", id);
         map.put("NameArabic", nameArabic);
         map.put("NameEnglish", nameEnglish);
         map.put("LienceNumber", lienceNumber);
@@ -47,7 +46,7 @@ public class WorkerManagerApiVehicle extends Worker {
 
         ApiClient apiClient = new ApiClient();
         APIRetrofit client = apiClient.build().create(APIRetrofit.class);
-        Observable<Message> call=client.createVehicle(map)
+        Observable<Message> call=client.updateVehicle(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
         Observer<Message> observer=new Observer<Message>() {
@@ -59,11 +58,11 @@ public class WorkerManagerApiVehicle extends Worker {
             @Override
             public void onNext(Message message) {
                 mutableLiveData.setValue(message);
+
             }
 
             @Override
             public void onError(Throwable e) {
-
             }
 
             @Override
@@ -73,9 +72,6 @@ public class WorkerManagerApiVehicle extends Worker {
         };
         call.subscribe(observer);
 
-
-        outputData = new Data.Builder().putString(mutableLiveData.getValue().getMessage().toString(), "Jobs Finished").build();
-
-        return Result.success(outputData);
+        return Result.success();
     }
 }

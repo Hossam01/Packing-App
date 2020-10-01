@@ -2,8 +2,6 @@ package com.example.packingapp.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
@@ -11,8 +9,9 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.packingapp.R;
-import com.example.packingapp.UI.Fragments.DriverManage;
 import com.example.packingapp.databinding.ActivityAddAndEditBinding;
+import com.example.packingapp.viewmodel.DriverViewModel;
+import com.example.packingapp.viewmodel.WayViewModel;
 
 public class AddAndEditActivity extends AppCompatActivity {
 
@@ -57,5 +56,10 @@ public class AddAndEditActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

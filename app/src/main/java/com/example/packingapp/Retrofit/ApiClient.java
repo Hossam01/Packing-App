@@ -1,5 +1,7 @@
 package com.example.packingapp.Retrofit;
 
+import android.net.TrafficStats;
+
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -13,6 +15,7 @@ public class ApiClient {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
+        TrafficStats.setThreadStatsTag(0x1000);
         return retrofit;
     }
 }

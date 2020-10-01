@@ -28,6 +28,7 @@
             android:theme="@style/NoAction">
 
         </activity>
+
     </application>
 
 </manifest>

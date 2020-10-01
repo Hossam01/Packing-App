@@ -38,10 +38,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (s.equals("HTTP 503 Service Unavailable")) {
                     Toast.makeText(LoginActivity.this, "برجاء التاكد من اسم المستخدم ورقم السري", Toast.LENGTH_LONG).show();
                 }
-
             }
         });
-
         WorkerManagerApiLogin.mutableLiveData.observe(LoginActivity.this, new Observer<ResponseLogin>() {
             @Override
             public void onChanged(ResponseLogin responseLogin) {

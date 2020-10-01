@@ -4,7 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/bg_layout_edit"
+        android:textColorHint="@color/white"
+        >
 
+        <Spinner
+            android:id="@+id/Vechile_ID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Vechile_ID"
+            android:inputType="textPersonName"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -16,7 +37,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
 
         <EditText
             android:id="@+id/NameArabic"
@@ -97,16 +118,29 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/textInputLayout3"
+    android:layout_marginTop="30dp">
     <Button
         android:id="@+id/create"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayout2"
-        android:layout_marginTop="90dp"
         android:background="@drawable/buttonshap"
+        android:layout_marginLeft="30dp"
         android:text="Create"
         android:textColor="@color/white" />
+    <Button
+        android:id="@+id/update"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonshap"
+        android:layout_marginLeft="30dp"
+        android:text="Update"
+        android:textColor="@color/white" />
+</LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
