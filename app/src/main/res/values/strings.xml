@@ -15,4 +15,6 @@
     <string name="Estimation_Time">Estimation Time</string>
     <string name="Stations">Stations</string>
     <string name="Driver_ID">Driver_ID</string>
+    <string name="hint_resource">Select Driver ID</string>
+    <string name="Message">Message</string>
 </resources>

@@ -10,9 +10,7 @@ import androidx.work.WorkManager;
 import com.example.packingapp.workmanagerapi.ReadDataWorkManageDriver;
 import com.example.packingapp.workmanagerapi.ReadDataWorkManageVehicle;
 import com.example.packingapp.workmanagerapi.UpdateWorkerManagerApiDriver;
-import com.example.packingapp.workmanagerapi.UpdateWorkerManagerApiVehicle;
 import com.example.packingapp.workmanagerapi.WorkerManagerApiDriver;
-import com.example.packingapp.workmanagerapi.WorkerManagerApiVehicle;
 
 public class DriverViewModel extends ViewModel {
 
@@ -90,4 +88,6 @@ public class DriverViewModel extends ViewModel {
                 .build();
         mWorkManager.enqueue(workRequest);
     }
+
+
 }

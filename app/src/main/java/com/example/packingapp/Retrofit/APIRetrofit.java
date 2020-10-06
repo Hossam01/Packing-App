@@ -1,6 +1,10 @@
 package com.example.packingapp.Retrofit;
 
-import com.example.packingapp.model.*;
+import com.example.packingapp.model.Message;
+import com.example.packingapp.model.ResponseDriver;
+import com.example.packingapp.model.ResponseLogin;
+import com.example.packingapp.model.ResponseVehicle;
+import com.example.packingapp.model.ResponseWay;
 
 import java.util.Map;
 
@@ -12,6 +16,9 @@ import retrofit2.http.POST;
 public interface APIRetrofit {
     @POST("Packing_Api/Login/Auth.php")
     Observable<ResponseLogin> loginwithno(@Body Map<String, String> mobile);
+
+    @POST("Packing_Api/Vodafone/SendSMS.php")
+    Observable<ResponseLogin> sendSms(@Body Map<String, String> mobile);
 
     @POST("Packing_Api/Vechile/Create.php")
     Observable<Message> createVehicle(@Body Map<String, String> mobile);

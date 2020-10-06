@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".UI.SendSMSActivity"></activity>
         <activity android:name=".UI.AddAndEditActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,10 +26,7 @@
         <activity android:name=".UI.MainActivity" />
         <activity
             android:name=".UI.LoginActivity"
-            android:theme="@style/NoAction">
-
-        </activity>
-
+            android:theme="@style/NoAction"></activity>
     </application>
 
 </manifest>
