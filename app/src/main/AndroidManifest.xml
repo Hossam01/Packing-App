@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UI.SendSMSActivity"></activity>
+        <activity android:name=".UI.SendSMSActivity"/>
         <activity android:name=".UI.AddAndEditActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
