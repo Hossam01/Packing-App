@@ -3,6 +3,7 @@ package com.example.packingapp.Retrofit;
 import com.example.packingapp.model.Message;
 import com.example.packingapp.model.ResponseDriver;
 import com.example.packingapp.model.ResponseLogin;
+import com.example.packingapp.model.ResponseSms;
 import com.example.packingapp.model.ResponseVehicle;
 import com.example.packingapp.model.ResponseWay;
 
@@ -10,15 +11,19 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface APIRetrofit {
+
     @POST("Packing_Api/Login/Auth.php")
     Observable<ResponseLogin> loginwithno(@Body Map<String, String> mobile);
 
+    @FormUrlEncoded
     @POST("Packing_Api/Vodafone/SendSMS.php")
-    Observable<ResponseLogin> sendSms(@Body Map<String, String> mobile);
+    Observable<ResponseSms> sendSms(@Field("number") String phone, @Field("message") String message);
 
     @POST("Packing_Api/Vechile/Create.php")
     Observable<Message> createVehicle(@Body Map<String, String> mobile);
@@ -31,7 +36,7 @@ public interface APIRetrofit {
 
     @GET("Packing_Api/Driver/Read.php")
     Observable<ResponseDriver> readDriver();
- 
+
     @GET("Packing_Api/Vechile/Read.php")
     Observable<ResponseVehicle> readVehicle();
 

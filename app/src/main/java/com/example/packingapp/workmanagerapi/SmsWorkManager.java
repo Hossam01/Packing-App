@@ -10,9 +10,7 @@ import androidx.work.WorkerParameters;
 
 import com.example.packingapp.Retrofit.APIRetrofit;
 import com.example.packingapp.Retrofit.ApiClient;
-import com.example.packingapp.model.ResponseLogin;
-
-import java.util.HashMap;
+import com.example.packingapp.model.ResponseSms;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -21,7 +19,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class SmsWorkManager extends Worker {
-    public static MutableLiveData<ResponseLogin> mutableLiveData = new MutableLiveData<>();
+    public static MutableLiveData<ResponseSms> mutableLiveData = new MutableLiveData<>();
 
     public SmsWorkManager(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -30,27 +28,23 @@ public class SmsWorkManager extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        String username = getInputData().getString("number");
-        String password = getInputData().getString("message");
-
-        HashMap<String, String> map = new HashMap<>();
-        map.put("number", username);
-        map.put("message", password);
+        String number = getInputData().getString("number");
+        String message = getInputData().getString("message");
 
 
         ApiClient apiClient = new ApiClient();
         APIRetrofit client = apiClient.build().create(APIRetrofit.class);
-        Observable<ResponseLogin> call = client.sendSms(map)
+        Observable<ResponseSms> call = client.sendSms(number, message)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
-        Observer<ResponseLogin> observer = new Observer<ResponseLogin>() {
+        Observer<ResponseSms> observer = new Observer<ResponseSms>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(ResponseLogin value) {
+            public void onNext(ResponseSms value) {
                 mutableLiveData.setValue(value);
             }
 
