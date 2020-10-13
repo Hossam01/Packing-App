@@ -7,6 +7,7 @@ import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import com.example.packingapp.Retrofit.APIRetrofit;
 import com.example.packingapp.workmanagerapi.ReadDataWorkManageDriver;
 import com.example.packingapp.workmanagerapi.ReadDataWorkManageVehicle;
 import com.example.packingapp.workmanagerapi.UpdateWorkerManagerApiDriver;
@@ -17,6 +18,7 @@ public class DriverViewModel extends ViewModel {
     public void fetchdata(String nameArabic, String nameEnglish, String status, String company, String Phone, String address, String Vechile_ID) {
 
 
+        APIRetrofit pokemonApiService = null;
         WorkManager mWorkManager = WorkManager.getInstance();
         Constraints.Builder builder = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED);
@@ -36,6 +38,7 @@ public class DriverViewModel extends ViewModel {
                 .setConstraints(builder.build())
                 .build();
         mWorkManager.enqueue(workRequest);
+
 
     }
 

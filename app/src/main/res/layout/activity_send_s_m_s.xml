@@ -50,7 +50,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/send"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="90dp"

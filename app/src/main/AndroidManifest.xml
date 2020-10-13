@@ -14,13 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UI.SendSMSActivity"></activity>
-        <activity android:name=".UI.AddAndEditActivity">
+        <activity android:name=".UI.SendSMSActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".UI.AddAndEditActivity">
+
         </activity>
         <activity android:name=".UI.GetOrderDatactivity" />
         <activity android:name=".UI.MainActivity" />

@@ -47,6 +47,7 @@ public class DriverManage extends Fragment {
         driverViewModel.fetchDataDriver();
         categories = new ArrayList<String>();
         List<String> driver = new ArrayList<String>();
+        
 
         ArrayAdapter spinnerAdapterDriver = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, driver);
         spinnerAdapterDriver.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
