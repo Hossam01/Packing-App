@@ -51,4 +51,8 @@ public interface APIRetrofit {
 
     @POST("Packing_Api/Direction/Update.php")
     Observable<Message> updateWay(@Body Map<String, String> mobile);
+
+
+    @POST("Packing_Api/Inout/create.php")
+    Observable<Message> createInOut(@Body Map<String, String> mobile);
 }
