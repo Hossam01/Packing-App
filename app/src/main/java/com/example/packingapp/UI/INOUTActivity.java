@@ -1,6 +1,7 @@
 package com.example.packingapp.UI;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -29,7 +30,7 @@ public class INOUTActivity extends AppCompatActivity {
 
 
         HashMap<String, String> map = new HashMap<>();
-        map.put("driverId", "2");
+        map.put("driverId", "1");
         map.put("status", "1");
 
         Button in = findViewById(R.id.checkin);
@@ -54,7 +55,7 @@ public class INOUTActivity extends AppCompatActivity {
     public void sendData(HashMap<String, String> map) {
         ApiClient apiClient = new ApiClient();
         APIRetrofit client = apiClient.build().create(APIRetrofit.class);
-        Observable<Message> call = client.createDriver(map)
+        Observable<Message> call = client.createInOut(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
         Observer<Message> observer = new Observer<Message>() {
@@ -71,7 +72,9 @@ public class INOUTActivity extends AppCompatActivity {
 
             @Override
             public void onError(Throwable e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 
+                Log.i("in", e.getMessage());
             }
 
             @Override
