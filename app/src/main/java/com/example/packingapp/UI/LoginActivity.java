@@ -13,7 +13,6 @@ import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.databinding.ActivityLoginBinding;
 import com.example.packingapp.model.ResponseLogin;
 import com.example.packingapp.viewmodel.LoginViewModel;
-import com.example.packingapp.workmanagerapi.WorkerManagerApiLogin;
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding;
@@ -32,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
                 lgoinViewModel.fetchdata(binding.username.getText().toString(), binding.password.getText().toString());
             }
         });
-        WorkerManagerApiLogin.mutableLiveDataError.observe(this, new Observer<String>() {
+        lgoinViewModel.mutableLiveDataError.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 if (s.equals("HTTP 503 Service Unavailable")) {
@@ -40,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-        WorkerManagerApiLogin.mutableLiveData.observe(LoginActivity.this, new Observer<ResponseLogin>() {
+        lgoinViewModel.getSmsLiveData().observe(LoginActivity.this, new Observer<ResponseLogin>() {
             @Override
             public void onChanged(ResponseLogin responseLogin) {
                 database.userDao().deleteAll();

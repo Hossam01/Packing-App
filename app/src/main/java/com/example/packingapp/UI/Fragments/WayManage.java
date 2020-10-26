@@ -15,11 +15,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.packingapp.databinding.ManageWayBinding;
 import com.example.packingapp.model.ResponseWay;
 import com.example.packingapp.viewmodel.WayViewModel;
-import com.example.packingapp.workmanagerapi.ReadDataWorkManageDriver;
-import com.example.packingapp.workmanagerapi.ReadDataWorkManageVehicle;
-import com.example.packingapp.workmanagerapi.ReadDataWorkManageWay;
-import com.example.packingapp.workmanagerapi.UpdateWorkerManagerApiWay;
-import com.example.packingapp.workmanagerapi.WorkerManagerApiWay;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +49,7 @@ public class WayManage extends Fragment {
         ArrayAdapter spinnerAdapterWay = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, way);
         spinnerAdapterWay.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.WayID.setAdapter(spinnerAdapterWay);
-        ReadDataWorkManageWay.mutableLiveData.observe(getViewLifecycleOwner(), responseWay -> {
+        wayViewModel.mutableLiveDataWay.observe(getViewLifecycleOwner(), responseWay -> {
             if (way.size() == 0) {
                 for (int i = 0; i < responseWay.getRecords().size(); i++) {
                     if (i == 0)
@@ -69,7 +65,7 @@ public class WayManage extends Fragment {
         ArrayAdapter spinnerAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, vehicle);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.VechileID.setAdapter(spinnerAdapter);
-        ReadDataWorkManageVehicle.mutableLiveData.observe(getViewLifecycleOwner(), responseVehicle -> {
+        wayViewModel.mutableLiveDataVehicle.observe(getViewLifecycleOwner(), responseVehicle -> {
             if (vehicle.size()==0) {
                 for (int i = 0; i < responseVehicle.getRecords().size(); i++) {
                     vehicle.add(responseVehicle.getRecords().get(i).getVechileID());
@@ -83,7 +79,7 @@ public class WayManage extends Fragment {
         spinnerAdapterDriver.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.DriverID.setAdapter(spinnerAdapterDriver);
 
-        ReadDataWorkManageDriver.mutableLiveData.observe(getViewLifecycleOwner(), responseDriver -> {
+        wayViewModel.mutableLiveDataRead.observe(getViewLifecycleOwner(), responseDriver -> {
             if (driver.size() == 0) {
                 for (int i = 0; i < responseDriver.getRecords().size(); i++) {
                     driver.add(responseDriver.getRecords().get(i).getDriverID());
@@ -129,7 +125,7 @@ public class WayManage extends Fragment {
     public void create() {
         State = "create";
         wayViewModel.fetchdata(binding.NameArabic.getText().toString(), binding.NameEnglish.getText().toString(), binding.Status.getText().toString(), binding.EstimationTime.getText().toString(), binding.Stations.getText().toString(), binding.DriverID.getSelectedItem().toString(), binding.VechileID.getSelectedItem().toString());
-        WorkerManagerApiWay.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show());
+        wayViewModel.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show());
         clear();
 
     }
@@ -137,7 +133,7 @@ public class WayManage extends Fragment {
     public void update() {
 
         wayViewModel.updateData(binding.WayID.getSelectedItem().toString(), binding.NameArabic.getText().toString(), binding.NameEnglish.getText().toString(), binding.Status.getText().toString(), binding.EstimationTime.getText().toString(), binding.Stations.getText().toString(), binding.DriverID.getSelectedItem().toString(), binding.VechileID.getSelectedItem().toString());
-        UpdateWorkerManagerApiWay.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show());
+        wayViewModel.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show());
         binding.create.setText("Create");
         State = "create";
         clear();

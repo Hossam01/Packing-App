@@ -9,13 +9,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
     public static final String BASE_URL = "http://192.168.1.44/";
 
-    public Retrofit build() {
+    public static APIRetrofit build() {
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         TrafficStats.setThreadStatsTag(0x1000);
-        return retrofit;
+        return retrofit.create(APIRetrofit.class);
     }
 }

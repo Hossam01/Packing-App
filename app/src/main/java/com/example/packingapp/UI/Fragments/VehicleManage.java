@@ -15,9 +15,6 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.packingapp.databinding.ManageVehicleBinding;
 import com.example.packingapp.model.ResponseVehicle;
 import com.example.packingapp.viewmodel.VehicleViewModel;
-import com.example.packingapp.workmanagerapi.ReadDataWorkManageVehicle;
-import com.example.packingapp.workmanagerapi.UpdateWorkerManagerApiVehicle;
-import com.example.packingapp.workmanagerapi.WorkerManagerApiVehicle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +43,7 @@ public class VehicleManage extends Fragment {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.VechileID.setAdapter(spinnerAdapter);
 
-        ReadDataWorkManageVehicle.mutableLiveData.observe(getViewLifecycleOwner(), responseVehicle -> {
+        vehicleViewModel.mutableLiveDataVehicle.observe(getViewLifecycleOwner(), responseVehicle -> {
             if (categories.size()==0) {
                 for (int i = 0; i < responseVehicle.getRecords().size(); i++) {
                     if (i == 0)
@@ -92,15 +89,14 @@ public class VehicleManage extends Fragment {
     public void create() {
         State = "create";
         vehicleViewModel.fetchdata(binding.NameArabic.getText().toString(), binding.NameEnglish.getText().toString(), binding.LienceNumber.getText().toString(), binding.Weight.getText().toString());
-        WorkerManagerApiVehicle.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getActivity(), message.getMessage().toString(), Toast.LENGTH_SHORT).show());
+        vehicleViewModel.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getActivity(), message.getMessage().toString(), Toast.LENGTH_SHORT).show());
         clear();
 
     }
 
     public void update() {
-
         vehicleViewModel.updateData(binding.VechileID.getSelectedItem().toString(), binding.NameArabic.getText().toString(), binding.NameEnglish.getText().toString(), binding.LienceNumber.getText().toString(), binding.Weight.getText().toString());
-        UpdateWorkerManagerApiVehicle.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getActivity(), message.getMessage().toString(), Toast.LENGTH_SHORT).show());
+        vehicleViewModel.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getActivity(), message.getMessage().toString(), Toast.LENGTH_SHORT).show());
         binding.create.setText("Create");
         State = "create";
         clear();

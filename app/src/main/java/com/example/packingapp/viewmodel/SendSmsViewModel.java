@@ -1,34 +1,33 @@
 package com.example.packingapp.viewmodel;
 
-import androidx.lifecycle.ViewModel;
-import androidx.work.Constraints;
-import androidx.work.Data;
-import androidx.work.NetworkType;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
+import android.util.Log;
 
-import com.example.packingapp.workmanagerapi.SmsWorkManager;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
+import com.example.packingapp.Retrofit.ApiClient;
+import com.example.packingapp.model.ResponseSms;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class SendSmsViewModel extends ViewModel {
+    private MutableLiveData<ResponseSms> smsLiveData = new MutableLiveData<>();
+    public MutableLiveData<ResponseSms> getSmsLiveData() {
+        return smsLiveData;
+    }
 
     public void fetchdata(String number, String message) {
+       ApiClient.build().sendSms(number,message)
+               .observeOn(AndroidSchedulers.mainThread())
+               .subscribeOn(Schedulers.io())
+               .subscribe(responseSms -> {
+                   smsLiveData.setValue(responseSms);
+                       }
+               ,throwable -> {
+                           Log.d("Error",throwable.getMessage());
 
-
-        WorkManager mWorkManager = WorkManager.getInstance();
-        Constraints.Builder builder = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED);
-        Data.Builder data = new Data.Builder();
-        data.putString("number", number);
-        data.putString("message", message);
-
-
-        final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SmsWorkManager.class)
-                .addTag("Sync")
-                .setInputData(data.build())
-                .setConstraints(builder.build())
-                .build();
-        mWorkManager.enqueue(workRequest);
-
+                       });
 
     }
 }
