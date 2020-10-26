@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.packingapp.databinding.ActivitySendSMSBinding;
 import com.example.packingapp.model.ResponseSms;
 import com.example.packingapp.viewmodel.SendSmsViewModel;
-import com.example.packingapp.workmanagerapi.SmsWorkManager;
 
 public class SendSMSActivity extends AppCompatActivity {
     ActivitySendSMSBinding binding;
@@ -27,14 +26,14 @@ public class SendSMSActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SmsViewModel.fetchdata(binding.phone.getText().toString(), binding.message.getText().toString());
-                SmsWorkManager.mutableLiveData.observe(SendSMSActivity.this, new Observer<ResponseSms>() {
+                SmsViewModel.getSmsLiveData().observe(SendSMSActivity.this, new Observer<ResponseSms>() {
                     @Override
                     public void onChanged(ResponseSms responseSms) {
                         Toast.makeText(SendSMSActivity.this, responseSms.getSMSStatus().toString(), Toast.LENGTH_SHORT).show();
+
                     }
                 });
             }
         });
-
     }
 }

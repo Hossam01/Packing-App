@@ -1,33 +1,41 @@
 package com.example.packingapp.viewmodel;
 
-import com.example.packingapp.workmanagerapi.WorkerManagerApiLogin;
+import android.util.Log;
 
+import com.example.packingapp.Retrofit.ApiClient;
+import com.example.packingapp.model.ResponseLogin;
+
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.work.Constraints;
-import androidx.work.Data;
-import androidx.work.NetworkType;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
+
+import java.util.HashMap;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class LoginViewModel extends ViewModel {
+    private MutableLiveData<ResponseLogin> smsLiveData = new MutableLiveData<>();
+    public MutableLiveData<ResponseLogin> getSmsLiveData() {
+        return smsLiveData;
+    }
+    public static MutableLiveData<String> mutableLiveDataError = new MutableLiveData<>();
+
     public void fetchdata(String username, String password) {
 
+        HashMap<String, String> map = new HashMap<>();
+        map.put("username", username);
+        map.put("password", password);
 
-        WorkManager mWorkManager = WorkManager.getInstance();
-        Constraints.Builder builder = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED);
-        Data.Builder data = new Data.Builder();
-        data.putString("username", username);
-        data.putString("password", password);
+        ApiClient.build().loginwithno(map)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(responseSms -> {
+                            smsLiveData.setValue(responseSms);
+                        }
+                        ,throwable -> {
+                            mutableLiveDataError.setValue(throwable.getMessage());
+                            Log.d("Error",throwable.getMessage());
 
-
-        final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(WorkerManagerApiLogin.class)
-                .addTag("Sync")
-                .setInputData(data.build())
-                .setConstraints(builder.build())
-                .build();
-        mWorkManager.enqueue(workRequest);
-
-
+                        });
     }
 }

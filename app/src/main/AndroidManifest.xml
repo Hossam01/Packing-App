@@ -23,19 +23,24 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".UI.INOUTActivity"/>
         <activity android:name=".UI.CallActivity">
+
+        </activity>
+        <activity android:name=".UI.SendSMSActivity"/>
+        <activity android:name=".UI.AddAndEditActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.SendSMSActivity"/>
-        <activity android:name=".UI.AddAndEditActivity" />
         <activity android:name=".UI.GetOrderDatactivity" />
         <activity android:name=".UI.MainActivity" />
         <activity
             android:name=".UI.LoginActivity"
-            android:theme="@style/NoAction" />
+            android:theme="@style/NoAction" >
+
+
+        </activity>
     </application>
 
 </manifest>

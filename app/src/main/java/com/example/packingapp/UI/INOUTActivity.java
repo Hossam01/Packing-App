@@ -53,35 +53,17 @@ public class INOUTActivity extends AppCompatActivity {
     }
 
     public void sendData(HashMap<String, String> map) {
-        ApiClient apiClient = new ApiClient();
-        APIRetrofit client = apiClient.build().create(APIRetrofit.class);
-        Observable<Message> call = client.createInOut(map)
+        ApiClient.build().createInOut(map)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-        Observer<Message> observer = new Observer<Message>() {
-            @Override
-            public void onSubscribe(Disposable d) {
+                .subscribe(responseSms -> {
+                            Toast.makeText(getApplicationContext(), responseSms.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                        ,throwable -> {
+                            Log.d("Error",throwable.getMessage());
 
-            }
+                        });
 
-            @Override
-            public void onNext(Message message) {
-                Toast.makeText(getApplicationContext(), message.getMessage(), Toast.LENGTH_LONG).show();
 
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-
-                Log.i("in", e.getMessage());
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        };
-        call.subscribe(observer);
     }
 }

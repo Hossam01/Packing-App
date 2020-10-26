@@ -1,95 +1,100 @@
 package com.example.packingapp.viewmodel;
 
-import androidx.lifecycle.ViewModel;
-import androidx.work.Constraints;
-import androidx.work.Data;
-import androidx.work.NetworkType;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
+import android.util.Log;
 
-import com.example.packingapp.Retrofit.APIRetrofit;
-import com.example.packingapp.workmanagerapi.ReadDataWorkManageDriver;
-import com.example.packingapp.workmanagerapi.ReadDataWorkManageVehicle;
-import com.example.packingapp.workmanagerapi.UpdateWorkerManagerApiDriver;
-import com.example.packingapp.workmanagerapi.WorkerManagerApiDriver;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+import com.example.packingapp.Retrofit.ApiClient;
+import com.example.packingapp.model.Message;
+import com.example.packingapp.model.ResponseDriver;
+import com.example.packingapp.model.ResponseVehicle;
+
+import java.util.HashMap;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class DriverViewModel extends ViewModel {
+
+    public static MutableLiveData<Message> mutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<Message> getDriverLiveData() {
+        return mutableLiveData;
+    }
 
     public void fetchdata(String nameArabic, String nameEnglish, String status, String company, String Phone, String address, String Vechile_ID) {
 
 
-        APIRetrofit pokemonApiService = null;
-        WorkManager mWorkManager = WorkManager.getInstance();
-        Constraints.Builder builder = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED);
-        Data.Builder data = new Data.Builder();
-        data.putString("NameArabic", nameArabic);
-        data.putString("NameEnglish", nameEnglish);
-        data.putString("Status", status);
-        data.putString("Company", company);
-        data.putString("Phone", Phone);
-        data.putString("Address", address);
-        data.putString("Vechile_ID", Vechile_ID);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("NameArabic", nameArabic);
+        map.put("NameEnglish", nameEnglish);
+        map.put("Status", status);
+        map.put("Company", company);
+        map.put("Phone", Phone);
+        map.put("Address", address);
+        map.put("Vechile_ID", Vechile_ID);
+        ApiClient.build().createDriver(map)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(responseSms -> {
+                            mutableLiveData.setValue(responseSms);
+                        }
+                        ,throwable -> {
+                            Log.d("Error",throwable.getMessage());
 
-
-        final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(WorkerManagerApiDriver.class)
-                .addTag("Sync")
-                .setInputData(data.build())
-                .setConstraints(builder.build())
-                .build();
-        mWorkManager.enqueue(workRequest);
-
+                        });
 
     }
 
     public void updateData(String id, String nameArabic, String nameEnglish, String status, String company, String Phone, String address, String Vechile_ID) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("Driver_ID", id);
+        map.put("NameArabic", nameArabic);
+        map.put("NameEnglish", nameEnglish);
+        map.put("Status", status);
+        map.put("Company", company);
+        map.put("Phone", Phone);
+        map.put("Address", address);
+        map.put("Vechile_ID", Vechile_ID);
+        ApiClient.build().updateDriver(map)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(responseSms -> {
+                            mutableLiveData.setValue(responseSms);
+                        }
+                        ,throwable -> {
+                            Log.d("Error",throwable.getMessage());
 
-
-        WorkManager mWorkManager = WorkManager.getInstance();
-        Constraints.Builder builder = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED);
-        Data.Builder data = new Data.Builder();
-        data.putString("Driver_ID", id);
-        data.putString("NameArabic", nameArabic);
-        data.putString("NameEnglish", nameEnglish);
-        data.putString("Status", status);
-        data.putString("Company", company);
-        data.putString("Phone", Phone);
-        data.putString("Address", address);
-        data.putString("Vechile_ID", Vechile_ID);
-
-        final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(UpdateWorkerManagerApiDriver.class)
-                .addTag("Sync")
-                .setInputData(data.build())
-                .setConstraints(builder.build())
-                .build();
-        mWorkManager.enqueue(workRequest);
+                        });
 
     }
+    public static MutableLiveData<ResponseVehicle> mutableLiveDataVehicle = new MutableLiveData<>();
+
     public void fetchDataVehicle(){
-        WorkManager mWorkManager = WorkManager.getInstance();
-        Constraints.Builder builder = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED);
-        Data.Builder data = new Data.Builder();
-        data.putString("username", "username");
+        ApiClient.build().readVehicle()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe((ResponseVehicle responseSms) -> {
+                            mutableLiveDataVehicle.setValue(responseSms);
+                        }
+                        ,throwable -> {
+                            Log.d("Error",throwable.getMessage());
 
-        final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(ReadDataWorkManageVehicle.class)
-                .addTag("Sync")
-                .setInputData(data.build())
-                .setConstraints(builder.build())
-                .build();
-        mWorkManager.enqueue(workRequest);
+                        });
     }
+    public static MutableLiveData<ResponseDriver> mutableLiveDataRead = new MutableLiveData<>();
+
 
     public void fetchDataDriver(){
-        WorkManager mWorkManager = WorkManager.getInstance();
-        Constraints.Builder builder = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED);
-        final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(ReadDataWorkManageDriver.class)
-                .addTag("Sync")
-                .setConstraints(builder.build())
-                .build();
-        mWorkManager.enqueue(workRequest);
+        ApiClient.build().readDriver()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe((ResponseDriver responseSms) -> {
+                            mutableLiveDataRead.setValue(responseSms);
+                        }
+                        ,throwable -> {
+                            Log.d("Error",throwable.getMessage());
+
+                        });
     }
 
 

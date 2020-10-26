@@ -15,10 +15,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.packingapp.databinding.ManageDriverBinding;
 import com.example.packingapp.model.ResponseDriver;
 import com.example.packingapp.viewmodel.DriverViewModel;
-import com.example.packingapp.workmanagerapi.ReadDataWorkManageDriver;
-import com.example.packingapp.workmanagerapi.ReadDataWorkManageVehicle;
-import com.example.packingapp.workmanagerapi.UpdateWorkerManagerApiDriver;
-import com.example.packingapp.workmanagerapi.WorkerManagerApiDriver;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +51,7 @@ public class DriverManage extends Fragment {
         binding.DriverID.setAdapter(spinnerAdapterDriver);
 
 
-        ReadDataWorkManageDriver.mutableLiveData.observe(getViewLifecycleOwner(), (ResponseDriver responseDriver) -> {
+        driverViewModel.mutableLiveDataRead.observe(getViewLifecycleOwner(), (ResponseDriver responseDriver) -> {
             if (driver.size() == 0) {
                 for (int i = 0; i < responseDriver.getRecords().size(); i++) {
                     if (i == 0)
@@ -92,7 +89,7 @@ public class DriverManage extends Fragment {
         ArrayAdapter spinnerAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, categories);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.VechileID.setAdapter(spinnerAdapter);
-        ReadDataWorkManageVehicle.mutableLiveData.observe(getViewLifecycleOwner(), responseVehicle -> {
+        driverViewModel.mutableLiveDataVehicle.observe(getViewLifecycleOwner(), responseVehicle -> {
             if (categories.size() == 0) {
                 for (int i = 0; i < responseVehicle.getRecords().size(); i++) {
                     categories.add(responseVehicle.getRecords().get(i).getVechileID());
@@ -125,7 +122,7 @@ public class DriverManage extends Fragment {
     public void create() {
         State = "create";
         driverViewModel.fetchdata(binding.NameArabic.getText().toString(), binding.NameEnglish.getText().toString(), binding.Status.getText().toString(), binding.Company.getText().toString(), binding.Phone.getText().toString(), binding.Address.getText().toString(), binding.VechileID.getSelectedItem().toString());
-        WorkerManagerApiDriver.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show());
+        driverViewModel.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show());
         binding.create.setText("Create");
 
         clear();
@@ -133,7 +130,7 @@ public class DriverManage extends Fragment {
 
     public void update() {
         driverViewModel.updateData(binding.DriverID.getSelectedItem().toString(), binding.NameArabic.getText().toString(), binding.NameEnglish.getText().toString(), binding.Status.getText().toString(), binding.Company.getText().toString(), binding.Phone.getText().toString(), binding.Address.getText().toString(), binding.VechileID.getSelectedItem().toString());
-        UpdateWorkerManagerApiDriver.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show());
+        driverViewModel.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show());
         binding.create.setText("Create");
         State = "create";
         clear();
