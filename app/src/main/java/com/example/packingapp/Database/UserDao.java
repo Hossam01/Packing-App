@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.packingapp.model.RecordsItem;
+import com.example.packingapp.model.RecordsOrderData;
 
 import java.util.List;
 
@@ -32,5 +33,7 @@ public interface UserDao {
     @Query("DELETE FROM user")
     void deleteAll();
 
+    @Insert(onConflict = REPLACE)
+    void insertOrder(RecordsOrderData recordsOrderData);
 
 }

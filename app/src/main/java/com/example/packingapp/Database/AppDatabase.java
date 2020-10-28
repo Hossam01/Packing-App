@@ -6,13 +6,14 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.packingapp.model.OrderDataModuleDB;
 import com.example.packingapp.model.RecordsItem;
 
 
-@Database(entities = {RecordsItem.class}, version = 1, exportSchema = false)
+@Database(entities = {RecordsItem.class , OrderDataModuleDB.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase mInstance;
-    private static final String DATABASE_NAME = "Packing-database";
+    private static final String DATABASE_NAME = "PackingDB";
 
     public abstract UserDao userDao();
 

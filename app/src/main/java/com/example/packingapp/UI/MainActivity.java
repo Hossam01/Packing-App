@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         database= AppDatabase.getDatabaseInstance(this);
-        database.userDao().getAll().subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<RecordsItem>>() {
+        database.userDao().getAll().subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<RecordsItem>>() {
             @Override
             public void onSubscribe(Disposable d) {
 
