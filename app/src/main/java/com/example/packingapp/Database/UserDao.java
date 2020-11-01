@@ -17,7 +17,7 @@ import static androidx.room.OnConflictStrategy.REPLACE;
 
 @Dao
 public interface UserDao {
-    @Query("SELECT * FROM user")
+   @Query("SELECT * FROM user")
    Observable<List<RecordsItem>> getAll();
  
     @Insert(onConflict = REPLACE)
