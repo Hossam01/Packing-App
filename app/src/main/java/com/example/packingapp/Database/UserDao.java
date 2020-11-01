@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.packingapp.model.OrderDataModuleDB;
+import com.example.packingapp.model.Product;
 import com.example.packingapp.model.RecordsItem;
 import com.example.packingapp.model.RecordsOrderData;
 
@@ -37,4 +38,8 @@ public interface UserDao {
     @Insert(onConflict = REPLACE)
     void insertOrder(OrderDataModuleDB recordsOrderData);
 
+    @Query("SELECT * FROM OrderDataModuleDB where tracking_number =:tracking")
+    Observable<List<OrderDataModuleDB>> getAllItem(String tracking);
+    @Delete
+    void deleteOrder(OrderDataModuleDB mUser);
 }

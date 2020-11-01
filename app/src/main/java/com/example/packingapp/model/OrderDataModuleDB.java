@@ -65,6 +65,21 @@ public class OrderDataModuleDB {
 	public OrderDataModuleDB() {
 	}
 
+	public OrderDataModuleDB(String order_number, String customer_name, String customer_phone, String customer_address_en, String customer_address_ar, String delivery_date, String time_slot, String name_of_item, String quantity, String price, String out_From_Loc, String tracking_number) {
+		Order_number = order_number;
+		Customer_name = customer_name;
+		Customer_phone = customer_phone;
+		Customer_address_en = customer_address_en;
+		Customer_address_ar = customer_address_ar;
+		Delivery_date = delivery_date;
+		Time_slot = time_slot;
+		Name_of_item = name_of_item;
+		Quantity = quantity;
+		Price = price;
+		Out_From_Loc = out_From_Loc;
+		this.tracking_number = tracking_number;
+	}
+
 	public OrderDataModuleDB(int uid, String order_number, String customer_name, String customer_phone, String customer_address_en, String customer_address_ar, String delivery_date, String time_slot, String name_of_item, String quantity, String price, String out_From_Loc, String tracking_number) {
 		this.uid = uid;
 		Order_number = order_number;
