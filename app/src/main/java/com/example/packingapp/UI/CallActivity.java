@@ -17,21 +17,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.packingapp.R;
+import com.example.packingapp.databinding.ActivityCallBinding;
+import com.example.packingapp.databinding.ActivityGetOrderDataBinding;
 
 public class CallActivity extends AppCompatActivity {
 
     private static final int REQUEST_PHONE_CALL = 1;
+    ActivityCallBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_call);
+        binding= ActivityCallBinding.inflate(getLayoutInflater());
 
-        TextView textView = findViewById(R.id.distance);
+
+
         final LocationListener mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(final Location location) {
-                textView.setText(String.valueOf(getDistance(location.getLatitude(), location.getLongitude(),
+                binding.distance.setText(String.valueOf(getDistance(location.getLatitude(), location.getLongitude(),
                         30.0281722, 31.01875)));
             }
         };

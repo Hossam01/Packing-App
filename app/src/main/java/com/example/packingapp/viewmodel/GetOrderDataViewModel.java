@@ -3,6 +3,7 @@ package com.example.packingapp.viewmodel;
 import android.util.Log;
 
 import com.example.packingapp.Retrofit.ApiClient;
+import com.example.packingapp.model.OrderDataModuleDB;
 import com.example.packingapp.model.ResponseGetOrderData;
 import com.example.packingapp.model.ResponseLogin;
 
@@ -14,8 +15,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class GetOrderDataViewModel extends ViewModel {
-    private MutableLiveData<ResponseGetOrderData> OrderDataLiveData = new MutableLiveData<>();
-    public MutableLiveData<ResponseGetOrderData> getOrderDataLiveData() {
+    private MutableLiveData<OrderDataModuleDB> OrderDataLiveData = new MutableLiveData<>();
+    public MutableLiveData<OrderDataModuleDB> getOrderDataLiveData() {
         return OrderDataLiveData;
     }
     public static MutableLiveData<String> mutableLiveDataError = new MutableLiveData<>();
@@ -28,7 +29,7 @@ public class GetOrderDataViewModel extends ViewModel {
         ApiClient.buildRo().GetOrderData(map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe( responseGetOrderData-> {
+                .subscribe( (OrderDataModuleDB responseGetOrderData) -> {
                             OrderDataLiveData.setValue(responseGetOrderData);
                         }
                         ,throwable -> {

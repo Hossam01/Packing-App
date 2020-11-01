@@ -24,7 +24,7 @@
     <color name="violetdark">#9932CC</color>
     <color name="violet">#D65AEE</color>
     <color name="violet_dark">#b33ec9</color>
-
+    <color name="gray">#d5d5d5</color>
     <color name="white">#FFFFFF</color>
     <color name="main_background_color">#36BEF4</color>
     <color name="layout_bg_color">#8996C5</color>
