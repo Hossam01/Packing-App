@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.packingapp.model.OrderDataModuleDB;
 import com.example.packingapp.model.RecordsItem;
 import com.example.packingapp.model.RecordsOrderData;
 
@@ -34,6 +35,6 @@ public interface UserDao {
     void deleteAll();
 
     @Insert(onConflict = REPLACE)
-    void insertOrder(RecordsOrderData recordsOrderData);
+    void insertOrder(OrderDataModuleDB recordsOrderData);
 
 }

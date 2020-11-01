@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityGetOrderDataBinding;
+import com.example.packingapp.model.OrderDataModuleDB;
 import com.example.packingapp.model.ResponseGetOrderData;
 import com.example.packingapp.model.ResponseSms;
 import com.example.packingapp.viewmodel.GetOrderDataViewModel;
@@ -36,13 +37,11 @@ public class GetOrderDatactivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getOrderDataViewModel.fetchdata(binding.editMagentoorder.getText().toString());
-                getOrderDataViewModel.getOrderDataLiveData().observe(GetOrderDatactivity.this, new Observer<ResponseGetOrderData>() {
+                getOrderDataViewModel.getOrderDataLiveData().observe(GetOrderDatactivity.this, new Observer<OrderDataModuleDB>() {
                     @Override
-                    public void onChanged(ResponseGetOrderData responseGetOrderData) {
-                        database.userDao().insertOrder(responseGetOrderData.getRecords());
-
-                        Toast.makeText(GetOrderDatactivity.this, responseGetOrderData.getRecords().getOrder_number(), Toast.LENGTH_SHORT).show();
-
+                    public void onChanged(OrderDataModuleDB responseGetOrderData) {
+                        database.userDao().insertOrder(responseGetOrderData);
+                        Toast.makeText(GetOrderDatactivity.this, responseGetOrderData.getOrder_number().toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

@@ -12,7 +12,7 @@ public class OrderDataModuleDB {
 	@PrimaryKey(autoGenerate = true)
 	private int uid;
 
-	@ColumnInfo(name = "Order_number")
+	@ColumnInfo(name ="Order_number")
 	@SerializedName("Order_number")
 	private String Order_number;
 
@@ -57,10 +57,15 @@ public class OrderDataModuleDB {
 	@SerializedName("Out_From_Loc")
 	private String Out_From_Loc;
 
+	@ColumnInfo(name = "tracking_number")
+	@SerializedName("tracking_number")
+	private String tracking_number;
+
+
 	public OrderDataModuleDB() {
 	}
 
-	public OrderDataModuleDB(int uid, String order_number, String customer_name, String customer_phone, String customer_address_en, String customer_address_ar, String delivery_date, String time_slot, String name_of_item, String quantity, String price, String out_From_Loc) {
+	public OrderDataModuleDB(int uid, String order_number, String customer_name, String customer_phone, String customer_address_en, String customer_address_ar, String delivery_date, String time_slot, String name_of_item, String quantity, String price, String out_From_Loc, String tracking_number) {
 		this.uid = uid;
 		Order_number = order_number;
 		Customer_name = customer_name;
@@ -73,6 +78,7 @@ public class OrderDataModuleDB {
 		Quantity = quantity;
 		Price = price;
 		Out_From_Loc = out_From_Loc;
+		this.tracking_number=tracking_number;
 	}
 
 	public int getUid() {
@@ -170,4 +176,12 @@ public class OrderDataModuleDB {
 	public void setOut_From_Loc(String out_From_Loc) {
 		Out_From_Loc = out_From_Loc;
 	}
+	public String getTracking_number() {
+		return tracking_number;
+	}
+
+	public void setTracking_number(String tracking_number) {
+		this.tracking_number = tracking_number;
+	}
+
 }
