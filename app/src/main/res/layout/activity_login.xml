@@ -41,6 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enter_your_name"
+            android:text="admin"
             android:inputType="textPersonName"
             android:textColor="@color/white"
             android:textColorHint="@color/white"/>
@@ -65,6 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enter_your_password"
+            android:text="1234321"
             android:inputType="textPassword"
             android:textColor="@color/white"
             android:textColorHint="@color/white"

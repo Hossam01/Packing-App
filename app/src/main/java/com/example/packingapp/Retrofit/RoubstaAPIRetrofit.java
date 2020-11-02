@@ -1,8 +1,6 @@
 package com.example.packingapp.Retrofit;
 
-import com.example.packingapp.model.Message;
-import com.example.packingapp.model.OrderDataModuleDB;
-import com.example.packingapp.model.ResponseGetOrderData;
+import com.example.packingapp.model.GetOrderResponse.ResponseGetOrderData;
 
 import java.util.Map;
 
@@ -13,8 +11,8 @@ import retrofit2.http.POST;
 public interface RoubstaAPIRetrofit {
 
 
-    @POST("api/json/get/cfqynWUrIi?indent=2")
-    Observable<OrderDataModuleDB> GetOrderData(@Body Map<String, String> mobile);
+    @POST("api/json/get/4kZmLJF_Y")
+    Observable<ResponseGetOrderData> GetOrderData(@Body Map<String, String> mobile);
 
 
 

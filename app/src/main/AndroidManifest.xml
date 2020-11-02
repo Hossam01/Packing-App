@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UI.EditPackageActivity"></activity>
+        <activity android:name=".UI.EditPackageActivity"/>
         <activity android:name=".UI.ItemActivity" />
         <activity android:name=".UI.INOUTActivity" />
         <activity android:name=".UI.CallActivity" />

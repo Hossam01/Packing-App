@@ -1,9 +1,12 @@
-package com.example.packingapp.model;
+package com.example.packingapp.model.GetOrderResponse;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RecordsOrderData {
+import java.util.List;
 
+import androidx.room.ColumnInfo;
+
+public class OrderDataModuleHeader  {
     @SerializedName("Order_number")
     private String Order_number;
 
@@ -19,20 +22,11 @@ public class RecordsOrderData {
     @SerializedName("Customer_address_ar")
     private String Customer_address_ar;
 
-    @SerializedName("Delivery_date")
-    private String Delivery_date;
+    @SerializedName("Out_From_Loc")
+    private String Out_From_Loc;
 
-    @SerializedName("Time_slot")
-    private String Time_slot;
-
-    @SerializedName("Name_of_item")
-    private String Name_of_item;
-
-    @SerializedName("Quantity")
-    private String Quantity;
-
-    @SerializedName("Price")
-    private String Price;
+	@SerializedName("items")
+	private List<ItemsOrderDataDBDetails> itemsOrderDataDBDetails;
 
     public String getOrder_number() {
         return Order_number;
@@ -74,43 +68,19 @@ public class RecordsOrderData {
         Customer_address_ar = customer_address_ar;
     }
 
-    public String getDelivery_date() {
-        return Delivery_date;
+    public String getOut_From_Loc() {
+        return Out_From_Loc;
     }
 
-    public void setDelivery_date(String delivery_date) {
-        Delivery_date = delivery_date;
+    public void setOut_From_Loc(String out_From_Loc) {
+        Out_From_Loc = out_From_Loc;
     }
 
-    public String getTime_slot() {
-        return Time_slot;
+    public List<ItemsOrderDataDBDetails> getItemsOrderDataDBDetails() {
+        return itemsOrderDataDBDetails;
     }
 
-    public void setTime_slot(String time_slot) {
-        Time_slot = time_slot;
-    }
-
-    public String getName_of_item() {
-        return Name_of_item;
-    }
-
-    public void setName_of_item(String name_of_item) {
-        Name_of_item = name_of_item;
-    }
-
-    public String getQuantity() {
-        return Quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        Quantity = quantity;
-    }
-
-    public String getPrice() {
-        return Price;
-    }
-
-    public void setPrice(String price) {
-        Price = price;
+    public void setItemsOrderDataDBDetails(List<ItemsOrderDataDBDetails> itemsOrderDataDBDetails) {
+        this.itemsOrderDataDBDetails = itemsOrderDataDBDetails;
     }
 }

@@ -3,12 +3,14 @@ package com.example.packingapp.Database;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.packingapp.model.OrderDataModuleDB;
+import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
+import com.example.packingapp.model.GetOrderResponse.OrderDataModuleDBHeader;
+import com.example.packingapp.model.GetOrderResponse.OrderDataModuleHeader;
 import com.example.packingapp.model.RecordsItem;
-import com.example.packingapp.model.RecordsOrderData;
 
 import java.util.List;
 
@@ -34,7 +36,19 @@ public interface UserDao {
     @Query("DELETE FROM user")
     void deleteAll();
 
-    @Insert(onConflict = REPLACE)
-    void insertOrder(OrderDataModuleDB recordsOrderData);
+//    @Query(" INSERT INTO OrderDataModuleDBHeader VALUES(" +)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertOrderHeader(OrderDataModuleDBHeader orderDataModuleDBHeader);
 
+     @Insert(onConflict = OnConflictStrategy.REPLACE)
+     void insertOrderItems(List<ItemsOrderDataDBDetails> itemsOrderDataDBDetails);
+
+    @Query("SELECT * FROM OrderDataModuleDBHeader")
+    Observable<OrderDataModuleDBHeader> getHeader();
+
+    @Query("DELETE FROM OrderDataModuleDBHeader")
+    void deleteAllHeader();
+
+    @Query("DELETE FROM itemsOrderDataDBDetails")
+    void deleteAllDetails();
 }

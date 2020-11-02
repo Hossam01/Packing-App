@@ -20,7 +20,7 @@ public class ApiClient {
     }
 
 
-    public static final String BASE_URL_Roubsta = "http://www.json-generator.com/";
+    public static final String BASE_URL_Roubsta = "https://next.json-generator.com/";
 
     public static RoubstaAPIRetrofit buildRo() {
         final Retrofit retrofit = new Retrofit.Builder()

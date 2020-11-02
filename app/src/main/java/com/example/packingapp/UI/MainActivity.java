@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.databinding.ActivityMainBinding;
+import com.example.packingapp.model.GetOrderResponse.OrderDataModuleDBHeader;
 import com.example.packingapp.model.RecordsItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,11 +35,35 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNext(List<RecordsItem> recordsItems) {
-                binding.text.setText(recordsItems.get(0).getUserDescription());
+             //   binding.text.setText(recordsItems.get(0).getUserDescription());
             }
 
             @Override
             public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+        database.userDao().getHeader().subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<OrderDataModuleDBHeader>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(OrderDataModuleDBHeader recordsItems) {
+                binding.text.setText(recordsItems.getOrder_number());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                binding.text.setText(e.getMessage());
 
             }
 
