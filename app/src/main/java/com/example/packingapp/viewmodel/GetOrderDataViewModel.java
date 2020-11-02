@@ -22,10 +22,10 @@ public class GetOrderDataViewModel extends ViewModel {
 
     public void fetchdata(String OrderNumber) {
 
-        HashMap<String, String> map = new HashMap<>();
-        map.put("OrderNumber", OrderNumber);
+       /* HashMap<String, String> map = new HashMap<>();
+        map.put("OrderNumber", OrderNumber);*/
 
-        ApiClient.buildRo().GetOrderData(map)
+        ApiClient.buildRo().GetOrderData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe( (responseGetOrderData) -> {

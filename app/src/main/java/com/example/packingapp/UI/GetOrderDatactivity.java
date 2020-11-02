@@ -26,7 +26,6 @@ public class GetOrderDatactivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityGetOrderDataBinding.inflate(getLayoutInflater());
-
         setContentView(binding.getRoot());
         database=AppDatabase.getDatabaseInstance(this);
 
