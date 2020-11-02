@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.packingapp.Database.AppDatabase;
-import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityEditPackageBinding;
-import com.example.packingapp.model.OrderDataModuleDB;
 
 import java.util.List;
 

@@ -7,11 +7,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.packingapp.model.OrderDataModuleDB;
-import com.example.packingapp.model.Product;
 import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
 import com.example.packingapp.model.GetOrderResponse.OrderDataModuleDBHeader;
-import com.example.packingapp.model.GetOrderResponse.OrderDataModuleHeader;
 import com.example.packingapp.model.RecordsItem;
 
 import java.util.List;
@@ -53,8 +50,10 @@ public interface UserDao {
 
     @Query("DELETE FROM itemsOrderDataDBDetails")
     void deleteAllDetails();
-    @Query("SELECT * FROM OrderDataModuleDB where tracking_number =:tracking")
-    Observable<List<OrderDataModuleDB>> getAllItem(String tracking);
+
+    @Query("SELECT * FROM ItemsOrderDataDBDetails where TrackingNumber =:tracking")
+    Observable<List<ItemsOrderDataDBDetails>> getAllItem(String tracking);
+
     @Delete
-    void deleteOrder(OrderDataModuleDB mUser);
+    void deleteOrder(OrderDataModuleDBHeader mUser);
 }
