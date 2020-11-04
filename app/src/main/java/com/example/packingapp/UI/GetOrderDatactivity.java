@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -44,7 +43,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
                                 responseGetOrderData.getRecorders().getCustomer_address_ar());
 
                         database.userDao().deleteAllHeader();
-                        database.userDao().deleteAllDetails();
+                        database.userDao().deleteAllOrderItems();
                        database.userDao().insertOrderHeader(orderDataModuleDBHeader);
                        database.userDao().insertOrderItems(responseGetOrderData.getRecorders().getItemsOrderDataDBDetails());
                        Toast.makeText(GetOrderDatactivity.this, responseGetOrderData.getRecorders().getOrder_number(), Toast.LENGTH_SHORT).show();
@@ -54,7 +53,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
 //                        Toast.makeText(GetOrderDatactivity.this, database.userDao().getHeader().get(0).getOrder_number(), Toast.LENGTH_SHORT).show();
 //                        Log.e(TAG, "onChanged: ","cccdd "+ database.userDao().getHeader().get(0).getOrder_number().toString());
 
-                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent i = new Intent(getApplicationContext(), ItemActivity.class);
                         startActivity(i);
                     }
                 });

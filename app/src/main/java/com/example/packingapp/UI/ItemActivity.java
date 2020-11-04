@@ -1,22 +1,24 @@
 package com.example.packingapp.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.example.packingapp.Adapter.ItemAdapter;
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.R;
-import com.example.packingapp.databinding.ActivityGetOrderDataBinding;
 import com.example.packingapp.databinding.ActivityItemBinding;
-import com.example.packingapp.model.OrderDataModuleDB;
+import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
 import com.example.packingapp.model.Product;
 
 public class ItemActivity extends AppCompatActivity {
+    private static final String TAG = "ItemActivity";
     ActivityItemBinding binding;
     ItemAdapter itemAdapter;
     Product product;
-    double totalPrice = 0.0;
     AppDatabase database;
 
     @Override
@@ -27,19 +29,30 @@ public class ItemActivity extends AppCompatActivity {
         database=AppDatabase.getDatabaseInstance(this);
 
         itemAdapter = new ItemAdapter();
-        binding.btn.setOnClickListener(new View.OnClickListener() {
+        binding.recyclerView.setAdapter(itemAdapter);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.imagSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                product = new Product("laptop", "5", 20000.0);
-                itemAdapter.fillAdapterData(product);
-                totalPrice += product.getPrice();
+                if (!binding.editBarcode.getText().toString().isEmpty()) {
+                    ItemsOrderDataDBDetails ItemsOrderDataDBDetails =database.userDao().getItem(binding.editBarcode.getText().toString());
+                    product = new Product("laptop", "5");
+                    Log.e(TAG, "onClick            }\n: " + ItemsOrderDataDBDetails.getQuantity().toString());
+                    itemAdapter.fillAdapterData(ItemsOrderDataDBDetails);
+                } else {
+                    binding.editBarcode.setError(getResources().getString(R.string.enter_barcode));
+                    binding.editBarcode.requestFocus();
+                }
             }
         });
-        binding.done.setOnClickListener(new View.OnClickListener() {
+
+        binding.btnAssignItemsToPackage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OrderDataModuleDB orderDataModuleDB=new OrderDataModuleDB("1452","ahmed","123","cairo","القاهره","1-5","00:00","pizza","5","10","zayed","order_num+");
-                database.userDao().insertOrder(orderDataModuleDB);
+//                ItemsOrderDataDBDetails orderDataModuleDB=new
+//                        ItemsOrderDataDBDetails("1452","ahmed","123","cairo","القاهره",
+//                        "1-5","00:00","pizza","5","10","zayed","order_num+");
+//                database.userDao().insertOrder(orderDataModuleDB);
             }
         });
     }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.databinding.ActivityEditPackageBinding;
+import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
 
 import java.util.List;
 
@@ -26,14 +27,14 @@ public class EditPackageActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         database= AppDatabase.getDatabaseInstance(this);
         database.userDao().getAllItem(binding.item.getText().toString()).subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<OrderDataModuleDB>>() {
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<ItemsOrderDataDBDetails>>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
 
             }
 
             @Override
-            public void onNext(@NonNull List<OrderDataModuleDB> orderDataModuleDBS) {
+            public void onNext(@NonNull List<ItemsOrderDataDBDetails> orderDataModuleDBS) {
 
             }
 

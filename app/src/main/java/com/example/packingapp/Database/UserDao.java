@@ -49,11 +49,17 @@ public interface UserDao {
     void deleteAllHeader();
 
     @Query("DELETE FROM itemsOrderDataDBDetails")
-    void deleteAllDetails();
+    void deleteAllOrderItems();
+
+
 
     @Query("SELECT * FROM ItemsOrderDataDBDetails where TrackingNumber =:tracking")
     Observable<List<ItemsOrderDataDBDetails>> getAllItem(String tracking);
 
     @Delete
     void deleteOrder(OrderDataModuleDBHeader mUser);
+
+    @Query("SELECT * FROM ItemsOrderDataDBDetails where Barcode =:barcode")
+    ItemsOrderDataDBDetails getItem(String barcode);
+
 }

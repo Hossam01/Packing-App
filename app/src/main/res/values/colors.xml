@@ -3,6 +3,7 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#FFFFFF</color>
+    <color name="main_bg">#37c4c6</color>
 
     <color name="red">#F15050</color>
     <color name="greenblue">#228B22</color>
@@ -31,4 +32,5 @@
     <color name="txt_color">#F49836</color>
     <color name="txt_color_hint">#FFFFFF</color>
     <color name="third_white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>

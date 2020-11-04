@@ -17,4 +17,5 @@
     <string name="Driver_ID">Driver_ID</string>
     <string name="hint_resource">Select Driver ID</string>
     <string name="Message">Message</string>
+    <string name="enter_barcode">أدخل الباركود</string>
 </resources>

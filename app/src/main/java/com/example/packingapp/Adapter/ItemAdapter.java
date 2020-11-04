@@ -1,5 +1,6 @@
-package com.example.packingapp.UI;
+package com.example.packingapp.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,19 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.packingapp.R;
+import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
 import com.example.packingapp.model.Product;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder>{
+    private static final String TAG = "ItemAdapter";
+    ArrayList<ItemsOrderDataDBDetails>dataList=new ArrayList<>();
 
-    ArrayList<Product>dataList=new ArrayList<>();
-
-    public void fillAdapterData(Product dataList) {
+    public void fillAdapterData(ItemsOrderDataDBDetails itemsOrderDataDBDetails) {
         //this.dataList.clear();
-        this.dataList.add(dataList);
-       // this.dataList.add(dataList);
+        this.dataList.add(itemsOrderDataDBDetails);
+        Log.e(TAG, "fillAdapterData: "+  dataList.size());
+
+        // this.dataList.add(dataList);
         notifyDataSetChanged();
     }
 
@@ -38,7 +41,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
-        holder.view.setText(dataList.get(position).getName());
+        holder.item_name.setText(dataList.get(position).getName_of_item());
+        holder.item_qty.setText(dataList.get(position).getQuantity());
     }
 
     @Override
@@ -47,12 +51,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder>{
     }
 
     public class ItemHolder extends RecyclerView.ViewHolder {
-        TextView view;
+        TextView item_name ,item_qty;
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
-           view =itemView.findViewById(R.id.text);
+            item_name =itemView.findViewById(R.id.item_name);
+            item_qty=itemView.findViewById(R.id.item_qty);
         }
-
-
     }
 }

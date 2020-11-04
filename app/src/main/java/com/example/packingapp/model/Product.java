@@ -1,13 +1,11 @@
 package com.example.packingapp.model;
 
 public class Product {
-    String name,id;
-    double price;
+    String name,Qty;
 
-    public Product(String name, String id, double price) {
+    public Product(String name, String Qty) {
         this.name = name;
-        this.id = id;
-        this.price = price;
+        this.Qty = Qty;
     }
 
     public String getName() {
@@ -18,19 +16,13 @@ public class Product {
         this.name = name;
     }
 
-    public String getId() {
-        return id;
+    public String getQty() {
+        return Qty;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setQty(String Qty) {
+        this.Qty = Qty;
     }
 
-    public double getPrice() {
-        return price;
-    }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
 }

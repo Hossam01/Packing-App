@@ -25,8 +25,19 @@ public class ItemsOrderDataDBDetails {
     @SerializedName("Price")
     private String Price;
 
+    @SerializedName("Barcode")
+    private String Barcode;
+
     @SerializedName("TrackingNumber")
     private String TrackingNumber;
+
+    public String getBarcode() {
+        return Barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        Barcode = barcode;
+    }
 
     public int getUid() {
         return uid;

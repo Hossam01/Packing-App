@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.ItemActivity">
+    tools:context=".UI.ItemActivity"
+    android:background="@color/main_bg">
 
     <EditText
-        android:id="@+id/item"
+        android:id="@+id/edit_barcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="250dp"
@@ -18,7 +19,7 @@
         />
 
     <ImageView
-        android:id="@+id/btn"
+        android:id="@+id/imag_search"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="20dp"
@@ -34,14 +35,16 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/done"
+        app:layout_constraintBottom_toTopOf="@+id/btn_assign_items_to_package"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item"
-        tools:listitem="@layout/product_item" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_barcode"
+        tools:listitem="@layout/product_item"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"/>
 
     <Button
-        android:id="@+id/done"
+        android:id="@+id/btn_assign_items_to_package"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Assign Items To bag"
@@ -50,6 +53,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView"/>
+        app:layout_constraintTop_toBottomOf="parent"
+        android:padding="5dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
