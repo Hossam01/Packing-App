@@ -2,6 +2,7 @@ package com.example.packingapp.model.GetOrderResponse;
 
 import com.google.gson.annotations.SerializedName;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,34 +11,33 @@ public class ItemsOrderDataDBDetails {
     @PrimaryKey(autoGenerate = true)
     private int uid;
 
-    @SerializedName("Delivery_date")
-    private String Delivery_date;
+    @ColumnInfo(name = "name")
+    @SerializedName("name")
+    private String name;
 
-    @SerializedName("Time_slot")
-    private String Time_slot;
+//    @ColumnInfo(name = "Name_of_item")
+//    @SerializedName("Name_of_item")
+//    private String Name_of_item;
 
-    @SerializedName("Name_of_item")
-    private String Name_of_item;
-
-    @SerializedName("Quantity")
-    private String Quantity;
-
-    @SerializedName("Price")
-    private String Price;
-
+    @ColumnInfo(name = "Barcode")
     @SerializedName("Barcode")
     private String Barcode;
 
+    @ColumnInfo(name = "Price")
+    @SerializedName("Price")
+    private String Price;
+
+    @ColumnInfo(name = "Quantity")
+    @SerializedName("Quantity")
+    private String Quantity;
+
+    @ColumnInfo(name = "unite")
+    @SerializedName("unite")
+    private String unite_of_quantity;
+
+    @ColumnInfo(name = "TrackingNumber")
     @SerializedName("TrackingNumber")
     private String TrackingNumber;
-
-    public String getBarcode() {
-        return Barcode;
-    }
-
-    public void setBarcode(String barcode) {
-        Barcode = barcode;
-    }
 
     public int getUid() {
         return uid;
@@ -47,29 +47,17 @@ public class ItemsOrderDataDBDetails {
         this.uid = uid;
     }
 
-    public String getDelivery_date() {
-        return Delivery_date;
+    public String getName() {
+        return name;
     }
 
-    public void setDelivery_date(String delivery_date) {
-        Delivery_date = delivery_date;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTime_slot() {
-        return Time_slot;
-    }
 
-    public void setTime_slot(String time_slot) {
-        Time_slot = time_slot;
-    }
 
-    public String getName_of_item() {
-        return Name_of_item;
-    }
 
-    public void setName_of_item(String name_of_item) {
-        Name_of_item = name_of_item;
-    }
 
     public String getQuantity() {
         return Quantity;
@@ -85,6 +73,22 @@ public class ItemsOrderDataDBDetails {
 
     public void setPrice(String price) {
         Price = price;
+    }
+
+    public String getBarcode() {
+        return Barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        Barcode = barcode;
+    }
+
+    public String getUnite_of_quantity() {
+        return unite_of_quantity;
+    }
+
+    public void setUnite_of_quantity(String unite_of_quantity) {
+        this.unite_of_quantity = unite_of_quantity;
     }
 
     public String getTrackingNumber() {

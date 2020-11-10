@@ -37,16 +37,26 @@ public class GetOrderDatactivity extends AppCompatActivity {
                 getOrderDataViewModel.getOrderDataLiveData().observe(GetOrderDatactivity.this, new Observer<ResponseGetOrderData>() {
                     @Override
                     public void onChanged(ResponseGetOrderData responseGetOrderData) {
-                        OrderDataModuleDBHeader orderDataModuleDBHeader= new OrderDataModuleDBHeader(responseGetOrderData.getRecorders().getOrder_number(),
-                                responseGetOrderData.getRecorders().getCustomer_name(),responseGetOrderData.getRecorders().getCustomer_phone(),
-                                responseGetOrderData.getRecorders().getCustomer_address_en(),
-                                responseGetOrderData.getRecorders().getCustomer_address_ar());
+                        OrderDataModuleDBHeader orderDataModuleDBHeader= new OrderDataModuleDBHeader(
+                                responseGetOrderData.getOrder_number(),
+                                responseGetOrderData.getCustomer().getName(),
+                                responseGetOrderData.getCustomer().getPhone_number(),
+                                responseGetOrderData.getCustomer().getCustomer_code(),
+                                responseGetOrderData.getCustomer().getAddress().getGovern(),
+                                responseGetOrderData.getCustomer().getAddress().getCity(),
+                                responseGetOrderData.getCustomer().getAddress().getDistrict(),
+                                responseGetOrderData.getCustomer().getAddress().getCustomer_address_detail(),
+                                responseGetOrderData.getDelivery().getDate(),
+                                responseGetOrderData.getDelivery().getTime(),
+                                responseGetOrderData.getGrand_total(),
+                                responseGetOrderData.getCurrency()
+                                );
 
                         database.userDao().deleteAllHeader();
                         database.userDao().deleteAllOrderItems();
-                       database.userDao().insertOrderHeader(orderDataModuleDBHeader);
-                       database.userDao().insertOrderItems(responseGetOrderData.getRecorders().getItemsOrderDataDBDetails());
-                       Toast.makeText(GetOrderDatactivity.this, responseGetOrderData.getRecorders().getOrder_number(), Toast.LENGTH_SHORT).show();
+//                       database.userDao().insertOrderHeader(orderDataModuleDBHeader);
+//                       database.userDao().insertOrderItems(responseGetOrderData.getItemsOrderDataDBDetails());
+                       Toast.makeText(GetOrderDatactivity.this, responseGetOrderData.getOrder_number(), Toast.LENGTH_SHORT).show();
 
                       //  Toast.makeText(GetOrderDatactivity.this, database.userDao().getHeader().size(), Toast.LENGTH_SHORT).show();
                        // Log.e(TAG, "onChanged: ","ccc "+ database.userDao().getHeader().size());

@@ -36,7 +36,7 @@ public class ItemActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!binding.editBarcode.getText().toString().isEmpty()) {
                     ItemsOrderDataDBDetails ItemsOrderDataDBDetails =database.userDao().getItem(binding.editBarcode.getText().toString());
-                    product = new Product("laptop", "5");
+//                    product = new Product("laptop", "5");
                     Log.e(TAG, "onClick            }\n: " + ItemsOrderDataDBDetails.getQuantity().toString());
                     itemAdapter.fillAdapterData(ItemsOrderDataDBDetails);
                 } else {
