@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.packingapp.Adapter.ItemAdapter;
 import com.example.packingapp.Database.AppDatabase;
@@ -14,12 +15,16 @@ import com.example.packingapp.databinding.ActivityItemBinding;
 import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
 import com.example.packingapp.model.Product;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemActivity extends AppCompatActivity {
     private static final String TAG = "ItemActivity";
     ActivityItemBinding binding;
     ItemAdapter itemAdapter;
     Product product;
     AppDatabase database;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +40,30 @@ public class ItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!binding.editBarcode.getText().toString().isEmpty()) {
-                    ItemsOrderDataDBDetails ItemsOrderDataDBDetails =database.userDao().getItem(binding.editBarcode.getText().toString());
+
+                    ItemsOrderDataDBDetails itemsOrderDataDBDetails =database.userDao().getItem(binding.editBarcode.getText().toString());
 //                    product = new Product("laptop", "5");
-                    Log.e(TAG, "onClick            }\n: " + ItemsOrderDataDBDetails.getQuantity().toString());
-                    itemAdapter.fillAdapterData(ItemsOrderDataDBDetails);
+
+                    if (itemsOrderDataDBDetails != null) {
+
+                        List <ItemsOrderDataDBDetails> Adapterlist = itemAdapter.ReturnListOfAdapter();
+                        List <String> listClone = new ArrayList<>();
+
+                        for (ItemsOrderDataDBDetails itemsOrderDataDBDetailsSE : Adapterlist) {
+                            //matches("(?i)"+binding.editBarcode.getText().toString()+".*")
+                            if(itemsOrderDataDBDetailsSE.getBarcode().toString().equalsIgnoreCase(binding.editBarcode.getText().toString())){
+                                listClone.add(itemsOrderDataDBDetailsSE.getBarcode());
+                            }
+                        }
+                        System.out.println(listClone.size());
+                        System.out.println(binding.editBarcode.getText().toString());
+                        //Log.e(TAG, "onClick: ", "" + binding.editBarcode.getText().toString() );
+                        if (listClone.size()>0){
+                            itemAdapter.fillAdapterData(itemsOrderDataDBDetails);
+                        }else {
+                            Toast.makeText(ItemActivity.this, "تم أضافه هذا من قبل", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 } else {
                     binding.editBarcode.setError(getResources().getString(R.string.enter_barcode));
                     binding.editBarcode.requestFocus();

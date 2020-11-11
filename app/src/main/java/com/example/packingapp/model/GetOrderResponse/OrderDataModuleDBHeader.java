@@ -69,6 +69,9 @@ public class OrderDataModuleDBHeader {
 	@SerializedName("Out_From_Loc")
 	private String Out_From_Loc;
 
+	public OrderDataModuleDBHeader() {
+	}
+
 	public OrderDataModuleDBHeader(String order_number, String customer_name, String customer_phone,
 								   String customer_code, String customer_address_govern,
 								   String customer_address_city, String customer_address_district,

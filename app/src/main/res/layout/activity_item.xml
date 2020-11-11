@@ -34,14 +34,15 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_assign_items_to_package"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_barcode"
         tools:listitem="@layout/product_item"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"/>
+        tools:itemCount="100"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp"/>
 
     <Button
         android:id="@+id/btn_assign_items_to_package"
@@ -53,7 +54,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        android:padding="5dp"/>
+        android:padding="5dp"
+        android:layout_marginBottom="10dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

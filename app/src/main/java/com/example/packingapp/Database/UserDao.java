@@ -59,7 +59,7 @@ public interface UserDao {
     @Delete
     void deleteOrder(OrderDataModuleDBHeader mUser);
 
-    @Query("SELECT * FROM ItemsOrderDataDBDetails where Barcode =:barcode")
+    @Query("SELECT * FROM ItemsOrderDataDBDetails where barcode =:barcode")
     ItemsOrderDataDBDetails getItem(String barcode);
 
 }

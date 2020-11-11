@@ -41,7 +41,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
-        holder.item_name.setText(dataList.get(position).getName_of_item());
+        holder.item_name.setText(dataList.get(position).getName());
         holder.item_qty.setText(dataList.get(position).getQuantity());
     }
 
@@ -57,5 +57,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder>{
             item_name =itemView.findViewById(R.id.item_name);
             item_qty=itemView.findViewById(R.id.item_qty);
         }
+    }
+    public ArrayList<ItemsOrderDataDBDetails> ReturnListOfAdapter(){
+        return dataList;
     }
 }

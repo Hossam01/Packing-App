@@ -19,21 +19,21 @@ public class ItemsOrderDataDBDetails {
 //    @SerializedName("Name_of_item")
 //    private String Name_of_item;
 
-    @ColumnInfo(name = "Barcode")
-    @SerializedName("Barcode")
-    private String Barcode;
+    @ColumnInfo(name = "barcode")
+    @SerializedName("barcode")
+    private String barcode;
 
-    @ColumnInfo(name = "Price")
-    @SerializedName("Price")
-    private String Price;
+    @ColumnInfo(name = "price")
+    @SerializedName("price")
+    private String price;
 
-    @ColumnInfo(name = "Quantity")
-    @SerializedName("Quantity")
-    private String Quantity;
+    @ColumnInfo(name = "quantity")
+    @SerializedName("quantity")
+    private String quantity;
 
     @ColumnInfo(name = "unite")
     @SerializedName("unite")
-    private String unite_of_quantity;
+    private String unite;
 
     @ColumnInfo(name = "TrackingNumber")
     @SerializedName("TrackingNumber")
@@ -55,40 +55,36 @@ public class ItemsOrderDataDBDetails {
         this.name = name;
     }
 
-
-
-
-
-    public String getQuantity() {
-        return Quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        Quantity = quantity;
-    }
-
-    public String getPrice() {
-        return Price;
-    }
-
-    public void setPrice(String price) {
-        Price = price;
-    }
-
     public String getBarcode() {
-        return Barcode;
+        return barcode;
     }
 
     public void setBarcode(String barcode) {
-        Barcode = barcode;
+        this.barcode = barcode;
     }
 
-    public String getUnite_of_quantity() {
-        return unite_of_quantity;
+    public String getPrice() {
+        return price;
     }
 
-    public void setUnite_of_quantity(String unite_of_quantity) {
-        this.unite_of_quantity = unite_of_quantity;
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getUnite() {
+        return unite;
+    }
+
+    public void setUnite(String unite) {
+        this.unite = unite;
     }
 
     public String getTrackingNumber() {

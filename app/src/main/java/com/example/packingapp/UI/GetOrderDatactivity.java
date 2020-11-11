@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -54,8 +55,12 @@ public class GetOrderDatactivity extends AppCompatActivity {
 
                         database.userDao().deleteAllHeader();
                         database.userDao().deleteAllOrderItems();
-//                       database.userDao().insertOrderHeader(orderDataModuleDBHeader);
-//                       database.userDao().insertOrderItems(responseGetOrderData.getItemsOrderDataDBDetails());
+                       database.userDao().insertOrderHeader(orderDataModuleDBHeader);
+                       database.userDao().insertOrderItems(responseGetOrderData.getItemsOrderDataDBDetails());
+                        Log.e(TAG, "zzz>> currency " +  responseGetOrderData.getCurrency());
+
+                        Log.e(TAG, "zzz>> items size " + responseGetOrderData.getItemsOrderDataDBDetails().size());
+                        Log.e(TAG, "zzz>> Qty " + responseGetOrderData.getItemsOrderDataDBDetails().get(0).getQuantity());
                        Toast.makeText(GetOrderDatactivity.this, responseGetOrderData.getOrder_number(), Toast.LENGTH_SHORT).show();
 
                       //  Toast.makeText(GetOrderDatactivity.this, database.userDao().getHeader().size(), Toast.LENGTH_SHORT).show();
