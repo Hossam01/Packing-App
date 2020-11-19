@@ -56,5 +56,9 @@ public interface APIRetrofit {
     @POST("Packing_Api/Inout/create.php")
     Observable<Message> createInOut(@Body Map<String, String> mobile);
 
+    @POST("Packing_Api/Ordernumber/CreateHeader.php")
+    Observable<Message> InsertOrderDataHeader(@Body Map<String, String> mobile);
 
+    @POST("Packing_Api/Ordernumber/CreateDetails.php")
+    Observable<Message> InsertOrderDataDetails(@Body Map<String, String> mobile);
 }

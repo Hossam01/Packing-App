@@ -9,10 +9,11 @@ import androidx.room.RoomDatabase;
 import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
 import com.example.packingapp.model.GetOrderResponse.OrderDataModuleDBHeader;
 import com.example.packingapp.model.RecordsItem;
+import com.example.packingapp.model.TrackingnumbersListDB;
 
 
 @Database(entities = {RecordsItem.class , OrderDataModuleDBHeader.class,
-        ItemsOrderDataDBDetails.class}, version = 1, exportSchema = false)
+        ItemsOrderDataDBDetails.class, TrackingnumbersListDB.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase mInstance;
     private static final String DATABASE_NAME = "PackingDB";

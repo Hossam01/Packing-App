@@ -28,6 +28,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder>{
         notifyDataSetChanged();
     }
 
+    public void ClearRVAfterAssign() {
+        //this.dataList.clear();
+        this.dataList.clear();
+        Log.e(TAG, "ClearRVAfterAssign: "+  dataList.size());
+
+        // this.dataList.add(dataList);
+        notifyDataSetChanged();
+    }
+
     public void clearAdapterData() {
         this.dataList.clear();
         notifyDataSetChanged();

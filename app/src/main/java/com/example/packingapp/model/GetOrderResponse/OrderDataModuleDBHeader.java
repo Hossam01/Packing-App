@@ -18,6 +18,10 @@ public class OrderDataModuleDBHeader {
 	@SerializedName("Order_number")
 	private String Order_number;
 
+	@ColumnInfo(name ="OutBound_delivery")
+	@SerializedName("OutBound_delivery")
+	private String OutBound_delivery;
+
 	@ColumnInfo(name = "Customer_name")
 	@SerializedName("Customer_name")
 	private String Customer_name;
@@ -61,6 +65,14 @@ public class OrderDataModuleDBHeader {
 	@SerializedName("grand_total")
 	private String grand_total;
 
+	@ColumnInfo(name = "shipping_fees")
+	@SerializedName("shipping_fees")
+	private String shipping_fees;
+
+	@ColumnInfo(name = "picker_confirmation_time")
+	@SerializedName("picker_confirmation_time")
+	private String picker_confirmation_time;
+
 	@ColumnInfo(name = "currency")
 	@SerializedName("currency")
 	private String currency;
@@ -72,12 +84,17 @@ public class OrderDataModuleDBHeader {
 	public OrderDataModuleDBHeader() {
 	}
 
+	public OrderDataModuleDBHeader(String OutBound_delivery) {
+		this.OutBound_delivery=OutBound_delivery;
+	}
+
 	public OrderDataModuleDBHeader(String order_number, String customer_name, String customer_phone,
 								   String customer_code, String customer_address_govern,
 								   String customer_address_city, String customer_address_district,
-								   String customer_address_detail,
-								   String delivery_date, String delivery_time, String grand_total,
-								   String currency) {
+								   String customer_address_detail, String delivery_date,
+								   String delivery_time,
+								   String grand_total, String shipping_fees,
+								   String picker_confirmation_time, String currency,String Out_From_Loc) {
 		Order_number = order_number;
 		Customer_name = customer_name;
 		Customer_phone = customer_phone;
@@ -89,42 +106,27 @@ public class OrderDataModuleDBHeader {
 		this.delivery_date = delivery_date;
 		this.delivery_time = delivery_time;
 		this.grand_total = grand_total;
+		this.shipping_fees = shipping_fees;
+		this.picker_confirmation_time = picker_confirmation_time;
 		this.currency = currency;
+		this.Out_From_Loc= Out_From_Loc;
 	}
 
-//	public ItemsOrderDataDBDetails getItemsOrderDataDBDetails() {
-//		return itemsOrderDataDBDetails;
-//	}
-//
-//	public void setItemsOrderDataDBDetails(ItemsOrderDataDBDetails itemsOrderDataDBDetails) {
-//		this.itemsOrderDataDBDetails = itemsOrderDataDBDetails;
-//	}
+	public String getShipping_fees() {
+		return shipping_fees;
+	}
 
-//	@ColumnInfo(name = "Delivery_date")
-//	@SerializedName("Delivery_date")
-//	private String Delivery_date;
-//
-//	@ColumnInfo(name = "Time_slot")
-//	@SerializedName("Time_slot")
-//	private String Time_slot;
-//
-//	@ColumnInfo(name = "Name_of_item")
-//	@SerializedName("Name_of_item")
-//	private String Name_of_item;
-//
-//	@ColumnInfo(name = "Quantity")
-//	@SerializedName("Quantity")
-//	private String Quantity;
-//
-//	@ColumnInfo(name = "Price")
-//	@SerializedName("Price")
-//	private String Price;
+	public void setShipping_fees(String shipping_fees) {
+		this.shipping_fees = shipping_fees;
+	}
 
-//
-//	@ColumnInfo(name = "tracking_number")
-//	@SerializedName("tracking_number")
-//	private String tracking_number;
+	public String getPicker_confirmation_time() {
+		return picker_confirmation_time;
+	}
 
+	public void setPicker_confirmation_time(String picker_confirmation_time) {
+		this.picker_confirmation_time = picker_confirmation_time;
+	}
 
 	public String getCustomer_code() {
 		return Customer_code;
@@ -176,6 +178,14 @@ public class OrderDataModuleDBHeader {
 
 	public String getOrder_number() {
 		return Order_number;
+	}
+
+	public String getOutBound_delivery() {
+		return OutBound_delivery;
+	}
+
+	public void setOutBound_delivery(String outBound_delivery) {
+		OutBound_delivery = outBound_delivery;
 	}
 
 	public void setOrder_number(String order_number) {

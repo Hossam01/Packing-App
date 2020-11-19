@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.ItemActivity"
+    tools:context=".UI.AssignItemToPackagesActivity"
     android:background="@color/main_bg">
 
     <EditText
@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn"
+        android:inputType="number"
         />
 
     <ImageView

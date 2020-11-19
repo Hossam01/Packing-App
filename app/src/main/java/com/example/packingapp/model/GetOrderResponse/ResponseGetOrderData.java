@@ -20,17 +20,50 @@ public class ResponseGetOrderData {
     @SerializedName("grand_total")
     private String grand_total;
 
+    @SerializedName("picker_confirmation_time")
+    private String picker_confirmation_time;
+
+    @SerializedName("customer_code")
+    private String customer_code;
+
+    @SerializedName("shipping_fees")
+    private String shipping_fees;
+
     @SerializedName("currency")
     private String currency;
 
     @SerializedName("time_slot")
     private String time_slot;
 
+    @SerializedName("Out_From_Loc")
+    private String Out_From_Loc;
 
     @SerializedName("items")
     private List<ItemsOrderDataDBDetails> itemsOrderDataDBDetails;
 
+    public String getPicker_confirmation_time() {
+        return picker_confirmation_time;
+    }
 
+    public void setPicker_confirmation_time(String picker_confirmation_time) {
+        this.picker_confirmation_time = picker_confirmation_time;
+    }
+
+    public String getCustomer_code() {
+        return customer_code;
+    }
+
+    public void setCustomer_code(String customer_code) {
+        this.customer_code = customer_code;
+    }
+
+    public String getShipping_fees() {
+        return shipping_fees;
+    }
+
+    public void setShipping_fees(String shipping_fees) {
+        this.shipping_fees = shipping_fees;
+    }
 
 //    @SerializedName("Out_From_Loc")
 //    private String Out_From_Loc;
@@ -84,6 +117,14 @@ public class ResponseGetOrderData {
         this.grand_total = grand_total;
     }
 
+    public String getOut_From_Loc() {
+        return Out_From_Loc;
+    }
+
+    public void setOut_From_Loc(String out_From_Loc) {
+        Out_From_Loc = out_From_Loc;
+    }
+
     public List<ItemsOrderDataDBDetails> getItemsOrderDataDBDetails() {
         return itemsOrderDataDBDetails;
     }
@@ -91,4 +132,5 @@ public class ResponseGetOrderData {
     public void setItemsOrderDataDBDetails(List<ItemsOrderDataDBDetails> itemsOrderDataDBDetails) {
         this.itemsOrderDataDBDetails = itemsOrderDataDBDetails;
     }
+
 }

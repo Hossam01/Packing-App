@@ -18,4 +18,6 @@
     <string name="hint_resource">Select Driver ID</string>
     <string name="Message">Message</string>
     <string name="enter_barcode">أدخل الباركود</string>
+    <string name="enter_valid_barcode">هذا الباركود غير موجود</string>
+    <string name="delete_dialoge">هل أنت متأكد من أنك تريد حذف</string>
 </resources>

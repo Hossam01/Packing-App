@@ -11,6 +11,10 @@ public class ItemsOrderDataDBDetails {
     @PrimaryKey(autoGenerate = true)
     private int uid;
 
+//    @ColumnInfo(name ="Order_number")
+//    @SerializedName("Order_number")
+//    private String Order_number;
+
     @ColumnInfo(name = "name")
     @SerializedName("name")
     private String name;
@@ -19,9 +23,9 @@ public class ItemsOrderDataDBDetails {
 //    @SerializedName("Name_of_item")
 //    private String Name_of_item;
 
-    @ColumnInfo(name = "barcode")
-    @SerializedName("barcode")
-    private String barcode;
+    @ColumnInfo(name = "sku")
+    @SerializedName("sku")
+    private String sku;
 
     @ColumnInfo(name = "price")
     @SerializedName("price")
@@ -39,6 +43,15 @@ public class ItemsOrderDataDBDetails {
     @SerializedName("TrackingNumber")
     private String TrackingNumber;
 
+
+    public ItemsOrderDataDBDetails(String name, String sku, String price, String quantity, String unite) {
+        this.name = name;
+        this.sku = sku;
+        this.price = price;
+        this.quantity = quantity;
+        this.unite = unite;
+    }
+
     public int getUid() {
         return uid;
     }
@@ -46,6 +59,7 @@ public class ItemsOrderDataDBDetails {
     public void setUid(int uid) {
         this.uid = uid;
     }
+
 
     public String getName() {
         return name;
@@ -55,12 +69,12 @@ public class ItemsOrderDataDBDetails {
         this.name = name;
     }
 
-    public String getBarcode() {
-        return barcode;
+    public String getSku() {
+        return sku;
     }
 
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 
     public String getPrice() {
@@ -94,4 +108,6 @@ public class ItemsOrderDataDBDetails {
     public void setTrackingNumber(String trackingNumber) {
         TrackingNumber = trackingNumber;
     }
+
+
 }
