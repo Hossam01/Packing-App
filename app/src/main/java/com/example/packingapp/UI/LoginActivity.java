@@ -49,8 +49,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onChanged(ResponseLogin responseLogin) {
                 database.userDao().deleteAll();
                 database.userDao().insertUser(responseLogin.getRecords().get(0));
-                Intent i = new Intent(getApplicationContext(), GetOrderDatactivity.class);
-                startActivity(i);
+                if (responseLogin.getRecords().get(0).getGroupID().equalsIgnoreCase("1")){
+                    Intent i = new Intent(getApplicationContext(), GetOrderDatactivity.class);
+                    startActivity(i);
+                }else if (responseLogin.getRecords().get(0).getGroupID().equalsIgnoreCase("2")){
+                    Intent i = new Intent(getApplicationContext(), GetOrderDatactivity.class);
+                    startActivity(i);
+                }
+
             }
         });
     }
