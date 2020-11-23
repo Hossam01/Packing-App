@@ -1,6 +1,7 @@
 package com.example.packingapp.Retrofit;
 
 import com.example.packingapp.model.Message;
+import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.ResponseDriver;
 import com.example.packingapp.model.ResponseLogin;
 import com.example.packingapp.model.ResponseSms;
@@ -61,4 +62,8 @@ public interface APIRetrofit {
 
     @POST("Packing_Api/Ordernumber/CreateDetails.php")
     Observable<Message> InsertOrderDataDetails(@Body Map<String, String> mobile);
+
+    @POST("Packing_Api/Ordernumber/Read.php")
+    Observable<RecievePackedModule> GetOrderNumberAndNumPackage(@Body Map<String, String> mobile);
+
 }

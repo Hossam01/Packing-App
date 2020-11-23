@@ -11,6 +11,7 @@ import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
 import com.example.packingapp.model.GetOrderResponse.OrderDataModuleDBHeader;
 import com.example.packingapp.model.PackedPackageItemsModule;
 import com.example.packingapp.model.PackedPackageModule;
+import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.RecordsItem;
 import com.example.packingapp.model.TrackingnumbersListDB;
 
@@ -111,4 +112,14 @@ public interface UserDao {
 
     @Query("UPDATE itemsOrderDataDBDetails SET TrackingNumber = NULL WHERE  sku in (:Barcode) ")
     void DeleteTrackingNumberForItem(String Barcode );
+
+    @Insert(onConflict = REPLACE)
+    void insertRecievePacked(RecievePackedModule recievePackedModule);
+
+    @Query("SELECT * FROM RecievePackedModule where ORDER_NO =:ORDER_NO")
+    List<RecievePackedModule> getRecievePacked_ORDER_NO(String ORDER_NO);
+
+    @Query("SELECT * FROM RecievePackedModule where Tracking_Number =:Tracking_Number")
+    List<RecievePackedModule> getRecievePacked_Tracking_Number(String Tracking_Number);
+
 }

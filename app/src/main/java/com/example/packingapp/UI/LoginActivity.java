@@ -48,12 +48,21 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(ResponseLogin responseLogin) {
                 database.userDao().deleteAll();
+                Log.e(TAG, "onChanged: "+responseLogin.getRecords().get(0).getGroupID() );
                 database.userDao().insertUser(responseLogin.getRecords().get(0));
+
                 if (responseLogin.getRecords().get(0).getGroupID().equalsIgnoreCase("1")){
                     Intent i = new Intent(getApplicationContext(), GetOrderDatactivity.class);
                     startActivity(i);
                 }else if (responseLogin.getRecords().get(0).getGroupID().equalsIgnoreCase("2")){
-                    Intent i = new Intent(getApplicationContext(), GetOrderDatactivity.class);
+                    Log.e(TAG, "onChanged: else if 2 " );
+
+                    Intent i = new Intent(getApplicationContext(), RecievePackedOrderForSortingActivity.class);
+                    startActivity(i);
+                }else if (responseLogin.getRecords().get(0).getGroupID().equalsIgnoreCase("4")){
+                    Log.e(TAG, "onChanged: else if 4 " );
+
+                    Intent i = new Intent(getApplicationContext(), AddAndEditActivity.class);
                     startActivity(i);
                 }
 

@@ -4,16 +4,18 @@ import android.util.Log;
 
 import com.example.packingapp.Retrofit.ApiClient;
 import com.example.packingapp.model.GetOrderResponse.ResponseGetOrderData;
+import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 
 import java.util.HashMap;
 
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class RecievePackedOrderViewModel {
-    private MutableLiveData<ResponseGetOrderData> OrderDataLiveData = new MutableLiveData<>();
-    public MutableLiveData<ResponseGetOrderData> getOrderDataLiveData() {
+public class RecievePackedOrderViewModel extends ViewModel {
+    private MutableLiveData<RecievePackedModule> OrderDataLiveData = new MutableLiveData<>();
+    public MutableLiveData<RecievePackedModule> getOrderDataLiveData() {
         return OrderDataLiveData;
     }
 
@@ -22,9 +24,9 @@ public class RecievePackedOrderViewModel {
     public void fetchdata(String OrderNumber) {
 
         HashMap<String, String> map = new HashMap<>();
-        map.put("OrderNumber", OrderNumber);
+        map.put("ORDER_NO", OrderNumber);
 
-        ApiClient.buildRo().GetOrderData(map)
+        ApiClient.build().GetOrderNumberAndNumPackage(map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe( (responseGetOrderData) -> {
@@ -34,7 +36,6 @@ public class RecievePackedOrderViewModel {
                         ,throwable -> {
                             mutableLiveDataError.setValue(throwable.getMessage());
                             Log.d("Error",throwable.getMessage());
-
                         });
     }
 }

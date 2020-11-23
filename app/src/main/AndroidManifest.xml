@@ -3,6 +3,8 @@
     package="com.example.packingapp">
 
     <application
+        android:largeHeap="true"
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UI.RecievePackedOrderForSortingActivity"></activity>
+        <activity android:name=".UI.RecievePackedOrderForSortingActivity"/>
         <activity android:name=".UI.EditPackagesActivity" />
         <activity android:name=".UI.EditPackageItemsActivity" />
         <activity android:name=".UI.AssignItemToPackagesActivity" />
