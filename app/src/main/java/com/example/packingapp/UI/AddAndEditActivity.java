@@ -15,6 +15,7 @@ import com.example.packingapp.viewmodel.WayViewModel;
 
 public class AddAndEditActivity extends AppCompatActivity {
 
+
     ActivityAddAndEditBinding binding;
     String test="vehicle";
     @Override
