@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+
+    <EditText
+        android:id="@+id/edit_trackingnumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Scan Tracking number"
+        android:textColorHint="#DDD">
+
+    <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/edit_zone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Scan Zone"
+        android:textColorHint="#DDD">
+    </EditText>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btn_assign_to_zone"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Assign To Zone"/>
+        <Button
+            android:id="@+id/btn_dismiss"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Dismiss"
+            />
+
+    </LinearLayout>
+</LinearLayout>

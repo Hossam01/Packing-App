@@ -122,4 +122,17 @@ public interface UserDao {
     @Query("SELECT * FROM RecievePackedModule where Tracking_Number =:Tracking_Number")
     List<RecievePackedModule> getRecievePacked_Tracking_Number(String Tracking_Number);
 
+    @Query("SELECT DISTINCT( ORDER_NO ) ,NO_OF_PACKAGES  , uid FROM RecievePackedModule ")
+    List<RecievePackedModule> getRecievePacked_ORDER_NO_Distinct();
+
+    //NO_OF_PACKAGES THAT RETURN FROM THIS QUERY IDECATE TO COUNT OF NO OF PACKAGES FOR ORDERNUMBER
+    @Query("SELECT count(Tracking_Number) NO_OF_PACKAGES FROM RecievePackedModule where ORDER_NO =:ORDER_NO")
+    List<String> getRecievePacked_Tracking_Number_count(String ORDER_NO);
+
+    @Query("DELETE FROM RecievePackedModule")
+    void deleteRecievePackedModule();
+
+    @Query("UPDATE RecievePackedModule SET Zone = :zone WHERE  ORDER_NO in (:ORDER_NO) ")
+    void UpdatezoneForORDER_NO(String ORDER_NO , String zone );
+
 }

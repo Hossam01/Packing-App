@@ -20,4 +20,9 @@
     <string name="enter_barcode">أدخل الباركود</string>
     <string name="enter_valid_barcode">هذا الباركود غير موجود</string>
     <string name="delete_dialoge">هل أنت متأكد من أنك تريد حذف</string>
+    <string name="enter_Tracking_number">أدخل Tracking number</string>
+    <string name="message_not_equalfornoofpaclkageandcountoftrackingnumbers">No of tracking number that entered isn\'t equal packed package</string>
+    <string name="message_equalfornoofpaclkageandcountoftrackingnumbers">No of tracking number that entered isn equal packed package</string>
+    <string name="there_is_no_trackednumber_scanned">there is no tracking number scanned.</string>
+
 </resources>

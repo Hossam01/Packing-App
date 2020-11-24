@@ -20,9 +20,13 @@ public class RecievePackedModule {
         @SerializedName("NO_OF_PACKAGES")
         private String NO_OF_PACKAGES;
 
-    @ColumnInfo(name ="Tracking_Number")
-    @SerializedName("Tracking_Number")
-    private String Tracking_Number;
+        @ColumnInfo(name ="Tracking_Number")
+        @SerializedName("Tracking_Number")
+        private String Tracking_Number;
+
+    @ColumnInfo(name ="Zone")
+    @SerializedName("Zone")
+    private String Zone;
 
     public RecievePackedModule() {
     }
@@ -63,5 +67,13 @@ public class RecievePackedModule {
 
     public void setTracking_Number(String tracking_Number) {
         Tracking_Number = tracking_Number;
+    }
+
+    public String getZone() {
+        return Zone;
+    }
+
+    public void setZone(String zone) {
+        Zone = zone;
     }
 }
