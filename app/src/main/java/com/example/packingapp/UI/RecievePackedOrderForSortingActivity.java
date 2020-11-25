@@ -24,6 +24,7 @@ import com.example.packingapp.databinding.ActivityRecievePackedOrderForSortingBi
 import com.example.packingapp.model.GetOrderResponse.OrderDataModuleDBHeader;
 import com.example.packingapp.model.GetOrderResponse.ResponseGetOrderData;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
+import com.example.packingapp.model.ResponseUpdateStatus;
 import com.example.packingapp.viewmodel.GetOrderDataViewModel;
 import com.example.packingapp.viewmodel.RecievePackedOrderViewModel;
 
@@ -64,20 +65,24 @@ ActivityRecievePackedOrderForSortingBinding binding;
                         GETOrderData(binding.editTrackingnumber.getText().toString());
                         Log.e(TAG, "onClick: Ord "+OrderNumber );
                         Toast.makeText(RecievePackedOrderForSortingActivity.this, "تم", Toast.LENGTH_SHORT).show();
-                    }else if (database.userDao().getRecievePacked_Tracking_Number(binding.editTrackingnumber.getText().toString())
-                    .size() ==0){
-                        binding.editTrackingnumber.setError(null);
-
-                        GETOrderData(binding.editTrackingnumber.getText().toString());
-                        Log.e(TAG, "onClick: Trac "+binding.editTrackingnumber.getText().toString() );
-                        Toast.makeText(RecievePackedOrderForSortingActivity.this, "تم", Toast.LENGTH_SHORT).show();
                     }else {
-                        binding.editTrackingnumber.setError("تم أدخال هذا من قبل ");
-                        binding.editTrackingnumber.setText("");
+                          if (database.userDao().getRecievePacked_Tracking_Number(binding.editTrackingnumber.getText().toString())
+                                .size() ==0){
+                            binding.editTrackingnumber.setError(null);
+                             database.userDao().insertRecievePacked(new RecievePackedModule(
+                                     recievePackedlist.get(0).getORDER_NO(),recievePackedlist.get(0).getNO_OF_PACKAGES(),
+                                     binding.editTrackingnumber.getText().toString()));
+                        //    GETOrderData(binding.editTrackingnumber.getText().toString());
+                            Log.e(TAG, "onClick: Trac "+binding.editTrackingnumber.getText().toString() );
+                            Toast.makeText(RecievePackedOrderForSortingActivity.this, "تم", Toast.LENGTH_SHORT).show();
+                        }else {
+                            binding.editTrackingnumber.setError("تم أدخال هذا من قبل ");
+                            binding.editTrackingnumber.setText("");
+                        }
                     }
                 }else {
 
-                    binding.editTrackingnumber.setError(getString(R.string.enter_Tracking_number));
+                    binding.editTrackingnumber.setError(getString(R.string.enter_tracking_number));
                     binding.editTrackingnumber.setText("");
                 }
             }
@@ -124,10 +129,12 @@ ActivityRecievePackedOrderForSortingBinding binding;
                             NOTrecievedPackedORDERlist.add(recievePackedORDER_NO_Distinctlist.get(i));
                         }
                     }
+
                     if (NOTrecievedPackedORDERlist.size()==0){
                         //TODO UPDATE STATUS
-                        Toast.makeText(RecievePackedOrderForSortingActivity.this, String.format("%s",
-                                getString(R.string.message_equalfornoofpaclkageandcountoftrackingnumbers)), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(RecievePackedOrderForSortingActivity.this, String.format("%s",getString(R.string.message_equalfornoofpaclkageandcountoftrackingnumbers)), Toast.LENGTH_SHORT).show();
+                        UpdateStatus_ON_83();
+                        UpdateStatus();
                     }else {
                         Toast.makeText(RecievePackedOrderForSortingActivity.this, String.format("%s",
                                 getString(R.string.message_not_equalfornoofpaclkageandcountoftrackingnumbers)), Toast.LENGTH_SHORT).show();
@@ -162,7 +169,7 @@ ActivityRecievePackedOrderForSortingBinding binding;
             }
         });
 
-        binding.btnAssignOrdersToZone.setOnClickListener(new View.OnClickListener() {
+      /*  binding.btnAssignOrdersToZone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 // get prompts.xml view
@@ -195,7 +202,7 @@ ActivityRecievePackedOrderForSortingBinding binding;
                         dialog.cancel();
 
                     }
-                });*/
+                });
 
                 btn_assign_zone.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -217,7 +224,7 @@ ActivityRecievePackedOrderForSortingBinding binding;
                 // show it
                 alertDialog.show();
             }
-        });
+        });*/
     }
 
     private void AssignToZone(String trackingnumber1 ,String Zone1){
@@ -226,10 +233,30 @@ ActivityRecievePackedOrderForSortingBinding binding;
                         trackingnumber1.indexOf("-"));
 
         List<RecievePackedModule>  recievePackedlist=  database.userDao().getRecievePacked_ORDER_NO(OrderNumber);
+
         if (recievePackedlist.size() == 0) {
             GETOrderData(binding.editTrackingnumber.getText().toString());
-            database.userDao().UpdatezoneForORDER_NO(OrderNumber,Zone1);
-
+        //    database.userDao().UpdatezoneForORDER_NO(OrderNumber,Zone1);
+            Toast.makeText(context, "تم", Toast.LENGTH_SHORT).show();
+        }else if (recievePackedlist.size() >= 0){
+            if (recievePackedlist.get(0).getZone().isEmpty()) {
+                database.userDao().UpdatezoneForORDER_NO(OrderNumber,Zone1);
+                Toast.makeText(context, "تم", Toast.LENGTH_SHORT).show();
+            }else if (!recievePackedlist.get(0).getZone().isEmpty()){
+                new AlertDialog.Builder(RecievePackedOrderForSortingActivity.this)
+                        .setTitle(getString(R.string.updte_zone_if_exist))
+                        .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                database.userDao().UpdatezoneForORDER_NO(OrderNumber,Zone1);
+                                Toast.makeText(context, "تم", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.cancel();
+                            }
+                        }).show();
+            }
         }
     }
     private void GETOrderData(String trackingnumber){
@@ -260,6 +287,54 @@ ActivityRecievePackedOrderForSortingBinding binding;
 //        });
     }
 
+    public void UpdateStatus_ON_83(){
+//        if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
+        List<RecievePackedModule> orderDataModuleDBHeaderkist = database.userDao().getorderNORecievePackedModule();
+        if (orderDataModuleDBHeaderkist.size() > 0) {
+            recievePackedOrderViewModel.UpdateStatus_ON_83(
+                    orderDataModuleDBHeaderkist.get(0).getORDER_NO(),
+                    "in sorting"
+            );
+        }else {
+            Toast.makeText(context, "لم يتم أدخال ", Toast.LENGTH_SHORT).show();
+        }
+        recievePackedOrderViewModel.mutableLiveData_UpdateStatus_ON_83.observe(RecievePackedOrderForSortingActivity.this, new Observer<ResponseUpdateStatus>() {
+            @Override
+            public void onChanged(ResponseUpdateStatus message) {
+                Toast.makeText(RecievePackedOrderForSortingActivity.this, ""+message.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onChanged:update "+message.getMessage() );
+            }
+        });
+//        }else {
+//            Toast.makeText(GetOrderDatactivity.this, "توجد عناصر لم يتم تعبئتها", Toast.LENGTH_SHORT).show();
+//        }
+    }
 
 
+    public void UpdateStatus(){
+//        if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
+
+        List<RecievePackedModule> orderDataModuleDBHeaderkist = database.userDao().getorderNORecievePackedModule();
+
+        recievePackedOrderViewModel.UpdateStatus(
+                orderDataModuleDBHeaderkist.get(0).getORDER_NO(),
+                "in sorting"
+        );
+        recievePackedOrderViewModel.mutableLiveData_UpdateStatus.observe(RecievePackedOrderForSortingActivity.this, new Observer<ResponseUpdateStatus>() {
+            @Override
+            public void onChanged(ResponseUpdateStatus message) {
+                Toast.makeText(RecievePackedOrderForSortingActivity.this, ""+message.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onChanged:UpdateStatus "+message.getMessage() );
+            }
+        });
+        recievePackedOrderViewModel.mutableLiveDataError.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Log.e(TAG, "onChanged: "+s );
+                Toast.makeText(RecievePackedOrderForSortingActivity.this, s, Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }
 }

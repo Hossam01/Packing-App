@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.AdminstratorActivity"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btn_packed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Packed"/>
+
+    <Button
+        android:id="@+id/btn_SortingTeam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SortingTeam"/>
+
+    <Button
+        android:id="@+id/btn_SortedTeam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SortedTeam"/>
+
+
+    <Button
+        android:id="@+id/btn_driver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Driver"/>
+
+
+    <Button
+        android:id="@+id/btn_supervisor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Supervisor"/>
+
+</LinearLayout>

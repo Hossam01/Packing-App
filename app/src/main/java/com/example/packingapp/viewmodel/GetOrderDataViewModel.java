@@ -55,7 +55,6 @@ public class GetOrderDataViewModel extends ViewModel {
                                       String PICKER_CONFIMATION_TIME, String GRAND_TOTAL, String CURRENCY, String SHIPPING_FEES,
                                       String STORAGE_LOCATION) {
 
-
         HashMap<String, String> map = new HashMap<>();
         map.put("ORDER_NO", ORDER_NO);
         map.put("OUTBOUND_DELIVERY", OUTBOUND_DELIVERY);

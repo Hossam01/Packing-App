@@ -30,21 +30,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="2"
+        android:layout_marginTop="30dp">
 
         <Button
             android:id="@+id/btn_assign_to_zone"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="Assign To Zone"/>
+            android:text="Assign To Zone"
+            />
         <Button
             android:id="@+id/btn_dismiss"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Dismiss"
-            />
+            android:visibility="gone"/>
 
     </LinearLayout>
 </LinearLayout>

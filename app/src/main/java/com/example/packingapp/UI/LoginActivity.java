@@ -56,13 +56,21 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(i);
                 }else if (responseLogin.getRecords().get(0).getGroupID().equalsIgnoreCase("2")){
                     Log.e(TAG, "onChanged: else if 2 " );
-
                     Intent i = new Intent(getApplicationContext(), RecievePackedOrderForSortingActivity.class);
+                    startActivity(i);
+                }else if (responseLogin.getRecords().get(0).getGroupID().equalsIgnoreCase("3")){
+                    Log.e(TAG, "onChanged: else if 3 " );
+                    Intent i = new Intent(getApplicationContext(), AssignPackedOrderForZoneAndDriverActivity.class);
                     startActivity(i);
                 }else if (responseLogin.getRecords().get(0).getGroupID().equalsIgnoreCase("4")){
                     Log.e(TAG, "onChanged: else if 4 " );
 
                     Intent i = new Intent(getApplicationContext(), AddAndEditActivity.class);
+                    startActivity(i);
+                }else if (responseLogin.getRecords().get(0).getGroupID().equalsIgnoreCase("5")){
+                    Log.e(TAG, "onChanged: else if 4 " );
+
+                    Intent i = new Intent(getApplicationContext(), AdminstratorActivity.class);
                     startActivity(i);
                 }
 

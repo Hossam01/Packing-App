@@ -3,8 +3,8 @@ package com.example.packingapp.viewmodel;
 import android.util.Log;
 
 import com.example.packingapp.Retrofit.ApiClient;
-import com.example.packingapp.model.GetOrderResponse.ResponseGetOrderData;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
+import com.example.packingapp.model.ResponseDriver;
 import com.example.packingapp.model.ResponseUpdateStatus;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class RecievePackedOrderViewModel extends ViewModel {
+public class AssignPackedOrderToZoneViewModel extends ViewModel {
     private MutableLiveData<RecievePackedModule> OrderDataLiveData = new MutableLiveData<>();
     public MutableLiveData<RecievePackedModule> getOrderDataLiveData() {
         return OrderDataLiveData;
@@ -41,6 +41,7 @@ public class RecievePackedOrderViewModel extends ViewModel {
     }
 
     public static MutableLiveData<ResponseUpdateStatus> mutableLiveData_UpdateStatus = new MutableLiveData<>();
+
     public void UpdateStatus(String ORDER_NO, String Status) {
 
 
@@ -58,13 +59,11 @@ public class RecievePackedOrderViewModel extends ViewModel {
 
                         }
                         ,throwable -> {
-                            mutableLiveDataError.setValue(throwable.getMessage());
                             Log.d("Error",throwable.getMessage());
 
                         });
 
     }
-
 
     public static MutableLiveData<ResponseUpdateStatus> mutableLiveData_UpdateStatus_ON_83 = new MutableLiveData<>();
 
@@ -88,4 +87,19 @@ public class RecievePackedOrderViewModel extends ViewModel {
                         });
 
     }
+    public static MutableLiveData<ResponseDriver> mutableLiveDataRead = new MutableLiveData<>();
+
+    public void GetDriversID(){
+        ApiClient.build().GetDrivers_IDS()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe((ResponseDriver responseSms) -> {
+                            mutableLiveDataRead.setValue(responseSms);
+                        }
+                        ,throwable -> {
+                            Log.d("Error",throwable.getMessage());
+
+                        });
+    }
+
 }

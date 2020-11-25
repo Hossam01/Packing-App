@@ -5,6 +5,7 @@ import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.ResponseDriver;
 import com.example.packingapp.model.ResponseLogin;
 import com.example.packingapp.model.ResponseSms;
+import com.example.packingapp.model.ResponseUpdateStatus;
 import com.example.packingapp.model.ResponseVehicle;
 import com.example.packingapp.model.ResponseWay;
 
@@ -66,4 +67,10 @@ public interface APIRetrofit {
     @POST("Packing_Api/Ordernumber/Read.php")
     Observable<RecievePackedModule> GetOrderNumberAndNumPackage(@Body Map<String, String> mobile);
 
+
+    @POST("Packing_Api/Ordernumber/UpdateStatus.php")
+    Observable<ResponseUpdateStatus> UpdateOrderStatus_ON_83(@Body Map<String, String> mobile);
+
+    @GET("Packing_Api/Driver/Read.php")
+    Observable<ResponseDriver> GetDrivers_IDS();
 }

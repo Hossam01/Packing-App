@@ -135,4 +135,7 @@ public interface UserDao {
     @Query("UPDATE RecievePackedModule SET Zone = :zone WHERE  ORDER_NO in (:ORDER_NO) ")
     void UpdatezoneForORDER_NO(String ORDER_NO , String zone );
 
+    @Query("SELECT * FROM RecievePackedModule")
+    List<RecievePackedModule> getorderNORecievePackedModule();
+
 }

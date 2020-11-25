@@ -20,9 +20,17 @@
     <string name="enter_barcode">أدخل الباركود</string>
     <string name="enter_valid_barcode">هذا الباركود غير موجود</string>
     <string name="delete_dialoge">هل أنت متأكد من أنك تريد حذف</string>
-    <string name="enter_Tracking_number">أدخل Tracking number</string>
     <string name="message_not_equalfornoofpaclkageandcountoftrackingnumbers">No of tracking number that entered isn\'t equal packed package</string>
-    <string name="message_equalfornoofpaclkageandcountoftrackingnumbers">No of tracking number that entered isn equal packed package</string>
+    <string name="message_equalfornoofpaclkageandcountoftrackingnumbers">No of tracking number that entered is equal packed package</string>
     <string name="there_is_no_trackednumber_scanned">there is no tracking number scanned.</string>
+    <string name="updte_zone_if_exist">"تم أدخال المنطقه من قبل..هل تريد التعديل "</string>
+    <string name="delete_last_assign">حذف أخر أستلامه</string>
+    <string name="show_assign_orders_to_driver">Show Assign Orders To Driver</string>
+    <string name="enter_tracking_number">أدخل السريال</string>
+    <string name="enter_valid_tracking_number">أدخل سريال صحيح </string>
+
+    <string name="enter">أدخال</string>
+    <string name="assign_orders_to_driver">Assign Orders To Driver</string>
+    <string name="assign_orders_to_zone">Assign Orders To Zone</string>
 
 </resources>
