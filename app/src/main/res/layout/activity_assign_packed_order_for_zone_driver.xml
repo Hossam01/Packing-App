@@ -98,7 +98,7 @@
                     android:id="@+id/btn_assign_orders_to_zone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/assign_orders_to_zone"
+                    android:text="@string/confirm_assign_orders_to_zone"
                     android:background="@drawable/bg_layout_edit"
                     android:textColor="@color/txt_color"
                     android:layout_marginTop="20dp"
