@@ -64,7 +64,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //UploadHeader();
-               // UploadDetails();
+                UploadDetails();
                 UpdateStatus();
             }
         });
