@@ -28,13 +28,23 @@ public class RecievePackedModule {
     @SerializedName("Zone")
     private String Zone;
 
+
     public RecievePackedModule() {
     }
 
-    public RecievePackedModule(String ORDER_NO, String NO_OF_PACKAGES, String tracking_Number) {
+    public RecievePackedModule(String ORDER_NO, String NO_OF_PACKAGES,
+                               String tracking_Number) {
         this.ORDER_NO = ORDER_NO;
         this.NO_OF_PACKAGES = NO_OF_PACKAGES;
         Tracking_Number = tracking_Number;
+    }
+
+    public RecievePackedModule(String ORDER_NO, String NO_OF_PACKAGES,
+                               String tracking_Number,String Zone) {
+        this.ORDER_NO = ORDER_NO;
+        this.NO_OF_PACKAGES = NO_OF_PACKAGES;
+        Tracking_Number = tracking_Number;
+        this.Zone=Zone;
     }
 
     public int getUid() {

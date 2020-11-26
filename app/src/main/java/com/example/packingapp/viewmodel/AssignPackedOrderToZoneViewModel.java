@@ -65,20 +65,21 @@ public class AssignPackedOrderToZoneViewModel extends ViewModel {
 
     }
 
-    public static MutableLiveData<ResponseUpdateStatus> mutableLiveData_UpdateStatus_ON_83 = new MutableLiveData<>();
+    public static MutableLiveData<ResponseUpdateStatus> mutableLiveData_UpdateStatus_Zone_ON_83 = new MutableLiveData<>();
 
-    public void UpdateStatus_ON_83(String ORDER_NO, String Status) {
+    public void UpdateOrderStatus_Zone_ON_83(String ORDER_NO, String ZONE, String Status) {
 
 
         HashMap<String, String> map = new HashMap<>();
         map.put("ORDER_NO", ORDER_NO);
+        map.put("ZONE", ZONE);
         map.put("STATUS", Status);
-        ApiClient.build().UpdateOrderStatus_ON_83(map)
+        ApiClient.build().UpdateOrderStatus_Zone_ON_83(map)
 
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(responseSms -> {
-                            mutableLiveData_UpdateStatus_ON_83.setValue(responseSms);
+                            mutableLiveData_UpdateStatus_Zone_ON_83.setValue(responseSms);
 
                         }
                         ,throwable -> {
@@ -100,6 +101,29 @@ public class AssignPackedOrderToZoneViewModel extends ViewModel {
                             Log.d("Error",throwable.getMessage());
 
                         });
+    }
+
+    public static MutableLiveData<ResponseUpdateStatus> mutableLiveData_UpdateDriverID_ON_83 = new MutableLiveData<>();
+
+    public void UpdateOrder_DriverID_ON_83(String ORDER_NO, String DriverID) {
+
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("ORDER_NO", ORDER_NO);
+        map.put("DRIVER_ID", DriverID);
+        ApiClient.build().UpdateOrder_DriverID_83(map)
+
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(responseSms -> {
+                            mutableLiveData_UpdateDriverID_ON_83.setValue(responseSms);
+
+                        }
+                        ,throwable -> {
+                            Log.d("Error",throwable.getMessage());
+
+                        });
+
     }
 
 }

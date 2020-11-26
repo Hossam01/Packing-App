@@ -71,6 +71,14 @@ public interface APIRetrofit {
     @POST("Packing_Api/Ordernumber/UpdateStatus.php")
     Observable<ResponseUpdateStatus> UpdateOrderStatus_ON_83(@Body Map<String, String> mobile);
 
+    @POST("Packing_Api/Ordernumber/UpdateStatusAndZone.php")
+    Observable<ResponseUpdateStatus> UpdateOrderStatus_Zone_ON_83(@Body Map<String, String> mobile);
+
     @GET("Packing_Api/Driver/Read.php")
     Observable<ResponseDriver> GetDrivers_IDS();
+
+    @POST("Packing_Api/Ordernumber/UpdateDriverID.php")
+    Observable<ResponseUpdateStatus> UpdateOrder_DriverID_83(@Body Map<String, String> mobile);
+
+
 }
