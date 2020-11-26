@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 
 import com.example.packingapp.Database.AppDatabase;
+import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityGetOrderDataBinding;
 import com.example.packingapp.databinding.ActivityRecievePackedOrderForSortingBinding;
@@ -40,7 +41,6 @@ ActivityRecievePackedOrderForSortingBinding binding;
     AppDatabase database;
     final Context context = this;
     String Zone ,trackingnumberIn;
-    Pattern my_pattern = Pattern.compile("[a-z ]");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +56,11 @@ ActivityRecievePackedOrderForSortingBinding binding;
             public void onClick(View view) {
                 String OrderNumber;
 
-
                 if (!binding.editTrackingnumber.getText().toString().isEmpty() &&
                         binding.editTrackingnumber.getText().toString().contains("-")) {
-                    Matcher my_match = my_pattern.matcher(binding.editTrackingnumber.getText().toString());
-                    Log.e(TAG, "onClick: "+my_match.find() );
-                    if (!my_match.find()) {
+                  //  if (!my_match.find()) {
+                    if (Constant.RegulerExpre_forTrackingNumbeer(binding.editTrackingnumber.getText().toString())) {
+
                         Toast.makeText(context, "Special character not found in the string", Toast.LENGTH_SHORT).show();
 
                         OrderNumber =
