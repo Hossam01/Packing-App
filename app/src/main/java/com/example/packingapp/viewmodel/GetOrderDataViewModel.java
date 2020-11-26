@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -95,20 +96,30 @@ public class GetOrderDataViewModel extends ViewModel {
         JsonArray equipmentJsonArray = gson.toJsonTree(itemsOrderDataDBDetailsList).getAsJsonArray();
 
         //From_Sap_Or_Not=false;
-        map.put("ItemsOrderDataDBDetailsList", equipmentJsonArray.toString());
-        map.put("ORDER_NO", OrderNumber);
+//        map.put("ItemsOrderDataDBDetailsList", equipmentJsonArray.toString());
+//        map.put("ORDER_NO", OrderNumber);
 
-        ApiClient.build().InsertOrderDataDetails(map)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(responseSms -> {
-                            mutableLiveData_Details.setValue(responseSms);
-                        }
-                        ,throwable -> {
-                            Log.d("Errorr ",throwable.getMessage());
+        for (int i =0;i<itemsOrderDataDBDetailsList.size();i++) {
+            //"\u200e"
 
-                        });
+           String name= itemsOrderDataDBDetailsList.get(i).getName();
 
+            String itemsOrder=itemsOrderDataDBDetailsList.get(i).getTrackingNumber()+"/"+name+"/"+itemsOrderDataDBDetailsList.get(i).getSku()
+                    +"/"+itemsOrderDataDBDetailsList.get(i).getPrice()+"/"+itemsOrderDataDBDetailsList.get(i).getQuantity()+"/"+itemsOrderDataDBDetailsList.get(i).getUnite()+"/"+"DOne"+"/"+"Go";
+            Log.e("data",itemsOrder);
+            Log.e("OrderNumber",OrderNumber);
+                ApiClient.build().InsertOrderDataDetails(OrderNumber,itemsOrder)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(responseSms -> {
+                                    mutableLiveData_Details.setValue(responseSms);
+                                }
+                                , throwable -> {
+                                    Log.d("Errorr ", throwable.getMessage());
+
+                                });
+
+        }
     }
 
     public static MutableLiveData<ResponseUpdateStatus> mutableLiveData_UpdateStatus = new MutableLiveData<>();

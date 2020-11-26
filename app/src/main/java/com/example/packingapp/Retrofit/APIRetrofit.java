@@ -61,8 +61,9 @@ public interface APIRetrofit {
     @POST("Packing_Api/Ordernumber/CreateHeader.php")
     Observable<Message> InsertOrderDataHeader(@Body Map<String, String> mobile);
 
+    @FormUrlEncoded
     @POST("Packing_Api/Ordernumber/CreateDetails.php")
-    Observable<Message> InsertOrderDataDetails(@Body Map<String, String> mobile);
+    Observable<Message> InsertOrderDataDetails(@Field("ORDER_NO") String ORDER_NO,@Field("ItemsOrderDataDBDetailsList[0]") String name);
 
     @POST("Packing_Api/Ordernumber/Read.php")
     Observable<RecievePackedModule> GetOrderNumberAndNumPackage(@Body Map<String, String> mobile);

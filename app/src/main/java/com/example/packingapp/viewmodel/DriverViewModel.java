@@ -21,7 +21,7 @@ public class DriverViewModel extends ViewModel {
         return mutableLiveData;
     }
 
-    public void fetchdata(String nameArabic, String nameEnglish, String status, String company, String Phone, String address, String Vechile_ID) {
+    public void fetchdata(String nameArabic, String nameEnglish, String status, String company, String Phone, String address, String Vechile_ID,String National_ID) {
 
 
         HashMap<String, String> map = new HashMap<>();
@@ -32,6 +32,7 @@ public class DriverViewModel extends ViewModel {
         map.put("Phone", Phone);
         map.put("Address", address);
         map.put("Vechile_ID", Vechile_ID);
+        map.put("National_ID", National_ID);
         ApiClient.build().createDriver(map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -45,7 +46,7 @@ public class DriverViewModel extends ViewModel {
 
     }
 
-    public void updateData(String id, String nameArabic, String nameEnglish, String status, String company, String Phone, String address, String Vechile_ID) {
+    public void updateData(String id, String nameArabic, String nameEnglish, String status, String company, String Phone, String address, String Vechile_ID, String National_ID) {
         HashMap<String, String> map = new HashMap<>();
         map.put("Driver_ID", id);
         map.put("NameArabic", nameArabic);
@@ -55,6 +56,7 @@ public class DriverViewModel extends ViewModel {
         map.put("Phone", Phone);
         map.put("Address", address);
         map.put("Vechile_ID", Vechile_ID);
+        map.put("National_ID", National_ID);
         ApiClient.build().updateDriver(map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
