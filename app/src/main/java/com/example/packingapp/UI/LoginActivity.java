@@ -67,6 +67,11 @@ public class LoginActivity extends AppCompatActivity {
 
                     Intent i = new Intent(getApplicationContext(), AddAndEditActivity.class);
                     startActivity(i);
+                }else if (responseLogin.getRecords().get(0).getGroupID().equalsIgnoreCase("6")){
+                    Log.e(TAG, "onChanged: else if 4 " );
+
+                    Intent i = new Intent(getApplicationContext(), AddAndEditActivity.class);
+                    startActivity(i);
                 }else if (responseLogin.getRecords().get(0).getGroupID().equalsIgnoreCase("5")){
                     Log.e(TAG, "onChanged: else if 4 " );
 

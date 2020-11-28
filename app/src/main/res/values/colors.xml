@@ -34,4 +34,7 @@
     <color name="third_white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="secod_red">#E63124</color>
+
+    <!--used in main driver -->
+    <color name="textcolor_btns">#FFFFFF</color>
 </resources>

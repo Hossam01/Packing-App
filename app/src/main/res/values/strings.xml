@@ -34,5 +34,10 @@
     <string name="confirm_assign_orders_to_zone">Confirm Assign Orders To Zone</string>
     <string name="National">National ID</string>
     <string name="choice_driver_id">choice driver ID</string>
+    <string name="confirm_recieved_trackingnumber">Confirm Recieved Trackingnumber</string>
+    <string name="show_my_orders_in_runtimesheet">Show my Orders Of Runtime Sheet</string>
+    <string name="show_my_orders_end_of_day">Show my Orders End Of Day</string>
+    <string name="checkin">Check In</string>
+    <string name="checkout">Check Out</string>
 
 </resources>

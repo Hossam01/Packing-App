@@ -66,6 +66,7 @@ ActivityRecievePackedOrderForSortingBinding binding;
                         OrderNumber =
                                 binding.editTrackingnumber.getText().toString().substring(0,
                                         binding.editTrackingnumber.getText().toString().indexOf("-"));
+                       //TODO CHECK IF TRACKING NUMBER MORE THAN require no of packages
                         String NOtrackingnumber = binding.editTrackingnumber.getText().toString().substring(
                                 binding.editTrackingnumber.getText().toString().indexOf("-") + 1);
                         Log.e(TAG, "onClick: " + NOtrackingnumber);
@@ -78,6 +79,7 @@ ActivityRecievePackedOrderForSortingBinding binding;
                             Log.e(TAG, "onClick: Ord " + OrderNumber);
                             //    Toast.makeText(RecievePackedOrderForSortingActivity.this, "تم", Toast.LENGTH_SHORT).show();
                         } else {
+                            //TODO CHECK IF TRACKING NUMBER MORE THAN require no of packages
                             if (database.userDao().getRecievePacked_Tracking_Number(binding.editTrackingnumber.getText().toString())
                                     .size() == 0 && Integer.valueOf(recievePackedlist.get(0).getNO_OF_PACKAGES()) >=
                                     Integer.valueOf(NOtrackingnumber)) {
