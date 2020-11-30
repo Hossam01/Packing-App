@@ -16,9 +16,9 @@ public class DriverPackages_Header_DB {
     @SerializedName("ORDER_NO")
     private String Order_number;
 
-    @ColumnInfo(name ="OutBound_delivery")
-    @SerializedName("OutBound_delivery")
-    private String OutBound_delivery;
+    @ColumnInfo(name ="Passcode")
+    @SerializedName("Passcode")
+    private String Passcode;
 
     @ColumnInfo(name = "Customer_name")
     @SerializedName("Customer_name")
@@ -81,8 +81,8 @@ public class DriverPackages_Header_DB {
     public DriverPackages_Header_DB() {
     }
 
-    public DriverPackages_Header_DB(String OutBound_delivery) {
-        this.OutBound_delivery=OutBound_delivery;
+    public DriverPackages_Header_DB(String Passcode) {
+        this.Passcode=Passcode;
     }
 
     public DriverPackages_Header_DB(String order_number, String customer_name, String customer_phone,
@@ -177,12 +177,12 @@ public class DriverPackages_Header_DB {
         return Order_number;
     }
 
-    public String getOutBound_delivery() {
-        return OutBound_delivery;
+    public String getPasscode() {
+        return Passcode;
     }
 
-    public void setOutBound_delivery(String outBound_delivery) {
-        OutBound_delivery = outBound_delivery;
+    public void setPasscode(String outBound_delivery) {
+        Passcode = outBound_delivery;
     }
 
     public void setOrder_number(String order_number) {
