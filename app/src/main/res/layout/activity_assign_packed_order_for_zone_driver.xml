@@ -119,12 +119,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal"
-
             android:background="@drawable/bg_layout_edit"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="15dp"
+            >
                 <EditText
                     android:id="@+id/edit_trackingnumber_driver"
                     android:layout_width="match_parent"

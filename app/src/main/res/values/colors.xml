@@ -37,4 +37,10 @@
 
     <!--used in main driver -->
     <color name="textcolor_btns">#FFFFFF</color>
+
+    <!--for bottomview of item of recycler  -->
+     <color name="view_color">#0000FF</color>
+
+    <color name="color_for_confirm_passcode_bg">#0993CA</color>
+
 </resources>

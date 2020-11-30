@@ -27,7 +27,8 @@ ActivityAdminstratorBinding binding;
         binding.btnSortingTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), RecievePackedOrderForSortingActivity.class);
+                Intent i = new Intent(getApplicationContext(), RecievedPackedAndSortedOrderForSortingAndDriverActivity.class);
+                i.putExtra("RecievePackedOrConfirmForDriver","RecievePacked");
                 startActivity(i);
             }
         });
@@ -41,7 +42,7 @@ ActivityAdminstratorBinding binding;
         binding.btnDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), MainDriveActivity.class);
+                Intent i = new Intent(getApplicationContext(), DriverMainActivity.class);
                 startActivity(i);
             }
         });

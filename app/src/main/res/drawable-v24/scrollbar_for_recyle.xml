@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="@android:color/black"
+        android:centerColor="@color/color_for_confirm_passcode_bg"
+
+        android:endColor="@android:color/black"
+        android:angle="45"/>
+    <corners android:radius="6dp" />
+</shape>

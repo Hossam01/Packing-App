@@ -85,7 +85,8 @@ public class GetOrderDatactivity extends AppCompatActivity {
 
     private void GETOrderData(){
         getOrderDataViewModel.fetchdata(binding.editMagentoorder.getText().toString());
-        getOrderDataViewModel.getOrderDataLiveData().observe(GetOrderDatactivity.this, new Observer<ResponseGetOrderData>() {
+        getOrderDataViewModel.getOrderDataLiveData().observe(GetOrderDatactivity.this,
+                new Observer<ResponseGetOrderData>() {
             @Override
             public void onChanged(ResponseGetOrderData responseGetOrderData) {
                 OrderDataModuleDBHeader orderDataModuleDBHeader= new OrderDataModuleDBHeader(

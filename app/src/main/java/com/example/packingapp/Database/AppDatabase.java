@@ -6,6 +6,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.packingapp.model.DriverModules.DriverPackages_Details_DB;
+import com.example.packingapp.model.DriverModules.DriverPackages_Header_DB;
 import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
 import com.example.packingapp.model.GetOrderResponse.OrderDataModuleDBHeader;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
@@ -15,7 +17,7 @@ import com.example.packingapp.model.TrackingnumbersListDB;
 
 @Database(entities = {RecordsItem.class , OrderDataModuleDBHeader.class,
         ItemsOrderDataDBDetails.class, TrackingnumbersListDB.class ,
-        RecievePackedModule.class}, version = 1, exportSchema = false)
+        RecievePackedModule.class , DriverPackages_Header_DB.class , DriverPackages_Details_DB.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase mInstance;
     private static final String DATABASE_NAME = "PackingDB";

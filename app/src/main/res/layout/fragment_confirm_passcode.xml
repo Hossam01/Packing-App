@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:background="@drawable/scrollbar_for_recyle"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layoutDirection="rtl"
+            android:layout_centerInParent="true"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="35dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/passcode"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    android:textStyle="bold"
+                    android:textColor="@color/third_white"
+                    />
+
+                <EditText
+                    android:id="@+id/edit_passcode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal"
+                    android:text="@string/passcode"
+                    android:textColor="@color/third_white"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    android:hint="@string/enter_passcode"/>
+            </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn"
+            android:text="Confirm Passcode"
+            android:textColor="@color/textcolor_btns"/>
+
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/image_close"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/close"
+            android:layout_gravity="center_horizontal"
+            app:tint="@color/white"/>
+    </RelativeLayout>
+
+
+</FrameLayout>

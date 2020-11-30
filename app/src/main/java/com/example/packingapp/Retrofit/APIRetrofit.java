@@ -1,5 +1,7 @@
 package com.example.packingapp.Retrofit;
 
+import com.example.packingapp.model.DriverModules.DriverPackages_Respones_Details_recycler;
+import com.example.packingapp.model.DriverModules.DriverPackages_Respones_Header_recycler;
 import com.example.packingapp.model.Message;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.ResponseDriver;
@@ -81,5 +83,10 @@ public interface APIRetrofit {
     @POST("Packing_Api/Ordernumber/UpdateDriverID.php")
     Observable<ResponseUpdateStatus> UpdateOrder_DriverID_83(@Body Map<String, String> mobile);
 
+    @POST("Packing_Api/Ordernumber/ReadDriverRunsheetOrders.php")
+    Observable<DriverPackages_Respones_Header_recycler> ReadDriverRunsheetOrders_83(@Body Map<String, String> mobile);
+
+    @POST("Packing_Api/Ordernumber/ReadDriverTrackingnumbersOfOrders.php")
+    Observable<DriverPackages_Respones_Details_recycler> ReadDriverTrackingnumbersOfOrders_83(@Body Map<String, String> mobile);
 
 }

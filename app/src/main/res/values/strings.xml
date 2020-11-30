@@ -30,7 +30,7 @@
     <string name="enter_valid_tracking_number">أدخل سريال صحيح </string>
 
     <string name="enter">أدخال</string>
-    <string name="confirm_assign_orders_to_driver">Confirm Assign Orders To Driver</string>
+    <string name="confirm_assign_orders_to_driver">Confirm ِAnd Print Assign Orders To Driver</string>
     <string name="confirm_assign_orders_to_zone">Confirm Assign Orders To Zone</string>
     <string name="National">National ID</string>
     <string name="choice_driver_id">choice driver ID</string>
@@ -39,5 +39,12 @@
     <string name="show_my_orders_end_of_day">Show my Orders End Of Day</string>
     <string name="checkin">Check In</string>
     <string name="checkout">Check Out</string>
+    <string name="order_number">order number</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="tracking_number">tracking number</string>
+    <string name="package_items">Package Items</string>
+    <string name="delete_last_assigned_order_of_driver">هل تريد حذف أخر أستلامه والأستلام من جديد</string>
+    <string name="passcode">الكود</string>
+    <string name="enter_passcode">enter passcode</string>
 
 </resources>

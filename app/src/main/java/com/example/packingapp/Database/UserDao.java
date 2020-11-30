@@ -7,6 +7,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.packingapp.model.DriverModules.DriverPackages_Details_DB;
+import com.example.packingapp.model.DriverModules.DriverPackages_Header_DB;
 import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
 import com.example.packingapp.model.GetOrderResponse.OrderDataModuleDBHeader;
 import com.example.packingapp.model.PackedPackageItemsModule;
@@ -24,10 +26,15 @@ import static androidx.room.OnConflictStrategy.REPLACE;
 @Dao
 public interface UserDao {
    @Query("SELECT * FROM user")
-   Observable<List<RecordsItem>> getAll();
- 
+   Observable<List<RecordsItem>> getUserData();
+
+    @Query("SELECT * FROM user")
+    RecordsItem getUserData_MU();
+
+
     @Insert(onConflict = REPLACE)
     void insertUser(RecordsItem mUser);
+
 
     @Delete
     void delete(RecordsItem mUser);
@@ -138,4 +145,14 @@ public interface UserDao {
     @Query("SELECT * FROM RecievePackedModule")
     List<RecievePackedModule> getorderNORecievePackedModule();
 
+    @Insert(onConflict = REPLACE)
+    void insertDriverOrders(List<DriverPackages_Header_DB> driverPackages_Header_dblist);
+
+    @Insert(onConflict = REPLACE)
+    void insertDriverPackages(List<DriverPackages_Details_DB> driverPackages_details_dbs);
+
+    @Query("DELETE FROM DriverPackages_Header_DB")
+    void deleteDriverPackages_Header_DB();
+    @Query("DELETE FROM DriverPackages_Details_DB")
+    void deleteDriverPackages_Details_DB();
 }

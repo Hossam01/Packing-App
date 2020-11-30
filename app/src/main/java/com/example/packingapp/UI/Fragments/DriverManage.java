@@ -8,17 +8,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-
 import com.example.packingapp.databinding.ManageDriverBinding;
 import com.example.packingapp.model.ResponseDriver;
 import com.example.packingapp.viewmodel.DriverViewModel;
 
-
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 public class DriverManage extends Fragment {
     ManageDriverBinding binding;
@@ -98,10 +97,6 @@ public class DriverManage extends Fragment {
             }
             spinnerAdapter.notifyDataSetChanged();
         });
-
-
-
-
         binding.create.setOnClickListener(v -> {
             if (State.equals("create"))
                 create();

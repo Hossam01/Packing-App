@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/main_content"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    tools:context=".UI.OrderDetails_forDriverActivity"
+    >
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circle_user_image"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_user"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        />
+
+    <LinearLayout
+        android:id="@+id/linear_call_and_sms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/circle_user_image"
+        android:weightSum="2"
+        android:layout_marginTop="20dp">
+        <ImageButton
+            android:id="@+id/img_btn_sms"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:src="@drawable/message"
+            android:tint="@color/white"
+            android:background="@drawable/bg_btn"/>
+
+        <ImageButton
+            android:id="@+id/img_btn_call"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:tint="@color/white"
+            android:src="@android:drawable/stat_sys_phone_call_forward"
+            android:background="@drawable/bg_btn"/>
+
+    </LinearLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/include_header_of_rv"
+        layout="@layout/recycle_item_for_driver_packages"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/linear_call_and_sms"
+        android:layout_marginTop="15dp"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+     android:id="@+id/rv_customer_items"
+    android:layout_height="200dp"
+    android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/include_header_of_rv"
+        />
+
+    <Button
+        android:id="@+id/btn_send_passcode_to_confirm_deleivery"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_btn"
+        app:layout_constraintTop_toBottomOf="@+id/rv_customer_items"
+        android:text="Send Passcode To Confirm Deleivery"
+        android:textColor="@color/textcolor_btns"/>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/include_header_of_rv_reject"
+        layout="@layout/recycle_item_for_driver_packages"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/btn_send_passcode_to_confirm_deleivery"
+        android:layout_marginTop="15dp"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_customer_reject_items"
+        android:layout_height="100dp"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/include_header_of_rv_reject"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

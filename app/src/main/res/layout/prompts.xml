@@ -9,21 +9,13 @@
 
 
     <EditText
-        android:id="@+id/edit_trackingnumber"
+        android:id="@+id/edit_smsInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Scan Tracking number"
         android:textColorHint="#DDD">
 
     <requestFocus />
-    </EditText>
-
-    <EditText
-        android:id="@+id/edit_zone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Scan Zone"
-        android:textColorHint="#DDD">
     </EditText>
 
     <LinearLayout
@@ -34,11 +26,11 @@
         android:layout_marginTop="30dp">
 
         <Button
-            android:id="@+id/btn_assign_to_zone"
+            android:id="@+id/btn_send_sms"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="Assign To Zone"
+            android:text="Send SMS"
             />
         <Button
             android:id="@+id/btn_dismiss"
