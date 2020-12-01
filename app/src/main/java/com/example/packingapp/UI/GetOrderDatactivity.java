@@ -6,6 +6,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.databinding.ActivityGetOrderDataBinding;
 import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
@@ -16,10 +20,6 @@ import com.example.packingapp.model.ResponseUpdateStatus;
 import com.example.packingapp.viewmodel.GetOrderDataViewModel;
 
 import java.util.List;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 public class GetOrderDatactivity extends AppCompatActivity {
     ActivityGetOrderDataBinding binding;
@@ -93,7 +93,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
                 new Observer<ResponseGetOrderData>() {
             @Override
             public void onChanged(ResponseGetOrderData responseGetOrderData) {
-               /* OrderDataModuleDBHeader orderDataModuleDBHeader= new OrderDataModuleDBHeader(
+                OrderDataModuleDBHeader orderDataModuleDBHeader= new OrderDataModuleDBHeader(
                         responseGetOrderData.getOrder_number(),
                         responseGetOrderData.getCustomer().getName(),
                         responseGetOrderData.getCustomer().getPhone_number(),
@@ -111,7 +111,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
                 );
                 database.userDao().insertOrderHeader(orderDataModuleDBHeader);
                 database.userDao().UpdateOutBoundDelievery(binding.editOutbounddelievery.getText().toString(),responseGetOrderData.getOrder_number());
-                database.userDao().insertOrderItems(responseGetOrderData.getItemsOrderDataDBDetails());*/
+                database.userDao().insertOrderItems(responseGetOrderData.getItemsOrderDataDBDetails());
                 Log.e(TAG, "zzz>> currency " +  responseGetOrderData.getCurrency());
 
                 Log.e(TAG, "zzz>> items size " + responseGetOrderData.getItemsOrderDataDBDetails().size());

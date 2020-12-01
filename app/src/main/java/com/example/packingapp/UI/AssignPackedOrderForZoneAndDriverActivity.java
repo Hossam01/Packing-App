@@ -1,10 +1,5 @@
 package com.example.packingapp.UI;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -20,10 +16,17 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityAssignPackedOrderForZoneDriverBinding;
+import com.example.packingapp.model.GetOrderResponse.OrderDataModuleDBHeader;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.ResponseDriver;
 import com.example.packingapp.model.ResponseUpdateStatus;
@@ -43,13 +46,15 @@ import java.util.Locale;
 
 public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity {
     private static final String TAG = "AssignPackedOrderForZon";
-ActivityAssignPackedOrderForZoneDriverBinding binding;
+    ActivityAssignPackedOrderForZoneDriverBinding binding;
     AssignPackedOrderToZoneViewModel assignPackedOrderToZoneViewModel;
     AppDatabase database;
     final Context context = this;
     String Zone ,trackingnumberIn;
     ArrayList<String> Drivers_IDs_list ;
     ResponseDriver responseDriver;
+    String trackingNo="";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,6 +164,7 @@ ActivityAssignPackedOrderForZoneDriverBinding binding;
                 if (!binding.editTrackingnumberDriver.getText().toString().isEmpty()) {
                     if (Constant.RegulerExpre_forTrackingNumbeer(binding.editTrackingnumberDriver.getText().toString())) {
                         Toast.makeText(context, "Special character not found in the string", Toast.LENGTH_SHORT).show();
+                        trackingNo=binding.editTrackingnumberDriver.getText().toString();
                         LoadNewPurchaseOrderBTN_Driver();
                     }else {
                         Toast.makeText(context, "Special character found in the string", Toast.LENGTH_SHORT).show();
@@ -196,6 +202,7 @@ ActivityAssignPackedOrderForZoneDriverBinding binding;
         });
 
         binding.btnConfirmAssignOrdersToDriver.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
                 Log.e(TAG, "onClick:spi "+binding.spinerDriverId.getSelectedItemPosition());
@@ -220,7 +227,8 @@ ActivityAssignPackedOrderForZoneDriverBinding binding;
                             // UpdateStatus_zone_ON_83("sorted");
                             // UpdateStatus("sorted");
                             UpdateDriverID_ON_83(binding.spinerDriverId.getSelectedItem().toString());
-                            PrintRunTimeSheet();
+                            OrderDataModuleDBHeader orderDataModuleDBHeader= database.userDao().getHeaderToUpload();
+                            PrintRunTimeSheet(trackingNo,orderDataModuleDBHeader.getCustomer_name(),orderDataModuleDBHeader.getCustomer_address_city(),orderDataModuleDBHeader.getOutBound_delivery());
                         } else {
                             Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, String.format("%s",
                                     getString(R.string.message_not_equalfornoofpaclkageandcountoftrackingnumbers)), Toast.LENGTH_SHORT).show();
@@ -577,26 +585,28 @@ ActivityAssignPackedOrderForZoneDriverBinding binding;
     }
 
     //TODO
-    private void PrintRunTimeSheet() {
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void PrintRunTimeSheet(String trackingNo,String customer_name,String address,String outDelivery) {
         ActivityCompat.requestPermissions(this, new String[]{"android.permission.WRITE_EXTERNAL_STORAGE"}, 0);
-        createPdf();
+        createPdf(trackingNo,customer_name,address,outDelivery);
     }
-    private void createPdf() {
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void createPdf(String trackingNo,String customer_name,String address,String outDelivery) {
 
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
         PdfDocument pdfDocument = new PdfDocument();
         Paint paint = new Paint();
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
         paint.setTextSize(30.0f);
         PdfDocument.Page page = pdfDocument.startPage(new PdfDocument.PageInfo.Builder(2000, 3000, 1).create());
         Canvas canvas = page.getCanvas();
-        canvas.drawText("إقرار إستلام /Receiving Avowal", 700.0f, 30.0f, paint);
-        canvas.drawText("التاريخ/Date : " + currentDate + "           الوقت/Time : " + currentTime + " ", 550.0f, 70.0f, paint);
-        canvas.drawText("استلمت أنا ....................................... رقم قومي .............................  مندوب (شركة هايبروان للتجارة) البضاعة الموجودة بالشحنات المذكورأرقامها بالأسفل", 10.0f, 110.0f, paint);
-        canvas.drawText("وذلك لتسليمها لعملاء الشركة وتحصيل قيمتها منهم على أن ألتزم برد الطلبيات التي لم تسلم للعملاء لمخزن الشركة بنفس حالة إستلامها وتسديد ما أقوم بتحصيله", 30.0f, 150.0f, paint);
-        canvas.drawText("من العملاء لخزينة الشركة وتعتبر البضاعة وما أقوم بتحصيله من العملاء هو أمانة في ذمتي أتعهد بتسليمها للشركة, وإذا أخلللت بذلك أكون مبددا وخائنا للأمانة . ", 30.0f, 190.0f, paint);
-        canvas.drawText("وأتحمل كافة المسئولية الجنائية والمدنية المترتبة على ذلك. ", 550.0f, 230.0f, paint);
+        canvas.drawText("إقرار إستلام /Receiving Avowal", 700.0f, 60.0f, paint);
+        canvas.drawText("التاريخ/Date : " + currentDate + "           الوقت/Time : " + currentTime + " ", 550.0f, 100.0f, paint);
+        canvas.drawText("استلمت أنا ....................................... رقم قومي .............................  مندوب (شركة هايبروان للتجارة) البضاعة الموجودة بالشحنات المذكورأرقامها بالأسفل", 30.0f, 140.0f, paint);
+        canvas.drawText("وذلك لتسليمها لعملاء الشركة وتحصيل قيمتها منهم على أن ألتزم برد الطلبيات التي لم تسلم للعملاء لمخزن الشركة بنفس حالة إستلامها وتسديد ما أقوم بتحصيله", 30.0f, 180.0f, paint);
+        canvas.drawText("من العملاء لخزينة الشركة وتعتبر البضاعة وما أقوم بتحصيله من العملاء هو أمانة في ذمتي أتعهد بتسليمها للشركة, وإذا أخلللت بذلك أكون مبددا وخائنا للأمانة . ", 30.0f, 220.0f, paint);
+        canvas.drawText("وأتحمل كافة المسئولية الجنائية والمدنية المترتبة على ذلك. ", 550.0f, 260.0f, paint);
 
               /*  canvas.drawText("I ............................................................. id no. .......................................  as (HyperOne Co.) delivery associate admit that I received the products in the packages numbers mentioned ", 20.0f, 230.0f, paint);
                 canvas.drawText("below to deliver to (HyperOne Co.) customers and collect their values from them and I commit to return the failed delivery  to (HyperOne Co.) warehouse in", 20.0f, 270.0f, paint);
@@ -608,42 +618,46 @@ ActivityAssignPackedOrderForZoneDriverBinding binding;
         Paint paint2 = paint;
         //top of header row  line change bottom
         //bottom of table    change top
-        canvas.drawRect(10.0f, 2600.0f, 1940.0f, 250.0f, paint2);
+        canvas.drawRect(30.0f, 2600.0f, 1940.0f, 280.0f, paint2);
         paint.setTextAlign(Paint.Align.RIGHT);
         paint.setStyle(Paint.Style.FILL);
 
-        canvas.drawText("S/م", 1925.0f, 280.0f, paint);
-        canvas.drawLine(1870.0f, 250.0f, 1870.0f, 2600.0f, paint2);
-        canvas.drawText("outBound", 1830.0f, 280.0f, paint);
-        canvas.drawLine(1660.0f, 250.0f, 1660.0f, 2600.0f, paint2);
-        canvas.drawText("رقم الشحنة", 1500.0f, 280.0f, paint);
-        canvas.drawLine(1150.0f, 250.0f, 1150.0f, 2600.0f, paint2);
-        canvas.drawText("قيمة الشحنة", 1140.0f, 280.0f, paint);
-        canvas.drawLine(997.0f, 250.0f, 997.0f, 2600.0f, paint2);
-        canvas.drawText("طريقة الدفع", 990.0f, 280.0f, paint);
-        canvas.drawLine(850.0f, 250.0f, 850.0f, 2600.0f, paint2);
+        canvas.drawText("S/م", 1925.0f, 310.0f, paint);
+        canvas.drawLine(1870.0f, 280.0f, 1870.0f, 2600.0f, paint2);
+        canvas.drawText("outBound", 1830.0f, 310.0f, paint);
+        canvas.drawLine(1660.0f, 280.0f, 1660.0f, 2600.0f, paint2);
+        canvas.drawText("رقم الشحنة", 1500.0f, 310.0f, paint);
+        canvas.drawLine(1150.0f, 280.0f, 1150.0f, 2600.0f, paint2);
+        canvas.drawText("قيمة الشحنة", 1140.0f, 310.0f, paint);
+        canvas.drawLine(997.0f, 280.0f, 997.0f, 2600.0f, paint2);
+        canvas.drawText("طريقة الدفع", 990.0f, 310.0f, paint);
+        canvas.drawLine(850.0f, 280.0f, 850.0f, 2600.0f, paint2);
 //                canvas.drawText("نوع الشحنة", 700.0f, 280.0f, paint);
 //                canvas.drawLine(660.0f, 780.0f, 660.0f, 250.0f, paint2);
-        canvas.drawText("إسم العميل", 760.0f, 280.0f, paint);
-        canvas.drawLine(500.0f, 250.0f, 500.0f, 2600.0f, paint2);
+        canvas.drawText("إسم العميل", 760.0f, 310.0f, paint);
+        canvas.drawLine(500.0f, 280.0f, 500.0f, 2600.0f, paint2);
 //                canvas.drawText("نوع الشحنة", 580.0f, 280.0f, paint);
 //                canvas.drawLine(500.0f, 780.0f, 500.0f, 250.0f, paint2);
-        canvas.drawText("عنوان العميل", 480.0f, 280.0f, paint);
+        canvas.drawText("عنوان العميل", 480.0f, 310.0f, paint);
 //                canvas.drawLine(400.0f, 780.0f, 400.0f, 250.0f, paint2);
 //                canvas.drawText("تليفون العميل", 380.0f, 280.0f, paint);
-        canvas.drawLine(300.0f, 250.0f, 300.0f, 2600.0f, paint2);
-        canvas.drawText("ملاحظات", 180.0f, 280.0f, paint);
+        canvas.drawLine(300.0f, 280.0f, 300.0f, 2600.0f, paint2);
+        canvas.drawText("ملاحظات", 180.0f, 310.0f, paint);
 
         //bottom of header row  line
-        canvas.drawLine(20.0f, 300.0f, 1940.0f, 300.0f, paint2);
+        canvas.drawLine(30.0f, 330.0f, 1940.0f, 330.0f, paint2);
 
-        canvas.drawText("توقيع المستلم/Receiver sign", 1500.0f, 2670.0f, paint);
-        canvas.drawText("توقيع مسئول أمن المخزن", 1000.0f, 2670.0f, paint);
-        canvas.drawText("توقيع منسق التوصيل", 600.0f, 2670.0f, paint);
+        canvas.drawText("توقيع المستلم/Receiver sign", 1500.0f, 2700.0f, paint);
+        canvas.drawText("توقيع مسئول أمن المخزن", 1000.0f, 2700.0f, paint);
+        canvas.drawText("توقيع منسق التوصيل", 600.0f, 2700.0f, paint);
+
+        canvas.drawText(customer_name, 760.0f, 390, paint);
+        canvas.drawText(address, 480.0f, 390, paint);
+        canvas.drawText(outDelivery, 1830.0f, 390, paint);
 
         try {
-            testCODE93(canvas, 1150.0f, 310.0f);
-            canvas.drawLine(20.0f, 400.0f, 1540.0f, 400.0f, paint2);
+            testCODE93(canvas,1150.0f, 340.0f,trackingNo);
+            canvas.drawLine(30.0f, 430.0f, 1940.0f, 430.0f, paint2);
 
 
         } catch (Exception e) {
@@ -659,7 +673,7 @@ ActivityAssignPackedOrderForZoneDriverBinding binding;
         pdfDocument.close();
 
     }
-    private static void testCODE93(Canvas canvas , float left, float top) throws Exception
+    private static void testCODE93(Canvas canvas , float left, float top,String trackingnumber) throws Exception
     {
         Code93 barcode = new Code93();
 
@@ -669,7 +683,7 @@ ActivityAssignPackedOrderForZoneDriverBinding binding;
                 A - Z (Uppercase letters)
                 - (Dash), $ (Dollar), % (Percentage), (Space), . (Point), / (Slash), + (Plus)
         */
-        barcode.setData("11223322-02");
+        barcode.setData(trackingnumber);
 
         // Unit of Measure, pixel, cm, or inch
         barcode.setUom(IBarcode.UOM_PIXEL);
