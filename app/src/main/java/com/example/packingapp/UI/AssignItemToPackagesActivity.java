@@ -1,12 +1,12 @@
 package com.example.packingapp.UI;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.packingapp.Adapter.ItemAdapter;
 import com.example.packingapp.Database.AppDatabase;
@@ -48,27 +48,27 @@ public class AssignItemToPackagesActivity extends AppCompatActivity {
 //                    product = new Product("laptop", "5");
 
                     if (itemsOrderDataDBDetailsList.size() >0 ) {
-                            List<ItemsOrderDataDBDetails> Adapterlist = itemAdapter.ReturnListOfAdapter();
-                            List<String> listClone = new ArrayList<>();
+                        List<ItemsOrderDataDBDetails> Adapterlist = itemAdapter.ReturnListOfAdapter();
+                        List<String> listClone = new ArrayList<>();
 
-                            for (ItemsOrderDataDBDetails itemsOrderDataDBDetailsSE : Adapterlist) {
-                                //matches("(?i)"+binding.editBarcode.getText().toString()+".*")
-                                if (itemsOrderDataDBDetailsSE.getSku().toString().equalsIgnoreCase(binding.editBarcode.getText().toString())) {
-                                    listClone.add(itemsOrderDataDBDetailsSE.getSku());
-                                }
+                        for (ItemsOrderDataDBDetails itemsOrderDataDBDetailsSE : Adapterlist) {
+                            //matches("(?i)"+binding.editBarcode.getText().toString()+".*")
+                            if (itemsOrderDataDBDetailsSE.getSku().toString().equalsIgnoreCase(binding.editBarcode.getText().toString())) {
+                                listClone.add(itemsOrderDataDBDetailsSE.getSku());
                             }
-                            System.out.println(listClone.size());
-                            System.out.println(binding.editBarcode.getText().toString());
-                            //Log.e(TAG, "onClick: ", "" + binding.editBarcode.getText().toString() );
-                            if (listClone.size() == 0 && itemsOrderDataDBDetailsList.get(0).getTrackingNumber() ==null ) {
-                                itemAdapter.fillAdapterData(itemsOrderDataDBDetailsList.get(0));
-                                ListOfBarcodesToAssign.add(binding.editBarcode.getText().toString());
-                                binding.editBarcode.setText("");
-                                binding.editBarcode.requestFocus();
-                            } else {
-                                binding.editBarcode.setError("تم أضافه هذا من قبل");
-                                binding.editBarcode.requestFocus();
-                            }
+                        }
+                        System.out.println(listClone.size());
+                        System.out.println(binding.editBarcode.getText().toString());
+                        //Log.e(TAG, "onClick: ", "" + binding.editBarcode.getText().toString() );
+                        if (listClone.size() == 0 && itemsOrderDataDBDetailsList.get(0).getTrackingNumber() ==null ) {
+                            itemAdapter.fillAdapterData(itemsOrderDataDBDetailsList.get(0));
+                            ListOfBarcodesToAssign.add(binding.editBarcode.getText().toString());
+                            binding.editBarcode.setText("");
+                            binding.editBarcode.requestFocus();
+                        } else {
+                            binding.editBarcode.setError("تم أضافه هذا من قبل");
+                            binding.editBarcode.requestFocus();
+                        }
 
                     }else {
                         Toast.makeText(AssignItemToPackagesActivity.this, "هذا الباركود غير موجود", Toast.LENGTH_SHORT).show();

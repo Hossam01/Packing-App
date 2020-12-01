@@ -10,6 +10,6 @@ import retrofit2.http.POST;
 
 public interface RoubstaAPIRetrofit {
 
-    @POST("api/json/get/NkOXbGyjt")
+    @POST("api/json/get/E1cRagyjK")
     Observable<ResponseGetOrderData> GetOrderData(@Body Map<String, String> mobile);
 }
