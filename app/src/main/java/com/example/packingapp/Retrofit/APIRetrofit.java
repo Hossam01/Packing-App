@@ -65,11 +65,11 @@ public interface APIRetrofit {
 
     @FormUrlEncoded
     @POST("Packing_Api/Ordernumber/CreateDetails.php")
-    Observable<Message> InsertOrderDataDetails(@Field("ORDER_NO") String ORDER_NO,@Field("ItemsOrderDataDBDetailsList[0]") String name);
+    Observable<Message> InsertOrderDataDetails(@Field("ORDER_NO") String ORDER_NO,
+                                               @Field("ItemsOrderDataDBDetailsList[0]") String name);
 
     @POST("Packing_Api/Ordernumber/Read.php")
     Observable<RecievePackedModule> GetOrderNumberAndNumPackage(@Body Map<String, String> mobile);
-
 
     @POST("Packing_Api/Ordernumber/UpdateStatus.php")
     Observable<ResponseUpdateStatus> UpdateOrderStatus_ON_83(@Body Map<String, String> mobile);
@@ -88,5 +88,8 @@ public interface APIRetrofit {
 
     @POST("Packing_Api/Ordernumber/ReadDriverTrackingnumbersOfOrders.php")
     Observable<DriverPackages_Respones_Details_recycler> ReadDriverTrackingnumbersOfOrders_83(@Body Map<String, String> mobile);
+
+    @POST("Packing_Api/Ordernumber/UpdateStatusAndPasscode.php")
+    Observable<ResponseUpdateStatus> UpdateOrderStatus_PASSCODE_ON_83(@Body Map<String, String> mobile);
 
 }

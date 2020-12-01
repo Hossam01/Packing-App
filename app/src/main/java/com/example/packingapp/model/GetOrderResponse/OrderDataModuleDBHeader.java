@@ -1,7 +1,6 @@
 package com.example.packingapp.model.GetOrderResponse;
 
 
-import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
 import com.google.gson.annotations.SerializedName;
 
 import androidx.room.ColumnInfo;
@@ -88,21 +87,22 @@ public class OrderDataModuleDBHeader {
 		this.OutBound_delivery=OutBound_delivery;
 	}
 
-	public OrderDataModuleDBHeader(String order_number, String customer_name, String customer_phone,
+	public OrderDataModuleDBHeader(String order_number,String OutBound_delivery, String customer_name, String customer_phone,
 								   String customer_code, String customer_address_govern,
 								   String customer_address_city, String customer_address_district,
 								   String customer_address_detail, String delivery_date,
 								   String delivery_time,
 								   String grand_total, String shipping_fees,
 								   String picker_confirmation_time, String currency,String Out_From_Loc) {
-		Order_number = order_number;
-		Customer_name = customer_name;
-		Customer_phone = customer_phone;
-		Customer_code = customer_code;
-		Customer_address_govern = customer_address_govern;
-		Customer_address_city = customer_address_city;
-		Customer_address_district = customer_address_district;
-		Customer_address_detail = customer_address_detail;
+		this.Order_number = order_number;
+		this.OutBound_delivery = OutBound_delivery;
+		this.Customer_name = customer_name;
+		this.Customer_phone = customer_phone;
+		this.Customer_code = customer_code;
+		this.Customer_address_govern = customer_address_govern;
+		this.Customer_address_city = customer_address_city;
+		this.Customer_address_district = customer_address_district;
+		this.Customer_address_detail = customer_address_detail;
 		this.delivery_date = delivery_date;
 		this.delivery_time = delivery_time;
 		this.grand_total = grand_total;

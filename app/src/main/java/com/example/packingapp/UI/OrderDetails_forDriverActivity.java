@@ -20,6 +20,7 @@ import com.example.packingapp.R;
 import com.example.packingapp.UI.Fragments.ConfirmPasscodeFragment;
 import com.example.packingapp.databinding.ActivityOrderDetailsForDriverBinding;
 import com.example.packingapp.model.DriverModules.DriverPackages_Details_DB;
+import com.example.packingapp.model.DriverModules.DriverPackages_Header_DB;
 import com.example.packingapp.model.DriverModules.DriverPackages_Respones_Details_recycler;
 import com.example.packingapp.model.ResponseSms;
 import com.example.packingapp.viewmodel.OrderDetailsForDriverViewModel;
@@ -64,13 +65,17 @@ private static final int REQUEST_PHONE_CALL = 1;
 
         }
         Log.e(TAG, "onItemClicked: "+ Orderclicked);
-
+        DriverPackages_Header_DB driverPackages_header_db=
+        database.userDao().getDriverorder();
+        CustomerPhone=driverPackages_header_db.getCustomer_phone();
+        CustomerPhone=CustomerPhone.replace("+2","");
+        Log.e(TAG, "onCreate:vvv "+ CustomerPhone);
 
         binding.imgBtnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_CALL);
-                    intent.setData(Uri.parse("tel:" +CustomerPhone.replace("+2","") ));
+                    intent.setData(Uri.parse("tel:" +CustomerPhone ));
                     startActivity(intent);
                 }
             });
@@ -89,6 +94,25 @@ private static final int REQUEST_PHONE_CALL = 1;
                 int randomNumber = random.nextInt(1280 - 65) + 65;
                 Log.e(TAG, "onClick:randomNumber  "+ String.valueOf(randomNumber) );
                 SendSMS(CustomerPhone, String.valueOf(randomNumber));
+
+                database.userDao().UpdatePasscode(Orderclicked,String.valueOf(randomNumber));
+
+                ConfirmPasscodeFragment detialsfragment=new ConfirmPasscodeFragment();
+                Bundle bundle=new Bundle();
+                bundle.putString("Orderclicked",Orderclicked);
+//                bundle.putString("UserName",UserName);
+//                bundle.putString("Branch",Branch);
+                // bundle.putSerializable("LastOrderIdArray",LastOrderArry);
+
+                detialsfragment.setArguments(bundle);
+                FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_content,detialsfragment);
+
+                // databaseHelper.update_PDNEWQTY(Po_Item_List.get(position).getBarcode1(),String.valueOf(Double.valueOf(Po_Item_List.get(position).getQuantity1())-1));
+
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
             }
         });
 
@@ -125,11 +149,17 @@ private static final int REQUEST_PHONE_CALL = 1;
         LayoutInflater li = LayoutInflater.from(context);
         View promptsView = li.inflate(R.layout.prompts, null);
 
+
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 context);
 
         // set prompts.xml to alertdialog builder
         alertDialogBuilder.setView(promptsView);
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+
 
         final EditText edit_smsInput = (EditText) promptsView
                 .findViewById(R.id.edit_smsInput);
@@ -140,20 +170,23 @@ private static final int REQUEST_PHONE_CALL = 1;
         btn_send_sms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (edit_smsInput.getText().toString().isEmpty()) {
+               // promptsView.
+
+                if (!edit_smsInput.getText().toString().isEmpty()) {
                     SendSMS(CustomerPhone, edit_smsInput.getText().toString());
+                    alertDialog.dismiss();
+
                 }else{
                     if (edit_smsInput.getText().toString().isEmpty()){
                         edit_smsInput.setError("Enter sms body");
                     }
                 }
             }
-        });
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
 
+        });
         // show it
         alertDialog.show();
+
     }
 
     private void SendSMS(String CustomerPhone ,String SMSBody) {
@@ -193,21 +226,7 @@ private static final int REQUEST_PHONE_CALL = 1;
 
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                ConfirmPasscodeFragment detialsfragment=new ConfirmPasscodeFragment();
-                Bundle bundle=new Bundle();
-//                bundle.putString("Barcode",Po_Item_List.get(position).getBarcode1());
-//                bundle.putString("UserName",UserName);
-//                bundle.putString("Branch",Branch);
-                // bundle.putSerializable("LastOrderIdArray",LastOrderArry);
 
-                detialsfragment.setArguments(bundle);
-                FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_content,detialsfragment);
-
-                // databaseHelper.update_PDNEWQTY(Po_Item_List.get(position).getBarcode1(),String.valueOf(Double.valueOf(Po_Item_List.get(position).getQuantity1())-1));
-
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
 
             }
         });

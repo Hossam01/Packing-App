@@ -153,6 +153,15 @@ public interface UserDao {
     @Insert(onConflict = REPLACE)
     void insertDriverPackages(List<DriverPackages_Details_DB> driverPackages_details_dbs);
 
+    @Query("SELECT * FROM DriverPackages_Header_DB")
+    DriverPackages_Header_DB getDriverorder();
+
+    @Query("UPDATE DriverPackages_Header_DB SET Passcode =:Passcode WHERE  ORDER_NO =:OrderNumber ")
+    void UpdatePasscode(String OrderNumber ,String Passcode);
+
+    @Query("SELECT Passcode FROM DriverPackages_Header_DB where ORDER_NO =:ORDER_NO")
+    String getPasscode(String ORDER_NO);
+
     @Query("DELETE FROM DriverPackages_Header_DB")
     void deleteDriverPackages_Header_DB();
     @Query("DELETE FROM DriverPackages_Details_DB")

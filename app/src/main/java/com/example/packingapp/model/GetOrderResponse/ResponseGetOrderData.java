@@ -9,6 +9,9 @@ public class ResponseGetOrderData {
     @SerializedName("order_number")
     private String order_number;
 
+    @SerializedName("OutBound_delivery")
+    private String OutBound_delivery;
+
     @SerializedName("customer")
     private customer customer;
 
@@ -35,6 +38,14 @@ public class ResponseGetOrderData {
 
     @SerializedName("items")
     private List<ItemsOrderDataDBDetails> itemsOrderDataDBDetails;
+
+    public String getOutBound_delivery() {
+        return OutBound_delivery;
+    }
+
+    public void setOutBound_delivery(String outBound_delivery) {
+        OutBound_delivery = outBound_delivery;
+    }
 
     public String getPicker_confirmation_time() {
         return picker_confirmation_time;

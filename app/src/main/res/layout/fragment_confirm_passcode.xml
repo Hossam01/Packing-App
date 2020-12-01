@@ -43,13 +43,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center_horizontal"
-                    android:text="@string/passcode"
                     android:textColor="@color/third_white"
                     android:textSize="@dimen/font_size_for_text_of_app"
-                    android:hint="@string/enter_passcode"/>
+                    android:hint="@string/enter_passcode"
+                    android:inputType="number"/>
             </LinearLayout>
 
         <Button
+            android:id="@+id/btn_confirm_"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_btn"

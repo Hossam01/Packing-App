@@ -9,18 +9,6 @@
         android:background="@color/main_background_color"
         tools:context=".UI.GetOrderDatactivity">
 
-        <EditText
-            android:id="@+id/edit_outbounddelievery"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="أدخل outbound"
-            android:inputType="number"
-            android:textColor="@color/txt_color"
-            android:textColorHint="@color/txt_color_hint"
-            android:textSize="@dimen/font_size_for_text_of_app"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            />
 
         <EditText
             android:id="@+id/edit_magentoorder"

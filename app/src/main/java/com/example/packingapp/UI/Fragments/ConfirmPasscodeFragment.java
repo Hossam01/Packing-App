@@ -6,15 +6,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.UI.OrderDetails_forDriverActivity;
 import com.example.packingapp.databinding.FragmentConfirmPasscodeBinding;
+import com.example.packingapp.model.RecievePacked.RecievePackedModule;
+import com.example.packingapp.model.ResponseUpdateStatus;
 import com.example.packingapp.viewmodel.ConfirmPasscodeViewModel;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 /**
@@ -24,6 +31,10 @@ public class ConfirmPasscodeFragment extends Fragment {
 FragmentConfirmPasscodeBinding binding;
     private View mLeak;
     ConfirmPasscodeViewModel confirmPasscodeViewModel;
+    AppDatabase database;
+    String Orderclicked="";
+    private static final String TAG = "ConfirmPasscodeFragment";
+    String Passcode="";
     public ConfirmPasscodeFragment() {
         // Required empty public constructor
     }
@@ -33,12 +44,17 @@ FragmentConfirmPasscodeBinding binding;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        // Barcode = getArguments().getString("Barcode");
-
+        if (getArguments() !=null) {
+            Orderclicked = getArguments().getString("Orderclicked");
+        }else {
+            Toast.makeText(getActivity(), "Orderclicked  Not founf", Toast.LENGTH_SHORT).show();
+        }
        // LastOrderArry = (ArrayList<String>) getArguments().getSerializable("LastOrderIdArray");
         binding = FragmentConfirmPasscodeBinding.inflate(inflater, container, false);
         mLeak = binding.getRoot();
         confirmPasscodeViewModel= ViewModelProviders.of(this).get(ConfirmPasscodeViewModel.class);
+
+        database= AppDatabase.getDatabaseInstance(getActivity());
 
         return mLeak;
     }
@@ -70,6 +86,8 @@ FragmentConfirmPasscodeBinding binding;
 //
 //            startActivity(goback);
 
+        Passcode= database.userDao().getPasscode(Orderclicked);
+
         binding.imageClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,45 +108,68 @@ FragmentConfirmPasscodeBinding binding;
             }
         });
 
+        binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               if (Passcode.equalsIgnoreCase(binding.editPasscode.getText().toString())) {
+                   UpdateStatus_zone_ON_83("Delivered");
+
+
+
+//                   OrderDetails_forDriverActivity orderDetails_forDriverActivity = (OrderDetails_forDriverActivity) getActivity();
+//                   if (orderDetails_forDriverActivity != null) {
+//                       //   mainActivity.CreateORUpdateRecycleView(2);
+//                       Log.e("nnnnnnnnn", "");
+//                   }
+
+               }else {
+                   binding.editPasscode.setError("Incorrect passcode");
+               }
+
+//                FragmentManager fm=getActivity().getSupportFragmentManager();
+//                fm.popBackStack();
+//
+//                OrderDetails_forDriverActivity orderDetails_forDriverActivity=(OrderDetails_forDriverActivity) getActivity();
+//                if (orderDetails_forDriverActivity != null){
+//                    //   mainActivity.CreateORUpdateRecycleView(2);
+//                    Log.e("nnnnnnnnn","");
+//                }
+//                Intent goback=new Intent(getActivity(), MainActivity.class);
+//                goback.putExtra("UserName",UserName);
+//                goback.putExtra("Branch",Branch);
+//                goback.putExtra("LastOrderId",LastOrderId);
+//
+//                startActivity(goback);
+            }
+        });
+
     }
 
-    public void Delete_PDNEWQTY() {
+    public void UpdateStatus_zone_ON_83(String Status) {
+//        if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
+        List<RecievePackedModule> orderDataModuleDBHeaderkist = database.userDao().getorderNORecievePackedModule();
+        if (Orderclicked != null) {
+            confirmPasscodeViewModel.UpdateOrderStatus_Passcode_ON_83(
+                    Orderclicked,
+                    Passcode, Status
+            );
+            Log.e(TAG, "UpdateStatus_zone_ON_83 zzzo : " + Orderclicked);
+            Log.e(TAG, "UpdateStatus_zone_ON_83 zzzpa : " + Passcode);
+            Log.e(TAG, "UpdateStatus_zone_ON_83 zzzsta : " + Status);
 
-//        new AlertDialog.Builder(getActivity())
-//                .setTitle(getString(R.string.want_to_delete))
-//                .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int whichButton) {
-//                        databaseHelper.DeletePo_item(Barcode);
-////                        FragmentManager fm=getActivity().getSupportFragmentManager();
-////                        fm.popBackStack();
-////                        Intent goback=new Intent(getActivity(), MainActivity.class);
-////                        goback.putExtra("UserName",UserName);
-////                        goback.putExtra("Branch",Branch);
-////                        goback.putExtra("LastOrderId",LastOrderId);
-////
-////                        startActivity(goback);
-//
-//                        FragmentManager fm=getActivity().getSupportFragmentManager();
-//                        fm.popBackStack();
-//
-//                        MainActivity mainActivity=(MainActivity) getActivity();
-//                        if (mainActivity != null){
-//                            mainActivity.CreateORUpdateRecycleView(2);
-//                            Log.e("nnnnnnnnn","");
-//                        }
-//
-//                    }
-//                })
-//                .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int whichButton) {
-//                        dialog.cancel();
-//
-//                    }
-//                }).show();
-
-    }
-
-    public void Edit_PDNEWQTY() {
+            confirmPasscodeViewModel.mutableLiveData_UpdateStatus_PASSCODE_ON_83.observe(getViewLifecycleOwner(), new Observer<ResponseUpdateStatus>() {
+                @Override
+                public void onChanged(ResponseUpdateStatus message) {
+                    Toast.makeText(getActivity(), "Confirmed", Toast.LENGTH_SHORT).show();
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+                    fm.popBackStack();
+                    Log.e(TAG, "onChanged:update " + message.getMessage());
+                }
+            });
+        } else {
+            Toast.makeText(getActivity(), "لم الرفع .. أضغط مره أخرى ", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

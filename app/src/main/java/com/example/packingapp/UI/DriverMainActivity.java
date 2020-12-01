@@ -67,20 +67,14 @@ public class DriverMainActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                Intent go=new Intent(DriverMainActivity.this ,OrdersOfRuntimeSheetNowForDriverActivity.class);
-                                startActivity(go);
+                                dialog.cancel();
                             }
                         }).show();
 
             }
         });
 
-        binding.btnShowMyOrdersOfEndofday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
 
         binding.btnShowMyOrdersOfEndofday.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -38,19 +38,11 @@ public class GetOrderDatactivity extends AppCompatActivity {
         binding.btnLoadingNewPurchaseOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!binding.editOutbounddelievery.getText().toString().isEmpty()&&
-                        !binding.editMagentoorder.getText().toString().isEmpty()) {
-                    database.userDao().deleteAllHeader();
-                    database.userDao().deleteAllOrderItems();
-                    database.userDao().deleteAllTrckingNumber();
+                if (!binding.editMagentoorder.getText().toString().isEmpty()) {
 
                     GETOrderData();
                 }else {
-                    if (!binding.editOutbounddelievery.getText().toString().isEmpty()) {
-                        binding.editOutbounddelievery.setError("أدخل ");
-                    }  else if (binding.editMagentoorder.getText().toString().isEmpty()){
-                        binding.editOutbounddelievery.setError("أدخل ");
-                    }
+                    binding.editMagentoorder.setError("أدخل ");
                 }
             }
         });
@@ -93,8 +85,10 @@ public class GetOrderDatactivity extends AppCompatActivity {
                 new Observer<ResponseGetOrderData>() {
             @Override
             public void onChanged(ResponseGetOrderData responseGetOrderData) {
-               /* OrderDataModuleDBHeader orderDataModuleDBHeader= new OrderDataModuleDBHeader(
+                Log.e(TAG, "onChanged:Out  "+responseGetOrderData.getOutBound_delivery() );
+                OrderDataModuleDBHeader orderDataModuleDBHeader= new OrderDataModuleDBHeader(
                         responseGetOrderData.getOrder_number(),
+                        responseGetOrderData.getOutBound_delivery(),
                         responseGetOrderData.getCustomer().getName(),
                         responseGetOrderData.getCustomer().getPhone_number(),
                         responseGetOrderData.getCustomer().getCustomer_code(),
@@ -109,13 +103,18 @@ public class GetOrderDatactivity extends AppCompatActivity {
                         responseGetOrderData.getPicker_confirmation_time(),
                         responseGetOrderData.getCurrency(),responseGetOrderData.getOut_From_Loc()
                 );
-                database.userDao().insertOrderHeader(orderDataModuleDBHeader);
-                database.userDao().UpdateOutBoundDelievery(binding.editOutbounddelievery.getText().toString(),responseGetOrderData.getOrder_number());
-                database.userDao().insertOrderItems(responseGetOrderData.getItemsOrderDataDBDetails());*/
-                Log.e(TAG, "zzz>> currency " +  responseGetOrderData.getCurrency());
 
+                database.userDao().deleteAllHeader();
+                database.userDao().deleteAllOrderItems();
+                database.userDao().deleteAllTrckingNumber();
+
+                database.userDao().insertOrderHeader(orderDataModuleDBHeader);
+              //  database.userDao().UpdateOutBoundDelievery(binding.editOutbounddelievery.getText().toString(),responseGetOrderData.getOrder_number());
+                database.userDao().insertOrderItems(responseGetOrderData.getItemsOrderDataDBDetails());
+                Log.e(TAG, "zzz>> currency " +  responseGetOrderData.getItemsOrderDataDBDetails().size());
                 Log.e(TAG, "zzz>> items size " + responseGetOrderData.getItemsOrderDataDBDetails().size());
                 Log.e(TAG, "zzz>> Qty " + responseGetOrderData.getItemsOrderDataDBDetails().get(0).getQuantity());
+                Log.e(TAG, "zzz>> sku " + responseGetOrderData.getItemsOrderDataDBDetails().get(0).getSku());
                 Toast.makeText(GetOrderDatactivity.this, responseGetOrderData.getOrder_number(), Toast.LENGTH_SHORT).show();
 
                 //  Toast.makeText(GetOrderDatactivity.this, database.userDao().getHeader().size(), Toast.LENGTH_SHORT).show();
