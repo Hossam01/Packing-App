@@ -1,16 +1,13 @@
 package com.example.packingapp.UI;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
@@ -18,8 +15,13 @@ import com.example.packingapp.databinding.ActivityRecievePackedSortedOrderForSor
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.ResponseUpdateStatus;
 import com.example.packingapp.viewmodel.RecievePackedOrderViewModel;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 public class RecievedPackedAndSortedOrderForSortingAndDriverActivity extends AppCompatActivity {
 ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
@@ -114,7 +116,8 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                         //TODO UPDATE STATUS
                        // Toast.makeText(RecievePackedOrderForSortingActivity.this, String.format("%s",getString(R.string.message_equalfornoofpaclkageandcountoftrackingnumbers)), Toast.LENGTH_SHORT).show();
                         UpdateStatus_ON_83();
-                        UpdateStatus();
+                        //TODO TODO UPDATE STATUS on magento
+                        //UpdateStatus();
                     }else {
                         Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, String.format("%s",
                                 getString(R.string.message_not_equalfornoofpaclkageandcountoftrackingnumbers)), Toast.LENGTH_SHORT).show();

@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class GetOrderDataViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .subscribe( (responseGetOrderData) -> {
                             OrderDataLiveData.setValue(responseGetOrderData);
-                          //  Log.d(TAG, "fetchdata: "+responseGetOrderData);
+                            Log.d(TAG, "fetchdata: "+responseGetOrderData);
                         }
                         ,throwable -> {
                             mutableLiveDataError.setValue(throwable.getMessage());
@@ -53,7 +52,7 @@ public class GetOrderDataViewModel extends ViewModel {
     public void InsertOrderdataHeader(String ORDER_NO, String OUTBOUND_DELIVERY, String CUSTOMER_NAME,
                                       String CUSTOMER_PHONE, String CUSTOMER_CODE, String ADDRESS_GOVERN, String ADDRESS_CITY,
                                       String ADDRESS_DISTRICT, String ADDRESS_DETAILS, String ORDER_DELIVERY_DATE, String ORDER_DELIVERY_TIME,
-                                      String PICKER_CONFIMATION_TIME, String GRAND_TOTAL, String CURRENCY, String SHIPPING_FEES,
+                                      String PICKER_CONFIMATION_TIME, String GRAND_TOTAL, String CURRENCY, String SHIPPING_FEES,String NO_OF_PACKAGES,
                                       String STORAGE_LOCATION) {
 
         HashMap<String, String> map = new HashMap<>();
@@ -72,7 +71,9 @@ public class GetOrderDataViewModel extends ViewModel {
         map.put("GRAND_TOTAL", GRAND_TOTAL);
         map.put("CURRENCY", CURRENCY);
         map.put("SHIPPING_FEES", SHIPPING_FEES);
+        map.put("NO_OF_PACKAGES", NO_OF_PACKAGES);
         map.put("STORAGE_LOCATION", STORAGE_LOCATION);
+        map.put("STATUS", "packed");
 
         ApiClient.build().InsertOrderDataHeader(map)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -81,7 +82,7 @@ public class GetOrderDataViewModel extends ViewModel {
                             mutableLiveData.setValue(responseSms);
                         }
                         ,throwable -> {
-                            Log.d("Error",throwable.getMessage());
+                            Log.d("ErrorH ",throwable.getMessage());
                         });
 
     }
@@ -105,7 +106,8 @@ public class GetOrderDataViewModel extends ViewModel {
            String name= itemsOrderDataDBDetailsList.get(i).getName();
 
             String itemsOrder=itemsOrderDataDBDetailsList.get(i).getTrackingNumber()+"/"+name+"/"+itemsOrderDataDBDetailsList.get(i).getSku()
-                    +"/"+itemsOrderDataDBDetailsList.get(i).getPrice()+"/"+itemsOrderDataDBDetailsList.get(i).getQuantity()+"/"+itemsOrderDataDBDetailsList.get(i).getUnite()+"/"+"DOne"+"/"+"Go";
+                    +"/"+itemsOrderDataDBDetailsList.get(i).getPrice()+"/"+itemsOrderDataDBDetailsList.get(i).getQuantity()
+                    +"/"+itemsOrderDataDBDetailsList.get(i).getUnite();
             Log.e("data",itemsOrder);
             Log.e("OrderNumber",OrderNumber);
                 ApiClient.build().InsertOrderDataDetails(OrderNumber,itemsOrder)

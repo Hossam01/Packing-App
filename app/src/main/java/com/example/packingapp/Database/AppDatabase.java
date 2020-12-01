@@ -2,10 +2,6 @@ package com.example.packingapp.Database;
 
 import android.content.Context;
 
-import androidx.room.Database;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
-
 import com.example.packingapp.model.DriverModules.DriverPackages_Details_DB;
 import com.example.packingapp.model.DriverModules.DriverPackages_Header_DB;
 import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
@@ -13,6 +9,10 @@ import com.example.packingapp.model.GetOrderResponse.OrderDataModuleDBHeader;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.RecordsItem;
 import com.example.packingapp.model.TrackingnumbersListDB;
+
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
 
 
 @Database(entities = {RecordsItem.class , OrderDataModuleDBHeader.class,
@@ -37,5 +37,4 @@ public abstract class AppDatabase extends RoomDatabase {
     public static void destroyInstance() {
         mInstance = null;
     }
-
 }

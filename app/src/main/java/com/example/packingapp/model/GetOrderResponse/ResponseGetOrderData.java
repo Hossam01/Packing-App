@@ -4,8 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import androidx.room.ColumnInfo;
-
 public class ResponseGetOrderData {
 
     @SerializedName("order_number")
@@ -17,20 +15,17 @@ public class ResponseGetOrderData {
     @SerializedName("delivery")
     private delivery delivery;
 
-    @SerializedName("grand_total")
-    private String grand_total;
-
     @SerializedName("picker_confirmation_time")
     private String picker_confirmation_time;
 
-    @SerializedName("customer_code")
-    private String customer_code;
-
-    @SerializedName("shipping_fees")
-    private String shipping_fees;
+    @SerializedName("grand_total")
+    private String grand_total;
 
     @SerializedName("currency")
     private String currency;
+
+    @SerializedName("shipping_fees")
+    private String shipping_fees;
 
     @SerializedName("time_slot")
     private String time_slot;
@@ -47,14 +42,6 @@ public class ResponseGetOrderData {
 
     public void setPicker_confirmation_time(String picker_confirmation_time) {
         this.picker_confirmation_time = picker_confirmation_time;
-    }
-
-    public String getCustomer_code() {
-        return customer_code;
-    }
-
-    public void setCustomer_code(String customer_code) {
-        this.customer_code = customer_code;
     }
 
     public String getShipping_fees() {
@@ -93,19 +80,19 @@ public class ResponseGetOrderData {
         this.order_number = order_number;
     }
 
-    public com.example.packingapp.model.GetOrderResponse.customer getCustomer() {
+    public customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(com.example.packingapp.model.GetOrderResponse.customer customer) {
+    public void setCustomer(customer customer) {
         this.customer = customer;
     }
 
-    public com.example.packingapp.model.GetOrderResponse.delivery getDelivery() {
+    public delivery getDelivery() {
         return delivery;
     }
 
-    public void setDelivery(com.example.packingapp.model.GetOrderResponse.delivery delivery) {
+    public void setDelivery(delivery delivery) {
         this.delivery = delivery;
     }
 

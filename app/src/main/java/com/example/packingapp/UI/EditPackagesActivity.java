@@ -169,8 +169,9 @@ public class EditPackagesActivity extends AppCompatActivity {
                                 }).show();
                     }
 
-                } else
+                } /*else
                     Toast.makeText(EditPackagesActivity.this, "لايوجد بيانات للادخال", Toast.LENGTH_SHORT).show();
+                    */
             }
             }
 

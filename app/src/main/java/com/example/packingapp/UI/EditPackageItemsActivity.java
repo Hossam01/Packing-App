@@ -1,7 +1,5 @@
 package com.example.packingapp.UI;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +17,7 @@ import com.example.packingapp.model.PackedPackageItemsModule;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -127,8 +126,9 @@ public class EditPackageItemsActivity extends AppCompatActivity {
                                 }).show();
                     }
 
-                } else
+                }/* else
                     Toast.makeText(EditPackageItemsActivity.this, "لايوجد بيانات للادخال", Toast.LENGTH_SHORT).show();
+            */
             }
         }
 

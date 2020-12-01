@@ -10,11 +10,13 @@ public class customer {
     @SerializedName("phone_number")
     private String phone_number;
 
+    @SerializedName("customer_code")
+    private String customer_code;
+
     @SerializedName("address")
     private address address;
 
-    @SerializedName("customer_code")
-    private String customer_code;
+
 
     public String getCustomer_code() {
         return customer_code;

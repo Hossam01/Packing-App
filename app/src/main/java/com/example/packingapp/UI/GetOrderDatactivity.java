@@ -1,9 +1,5 @@
 package com.example.packingapp.UI;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +17,10 @@ import com.example.packingapp.viewmodel.GetOrderDataViewModel;
 
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 public class GetOrderDatactivity extends AppCompatActivity {
     ActivityGetOrderDataBinding binding;
     GetOrderDataViewModel getOrderDataViewModel;
@@ -33,7 +33,6 @@ public class GetOrderDatactivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         database=AppDatabase.getDatabaseInstance(this);
 
-
         getOrderDataViewModel= ViewModelProviders.of(this).get(GetOrderDataViewModel.class);
 
         binding.btnLoadingNewPurchaseOrder.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +40,10 @@ public class GetOrderDatactivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!binding.editOutbounddelievery.getText().toString().isEmpty()&&
                         !binding.editMagentoorder.getText().toString().isEmpty()) {
+                    database.userDao().deleteAllHeader();
+                    database.userDao().deleteAllOrderItems();
+                    database.userDao().deleteAllTrckingNumber();
+
                     GETOrderData();
                 }else {
                     if (!binding.editOutbounddelievery.getText().toString().isEmpty()) {
@@ -63,9 +66,10 @@ public class GetOrderDatactivity extends AppCompatActivity {
         binding.btnPrintAwb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //UploadHeader();
+                UploadHeader();
                 UploadDetails();
-                UpdateStatus();
+                //TODO Update staatus on magento
+              //  UpdateStatus();
             }
         });
 
@@ -89,7 +93,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
                 new Observer<ResponseGetOrderData>() {
             @Override
             public void onChanged(ResponseGetOrderData responseGetOrderData) {
-                OrderDataModuleDBHeader orderDataModuleDBHeader= new OrderDataModuleDBHeader(
+               /* OrderDataModuleDBHeader orderDataModuleDBHeader= new OrderDataModuleDBHeader(
                         responseGetOrderData.getOrder_number(),
                         responseGetOrderData.getCustomer().getName(),
                         responseGetOrderData.getCustomer().getPhone_number(),
@@ -105,13 +109,9 @@ public class GetOrderDatactivity extends AppCompatActivity {
                         responseGetOrderData.getPicker_confirmation_time(),
                         responseGetOrderData.getCurrency(),responseGetOrderData.getOut_From_Loc()
                 );
-
-                database.userDao().deleteAllHeader();
-                database.userDao().deleteAllOrderItems();
-                database.userDao().deleteAllTrckingNumber();
                 database.userDao().insertOrderHeader(orderDataModuleDBHeader);
                 database.userDao().UpdateOutBoundDelievery(binding.editOutbounddelievery.getText().toString(),responseGetOrderData.getOrder_number());
-                database.userDao().insertOrderItems(responseGetOrderData.getItemsOrderDataDBDetails());
+                database.userDao().insertOrderItems(responseGetOrderData.getItemsOrderDataDBDetails());*/
                 Log.e(TAG, "zzz>> currency " +  responseGetOrderData.getCurrency());
 
                 Log.e(TAG, "zzz>> items size " + responseGetOrderData.getItemsOrderDataDBDetails().size());
@@ -151,23 +151,28 @@ public class GetOrderDatactivity extends AppCompatActivity {
     public void UploadHeader(){
         if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
             OrderDataModuleDBHeader orderDataModuleDBHeader = database.userDao().getHeaderToUpload();
+            String NO_OF_PACKAGES =
+                    database.userDao().getNoOfPackagesToUpload(orderDataModuleDBHeader.getOrder_number() +"%");
+            Log.e(TAG, "zzUploadHeader: "+NO_OF_PACKAGES );
+
             getOrderDataViewModel.InsertOrderdataHeader(
-                    orderDataModuleDBHeader.getOrder_number(),
-                    orderDataModuleDBHeader.getOutBound_delivery(),
-                    orderDataModuleDBHeader.getCustomer_name(),
-                    orderDataModuleDBHeader.getCustomer_phone(),
-                    orderDataModuleDBHeader.getCustomer_code(),
-                    orderDataModuleDBHeader.getCustomer_address_govern(),
-                    orderDataModuleDBHeader.getCustomer_address_city(),
-                    orderDataModuleDBHeader.getCustomer_address_district(),
-                    orderDataModuleDBHeader.getCustomer_address_detail(),
-                    orderDataModuleDBHeader.getDelivery_date(),
-                    orderDataModuleDBHeader.getDelivery_time(),
-                    orderDataModuleDBHeader.getPicker_confirmation_time(),
-                    orderDataModuleDBHeader.getGrand_total(),
-                    orderDataModuleDBHeader.getCurrency(),
-                    orderDataModuleDBHeader.getShipping_fees(),
-                    orderDataModuleDBHeader.getOut_From_Loc()
+                        orderDataModuleDBHeader.getOrder_number(),
+                        orderDataModuleDBHeader.getOutBound_delivery(),
+                        orderDataModuleDBHeader.getCustomer_name(),
+                        orderDataModuleDBHeader.getCustomer_phone(),
+                        orderDataModuleDBHeader.getCustomer_code(),
+                        orderDataModuleDBHeader.getCustomer_address_govern(),
+                        orderDataModuleDBHeader.getCustomer_address_city(),
+                        orderDataModuleDBHeader.getCustomer_address_district(),
+                        orderDataModuleDBHeader.getCustomer_address_detail(),
+                        orderDataModuleDBHeader.getDelivery_date(),
+                        orderDataModuleDBHeader.getDelivery_time(),
+                        orderDataModuleDBHeader.getPicker_confirmation_time(),
+                        orderDataModuleDBHeader.getGrand_total(),
+                        orderDataModuleDBHeader.getCurrency(),
+                        orderDataModuleDBHeader.getShipping_fees(),
+                        NO_OF_PACKAGES,
+                        orderDataModuleDBHeader.getOut_From_Loc()
             );
 
             getOrderDataViewModel.mutableLiveData.observe(GetOrderDatactivity.this, new Observer<Message>() {
@@ -175,6 +180,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
                 public void onChanged(Message message) {
                     Toast.makeText(GetOrderDatactivity.this, ""+message.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "onChanged: "+message.getMessage() );
+                    Toast.makeText(GetOrderDatactivity.this, "Done for Header", Toast.LENGTH_SHORT).show();
                 }
             });
         }else {

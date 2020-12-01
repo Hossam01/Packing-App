@@ -111,6 +111,7 @@ public class AssignPackedOrderToZoneViewModel extends ViewModel {
         HashMap<String, String> map = new HashMap<>();
         map.put("ORDER_NO", ORDER_NO);
         map.put("DRIVER_ID", DriverID);
+
         ApiClient.build().UpdateOrder_DriverID_83(map)
 
                 .observeOn(AndroidSchedulers.mainThread())

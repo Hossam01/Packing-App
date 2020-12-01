@@ -70,7 +70,7 @@ private static final int REQUEST_PHONE_CALL = 1;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_CALL);
-                    intent.setData(Uri.parse("tel:" +CustomerPhone ));
+                    intent.setData(Uri.parse("tel:" +CustomerPhone.replace("+2","") ));
                     startActivity(intent);
                 }
             });

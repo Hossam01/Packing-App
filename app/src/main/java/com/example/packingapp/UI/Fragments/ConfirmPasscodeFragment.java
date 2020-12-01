@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.packingapp.UI.MainActivity;
+import com.example.packingapp.UI.OrderDetails_forDriverActivity;
 import com.example.packingapp.databinding.FragmentConfirmPasscodeBinding;
 import com.example.packingapp.viewmodel.ConfirmPasscodeViewModel;
 
@@ -76,8 +76,8 @@ FragmentConfirmPasscodeBinding binding;
                 FragmentManager fm=getActivity().getSupportFragmentManager();
                 fm.popBackStack();
 
-                MainActivity mainActivity=(MainActivity) getActivity();
-                if (mainActivity != null){
+                OrderDetails_forDriverActivity orderDetails_forDriverActivity=(OrderDetails_forDriverActivity) getActivity();
+                if (orderDetails_forDriverActivity != null){
                  //   mainActivity.CreateORUpdateRecycleView(2);
                     Log.e("nnnnnnnnn","");
                 }
