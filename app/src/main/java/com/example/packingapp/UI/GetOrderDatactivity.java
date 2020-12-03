@@ -74,7 +74,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
- 
+
         binding.btnPrintAwb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

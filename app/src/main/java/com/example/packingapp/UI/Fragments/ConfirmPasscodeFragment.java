@@ -8,6 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.UI.OrderDetails_forDriverActivity;
 import com.example.packingapp.databinding.FragmentConfirmPasscodeBinding;
@@ -17,13 +24,6 @@ import com.example.packingapp.model.ResponseUpdateStatus;
 import com.example.packingapp.viewmodel.ConfirmPasscodeViewModel;
 
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -193,6 +193,7 @@ FragmentConfirmPasscodeBinding binding;
     public void UpdateStatus_Reason_Details_ON_83(List<DriverPackages_Details_DB> driverPackages_details_dbList) {
 //        if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
         List<RecievePackedModule> orderDataModuleDBHeaderkist = database.userDao().getorderNORecievePackedModule();
+
         if (Orderclicked != null) {
             confirmPasscodeViewModel.UpdateOrderStatus_Reason_Details_ON_83(driverPackages_details_dbList);
             Log.e(TAG, "UpdateStatus_zone_ON_83 zzzo : " + driverPackages_details_dbList.size());
