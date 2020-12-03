@@ -2,6 +2,9 @@ package com.example.packingapp.viewmodel;
 
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
 import com.example.packingapp.Retrofit.ApiClient;
 import com.example.packingapp.model.DriverModules.DriverPackages_Details_DB;
 import com.example.packingapp.model.ResponseUpdateStatus;
@@ -9,8 +12,6 @@ import com.example.packingapp.model.ResponseUpdateStatus;
 import java.util.HashMap;
 import java.util.List;
 
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -49,9 +50,12 @@ public class ConfirmPasscodeViewModel extends ViewModel {
 //        map.put("PASSCODE", PASSCODE);
 //        map.put("STATUS", Status);
 
+        if (driverPackages_details_dbList.size()>0) {
+            for (int i = 0; i < driverPackages_details_dbList.size(); i++)
+            {
+                String text=driverPackages_details_dbList.get(i).getTRACKING_NO()+"/"+driverPackages_details_dbList.get(i).getREASON()+"/"+driverPackages_details_dbList.get(i).getSTATUS();
 
-
-        ApiClient.build().UpdateOrderStatus_Reasone_ON_83(map)
+        ApiClient.build().UpdateOrderStatus_Reasone_ON_83(text)
 
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -63,6 +67,7 @@ public class ConfirmPasscodeViewModel extends ViewModel {
                             Log.d("Error",throwable.getMessage());
 
                         });
-
+            }
+        }
     }
 }
