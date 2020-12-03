@@ -101,4 +101,7 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    implementation files('libs/ZSDK_ANDROID_API.jar')
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
+
 }

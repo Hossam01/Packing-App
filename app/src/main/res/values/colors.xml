@@ -46,4 +46,14 @@
     <color name="linear_header_bg">#CC275F</color>
     <color name="user_icone_bg">#E6E3E3</color>
 
+
+    <color name="near_black">#222222</color>
+
+    <color name="zebra_blue">#00769F</color>
+
+    <color name="zebra_yellow">#FFD200</color>
+    <color name="error_color">#FFBB86FC</color>
+    <color name="light_gray">#CCCCCC</color>
+
+
 </resources>

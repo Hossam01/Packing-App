@@ -2,6 +2,9 @@ package com.example.packingapp.viewmodel;
 
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
 import com.example.packingapp.Retrofit.ApiClient;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.ResponseDriver;
@@ -9,8 +12,6 @@ import com.example.packingapp.model.ResponseUpdateStatus;
 
 import java.util.HashMap;
 
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -70,11 +71,8 @@ public class AssignPackedOrderToZoneViewModel extends ViewModel {
     public void UpdateOrderStatus_Zone_ON_83(String ORDER_NO, String ZONE, String Status) {
 
 
-        HashMap<String, String> map = new HashMap<>();
-        map.put("ORDER_NO", ORDER_NO);
-        map.put("ZONE", ZONE);
-        map.put("STATUS", Status);
-        ApiClient.build().UpdateOrderStatus_Zone_ON_83(map)
+        String text=ZONE+"/"+ORDER_NO+"/"+Status;
+        ApiClient.build().UpdateOrderStatus_Zone_ON_83(text)
 
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -108,11 +106,8 @@ public class AssignPackedOrderToZoneViewModel extends ViewModel {
     public void UpdateOrder_DriverID_ON_83(String ORDER_NO, String DriverID) {
 
 
-        HashMap<String, String> map = new HashMap<>();
-        map.put("ORDER_NO", ORDER_NO);
-        map.put("DRIVER_ID", DriverID);
-
-        ApiClient.build().UpdateOrder_DriverID_83(map)
+        String text=ORDER_NO+"/"+DriverID;
+        ApiClient.build().UpdateOrder_DriverID_83(text)
 
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

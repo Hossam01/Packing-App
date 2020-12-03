@@ -11,6 +11,10 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
@@ -21,10 +25,6 @@ import com.example.packingapp.viewmodel.RecievePackedOrderViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 public class RecievedPackedAndSortedOrderForSortingAndDriverActivity extends AppCompatActivity {
 ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
@@ -302,18 +302,22 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
 //        if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
         List<RecievePackedModule> orderDataModuleDBHeaderkist = database.userDao().getorderNORecievePackedModule();
         if (orderDataModuleDBHeaderkist.size() > 0) {
-            if (RecievePackedOrConfirmForDriver.equalsIgnoreCase("RecievePacked")) {
-                recievePackedOrderViewModel.UpdateStatus_ON_83(
-                        orderDataModuleDBHeaderkist.get(0).getORDER_NO(),
-                        "in sorting"
-                );
+            for (int i=0;i<orderDataModuleDBHeaderkist.size();i++) {
+
+                if (RecievePackedOrConfirmForDriver.equalsIgnoreCase("RecievePacked")) {
+                    recievePackedOrderViewModel.UpdateStatus_ON_83(
+                            orderDataModuleDBHeaderkist.get(i).getORDER_NO(),
+                            "in sorting"
+                    );
+
             }else if (RecievePackedOrConfirmForDriver.equalsIgnoreCase("ConfirmForDriver")){
                 recievePackedOrderViewModel.UpdateStatus_ON_83(
-                        orderDataModuleDBHeaderkist.get(0).getORDER_NO(),
+                        orderDataModuleDBHeaderkist.get(i).getORDER_NO(),
                         "Ready To Go"
                 );
             }else {
                 Toast.makeText(context, "لم يتم تعديل الحاله", Toast.LENGTH_SHORT).show();
+            }
             }
         }else {
             Toast.makeText(context, "لم يتم أدخال ", Toast.LENGTH_SHORT).show();

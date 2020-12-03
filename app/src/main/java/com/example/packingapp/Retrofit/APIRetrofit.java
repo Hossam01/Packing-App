@@ -72,16 +72,16 @@ public interface APIRetrofit {
     Observable<RecievePackedModule> GetOrderNumberAndNumPackage(@Body Map<String, String> mobile);
 
     @POST("Packing_Api/Ordernumber/UpdateStatus.php")
-    Observable<ResponseUpdateStatus> UpdateOrderStatus_ON_83(@Body Map<String, String> mobile);
+    Observable<ResponseUpdateStatus> UpdateOrderStatus_ON_83(@Field("OrderNumberHeader[0]") String name);
 
     @POST("Packing_Api/Ordernumber/UpdateStatusAndZone.php")
-    Observable<ResponseUpdateStatus> UpdateOrderStatus_Zone_ON_83(@Body Map<String, String> mobile);
+    Observable<ResponseUpdateStatus> UpdateOrderStatus_Zone_ON_83(@Field("OrderNumberHeader[0]") String name);
 
     @GET("Packing_Api/Driver/Read.php")
     Observable<ResponseDriver> GetDrivers_IDS();
 
     @POST("Packing_Api/Ordernumber/UpdateDriverID.php")
-    Observable<ResponseUpdateStatus> UpdateOrder_DriverID_83(@Body Map<String, String> mobile);
+    Observable<ResponseUpdateStatus> UpdateOrder_DriverID_83(@Field("OrderNumberHeader[0]") String name);
 
     @POST("Packing_Api/Ordernumber/ReadDriverRunsheetOrders.php")
     Observable<DriverPackages_Respones_Header_recycler> ReadDriverRunsheetOrders_83(@Body Map<String, String> mobile);

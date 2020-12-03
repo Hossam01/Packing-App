@@ -528,11 +528,13 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
 //        if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
         List<RecievePackedModule> orderDataModuleDBHeaderkist = database.userDao().getorderNORecievePackedModule();
         if (orderDataModuleDBHeaderkist.size() > 0) {
-            assignPackedOrderToZoneViewModel.UpdateOrderStatus_Zone_ON_83(
-                    orderDataModuleDBHeaderkist.get(0).getORDER_NO(),
-                    orderDataModuleDBHeaderkist.get(0).getZone(),Status
-            );
-            Log.e(TAG, "UpdateStatus_zone_ON_83 zzzo : "+orderDataModuleDBHeaderkist.get(0).getZone() );
+            for (int i=0;i<orderDataModuleDBHeaderkist.size();i++) {
+                assignPackedOrderToZoneViewModel.UpdateOrderStatus_Zone_ON_83(
+                        orderDataModuleDBHeaderkist.get(i).getORDER_NO(),
+                        orderDataModuleDBHeaderkist.get(i).getZone(), Status
+                );
+                Log.e(TAG, "UpdateStatus_zone_ON_83 zzzo : " + orderDataModuleDBHeaderkist.get(i).getZone());
+            }
         }else {
             Toast.makeText(context, "لم يتم أدخال ", Toast.LENGTH_SHORT).show();
         }
@@ -552,10 +554,12 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
 //        if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
         List<RecievePackedModule> orderDataModuleDBHeaderkist = database.userDao().getorderNORecievePackedModule();
         if (orderDataModuleDBHeaderkist.size() > 0) {
-            assignPackedOrderToZoneViewModel.UpdateOrder_DriverID_ON_83(
-                    orderDataModuleDBHeaderkist.get(0).getORDER_NO(),
-                    DriverID
-            );
+            for (int i=0;i<=orderDataModuleDBHeaderkist.size();i++) {
+                assignPackedOrderToZoneViewModel.UpdateOrder_DriverID_ON_83(
+                        orderDataModuleDBHeaderkist.get(i).getORDER_NO(),
+                        DriverID
+                );
+            }
            // Log.e(TAG, "UpdateStatus_zone_ON_83 zzzo : "+orderDataModuleDBHeaderkist.get(0).getZone() );
         }else {
             Toast.makeText(context, "لم يتم أدخال ", Toast.LENGTH_SHORT).show();

@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "DriverPackages_Details_DB")
-public class DriverPackages_Details_DB {   
+public class DriverPackages_Details_DB {
 
     @PrimaryKey(autoGenerate = true)
     private int uid;

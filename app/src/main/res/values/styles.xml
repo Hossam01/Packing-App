@@ -14,4 +14,17 @@
     </style>
     >
 
+    <style name="ErrorButtonAppearance" >
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/error_color</item>
+    </style>
+    <style name="ButtonAppearance" >
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/zebra_blue</item>
+    </style>
+    <style name="SpinnerTheme" parent="Widget.AppCompat.Spinner.DropDown">
+        <item name="android:checkMark">@color/bright_foreground_material_dark</item>
+    </style>
 </resources>
