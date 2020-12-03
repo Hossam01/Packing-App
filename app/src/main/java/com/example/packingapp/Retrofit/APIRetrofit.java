@@ -70,16 +70,16 @@ public interface APIRetrofit {
 
     @POST("Packing_Api/Ordernumber/Read.php")
     Observable<RecievePackedModule> GetOrderNumberAndNumPackage(@Body Map<String, String> mobile);
-
+    @FormUrlEncoded
     @POST("Packing_Api/Ordernumber/UpdateStatus.php")
     Observable<ResponseUpdateStatus> UpdateOrderStatus_ON_83(@Field("OrderNumberHeader[0]") String name);
-
+    @FormUrlEncoded
     @POST("Packing_Api/Ordernumber/UpdateStatusAndZone.php")
     Observable<ResponseUpdateStatus> UpdateOrderStatus_Zone_ON_83(@Field("OrderNumberHeader[0]") String name);
 
     @GET("Packing_Api/Driver/Read.php")
     Observable<ResponseDriver> GetDrivers_IDS();
-
+    @FormUrlEncoded
     @POST("Packing_Api/Ordernumber/UpdateDriverID.php")
     Observable<ResponseUpdateStatus> UpdateOrder_DriverID_83(@Field("OrderNumberHeader[0]") String name);
 
@@ -95,6 +95,6 @@ public interface APIRetrofit {
     @POST("Packing_Api/Ordernumber/UpdateStatusAndReason.php")
     Observable<ResponseUpdateStatus> UpdateOrderStatus_Reasone_ON_83(@Body Map<String, String> mobile);
 
-    @POST("Packing_Api/Ordernumber/UpdateStatusAndReason.php")
+    @POST("Packing_Api/Ordernumber/GetOrderForEndOfDay.php")
     Observable<ResponseUpdateStatus> GetOrderForEndOfDay_ON_83(@Body Map<String, String> mobile);
 }
