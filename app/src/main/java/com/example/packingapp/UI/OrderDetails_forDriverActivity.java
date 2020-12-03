@@ -14,15 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.packingapp.Adapter.DriverOrderpackagesAdapter;
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.ItemclickforRecycler;
@@ -40,6 +31,15 @@ import com.example.packingapp.viewmodel.OrderDetailsForDriverViewModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class OrderDetails_forDriverActivity extends AppCompatActivity {
     private static final String TAG = "OrderDetails_forDriverA";
@@ -86,7 +86,8 @@ private static final int REQUEST_PHONE_CALL = 1;
                 Random random = new Random();
                 int randomNumber = random.nextInt(1280 - 65) + 65;
                 Log.e(TAG, "onClick:randomNumber  "+ String.valueOf(randomNumber) );
-                SendSMS(CustomerPhone, String.valueOf(randomNumber));
+                //ToDo Don't SendPasscode For Test Get asscode From log
+                //SendSMS(CustomerPhone, String.valueOf(randomNumber));
 
                 database.userDao().UpdatePasscode(Orderclicked,String.valueOf(randomNumber));
 
@@ -190,8 +191,7 @@ private static final int REQUEST_PHONE_CALL = 1;
                // promptsView.
 
                 if (!edit_smsInput.getText().toString().isEmpty()) {
-                    //ToDo Don't SendPasscode For Test Get asscode From log
-                   // SendSMS(CustomerPhone, edit_smsInput.getText().toString());
+                    SendSMS(CustomerPhone, edit_smsInput.getText().toString());
                     alertDialog.dismiss();
 
                 }else{
@@ -304,7 +304,7 @@ private static final int REQUEST_PHONE_CALL = 1;
 
                 if (!edit_rejectinput.getText().toString().isEmpty() ) {
                     //SendSMS(CustomerPhone, edit_rejectinput.getText().toString());
-                    database.userDao().UpdatestatusAndReason(Orderclicked,
+                    database.userDao().UpdatestatusAndReason_ForTrackingnumber(RejectTrackingNumber,
                             "Rejected under inspection",edit_rejectinput.getText().toString());
                     driverPackages_details_dbList_Reject.add(driverPackages_details_dbList.get(position));
                     Log.e(TAG, "onClick: "+ driverPackages_details_dbList.size());

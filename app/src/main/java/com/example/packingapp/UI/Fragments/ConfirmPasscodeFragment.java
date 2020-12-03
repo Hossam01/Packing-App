@@ -116,15 +116,22 @@ FragmentConfirmPasscodeBinding binding;
                 //Reschedule
                 //Has-Been-Delivered
                if (Passcode.equalsIgnoreCase(binding.editPasscode.getText().toString())) {
-                   List<DriverPackages_Details_DB> driverPackages_details_dbList  =database.userDao().getAllPckagesForReject();
-                   if (driverPackages_details_dbList.size() >0 ){
+                   //get list of packages that rejected by checking for reason equal nullir empty
+                   List<DriverPackages_Details_DB> driverPackages_details_dbList_rejected  =database.userDao().getAllPckagesForReject();
+                   // update status
+                   database.userDao().UpdatestatusForNotRejectWhenClickConfirmed(Orderclicked,"Has-Been-Delivered");
+
+                   List<DriverPackages_Details_DB> driverPackages_details_dbList  =database.userDao().getAllPckagesForUpload(Orderclicked);
+                   Log.e(TAG, "onClick: "+driverPackages_details_dbList.size() );
+
+                   if (driverPackages_details_dbList_rejected.size() >0 ){
                        UpdateStatus_Passcode_Header_ON_83("Rejected under inspection");
                        //TODO list for tracking number and reason and status for details _check file name
-                     //  UpdateStatus_Passcode_Details_ON_83();
+                       UpdateStatus_Reason_Details_ON_83(driverPackages_details_dbList);
                    }else {
                        UpdateStatus_Passcode_Header_ON_83("Has-Been-Delivered");
                        //TODO list for tracking number and reason and status for details
-                       //  UpdateStatus_Passcode_Details_ON_83();
+                         UpdateStatus_Reason_Details_ON_83(driverPackages_details_dbList);
 
                    }
 
@@ -183,19 +190,14 @@ FragmentConfirmPasscodeBinding binding;
 
     }
 
-    public void UpdateStatus_Passcode_Details_ON_83(String Status) {
+    public void UpdateStatus_Reason_Details_ON_83(List<DriverPackages_Details_DB> driverPackages_details_dbList) {
 //        if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
         List<RecievePackedModule> orderDataModuleDBHeaderkist = database.userDao().getorderNORecievePackedModule();
         if (Orderclicked != null) {
-            confirmPasscodeViewModel.UpdateOrderStatus_Passcode_Header_ON_83(
-                    Orderclicked,
-                    Passcode, Status
-            );
-            Log.e(TAG, "UpdateStatus_zone_ON_83 zzzo : " + Orderclicked);
-            Log.e(TAG, "UpdateStatus_zone_ON_83 zzzpa : " + Passcode);
-            Log.e(TAG, "UpdateStatus_zone_ON_83 zzzsta : " + Status);
+            confirmPasscodeViewModel.UpdateOrderStatus_Reason_Details_ON_83(driverPackages_details_dbList);
+            Log.e(TAG, "UpdateStatus_zone_ON_83 zzzo : " + driverPackages_details_dbList.size());
 
-            confirmPasscodeViewModel.mutableLiveData_UpdateStatus_PASSCODE_ON_83.observe(getViewLifecycleOwner(), new Observer<ResponseUpdateStatus>() {
+            confirmPasscodeViewModel.mutableLiveData_UpdateStatus_Reason_ON_83.observe(getViewLifecycleOwner(), new Observer<ResponseUpdateStatus>() {
                 @Override
                 public void onChanged(ResponseUpdateStatus message) {
                     Toast.makeText(getActivity(), "Confirmed", Toast.LENGTH_SHORT).show();

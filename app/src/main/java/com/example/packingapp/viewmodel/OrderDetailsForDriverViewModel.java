@@ -2,9 +2,6 @@ package com.example.packingapp.viewmodel;
 
 import android.util.Log;
 
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
 import com.example.packingapp.Retrofit.ApiClient;
 import com.example.packingapp.model.DriverModules.DriverPackages_Respones_Details_recycler;
 import com.example.packingapp.model.ResponseSms;
@@ -12,6 +9,8 @@ import com.example.packingapp.model.ResponseUpdateStatus;
 
 import java.util.HashMap;
 
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
