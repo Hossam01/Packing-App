@@ -21,6 +21,7 @@
         android:src="@drawable/ic_user"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints"
+        app:civ_circle_background_color="@color/user_icone_bg"
         />
 
     <LinearLayout
@@ -55,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/include_header_of_rv"
-        layout="@layout/recycle_item_for_driver_packages"
+        layout="@layout/recycle_item_for_driver_packages_header"
         android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/linear_call_and_sms"
         android:layout_marginTop="15dp"/>
@@ -68,22 +69,42 @@
         app:layout_constraintTop_toBottomOf="@id/include_header_of_rv"
         />
 
-    <Button
-        android:id="@+id/btn_send_passcode_to_confirm_deleivery"
+    <LinearLayout
+        android:id="@+id/linear_reschedule_confirm_deleivery"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/bg_btn"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/rv_customer_items"
-        android:text="Send Passcode To Confirm Deleivery"
-        android:textColor="@color/textcolor_btns"/>
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btn_send_passcode_to_confirm_deleivery"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_btn"
+            android:text="Confirm Deleivery"
+            android:textColor="@color/textcolor_btns"/>
+
+        <Button
+            android:id="@+id/btn_reschedule_delivery"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_btn"
+            app:layout_constraintTop_toBottomOf="@+id/rv_customer_items"
+            android:text="Reschedule"
+            android:textColor="@color/textcolor_btns"/>
+
+    </LinearLayout>
 
     <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/include_header_of_rv_reject"
-        layout="@layout/recycle_item_for_driver_packages"
+        layout="@layout/recycle_item_for_driver_packages_header"
         android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@id/btn_send_passcode_to_confirm_deleivery"
+        app:layout_constraintTop_toBottomOf="@id/linear_reschedule_confirm_deleivery"
         android:layout_marginTop="15dp"/>
 
 

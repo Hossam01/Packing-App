@@ -42,5 +42,8 @@
      <color name="view_color">#0000FF</color>
 
     <color name="color_for_confirm_passcode_bg">#0993CA</color>
+    <color name="count_txt_bg">#A88F8D</color>
+    <color name="linear_header_bg">#CC275F</color>
+    <color name="user_icone_bg">#E6E3E3</color>
 
 </resources>

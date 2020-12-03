@@ -133,4 +133,12 @@ public class EditPackageItemsActivity extends AppCompatActivity {
         }
 
     }
+
+
+    public void Edit_PDNEWQTY(View view) {
+        Intent gotoaddItemToPackage=new Intent(EditPackageItemsActivity.this,AssignItemToPackagesActivity.class);
+        gotoaddItemToPackage.putExtra("AddNewPackageORAddForExistPackage",TrackingNumber);
+        startActivity(gotoaddItemToPackage);
+        finish();
+    }
 }

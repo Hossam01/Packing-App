@@ -166,4 +166,10 @@ public interface UserDao {
     void deleteDriverPackages_Header_DB();
     @Query("DELETE FROM DriverPackages_Details_DB")
     void deleteDriverPackages_Details_DB();
+
+    @Query("UPDATE DriverPackages_Details_DB SET STATUS =:STATUS ,  REASON =:REASON WHERE  ORDER_NO =:OrderNumber ")
+    void UpdatestatusAndReason(String OrderNumber ,String STATUS , String REASON);
+
+    @Query("SELECT * FROM DriverPackages_Details_DB where REASON is not null or REASON !=''")
+    List<DriverPackages_Details_DB> getAllPckagesForReject();
 }

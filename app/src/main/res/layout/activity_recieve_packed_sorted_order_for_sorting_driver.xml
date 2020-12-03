@@ -9,7 +9,6 @@
     android:background="@color/main_background_color"
     tools:context=".UI.GetOrderDatactivity">
 
-
     <EditText
         android:id="@+id/edit_trackingnumber"
         android:layout_width="match_parent"

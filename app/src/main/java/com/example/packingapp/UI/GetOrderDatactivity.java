@@ -3,7 +3,10 @@ package com.example.packingapp.UI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.packingapp.Database.AppDatabase;
@@ -35,15 +38,31 @@ public class GetOrderDatactivity extends AppCompatActivity {
 
         getOrderDataViewModel= ViewModelProviders.of(this).get(GetOrderDataViewModel.class);
 
+
+        binding.btnLoadingNewPurchaseOrder.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_GO
+                        || actionId == EditorInfo.IME_ACTION_NEXT
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent == null
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_NUMPAD_ENTER
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_DPAD_CENTER){
+                    LoadNewPurchaseOrder();
+                }
+
+                return false;
+            }
+        });
+
+
         binding.btnLoadingNewPurchaseOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!binding.editMagentoorder.getText().toString().isEmpty()) {
-
-                    GETOrderData();
-                }else {
-                    binding.editMagentoorder.setError("أدخل ");
-                }
+                LoadNewPurchaseOrder();
             }
         });
 
@@ -51,6 +70,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), AssignItemToPackagesActivity.class);
+                i.putExtra("AddNewPackageORAddForExistPackage","New");
                 startActivity(i);
             }
         });
@@ -79,55 +99,74 @@ public class GetOrderDatactivity extends AppCompatActivity {
 
     }
 
+    private void LoadNewPurchaseOrder() {
+        if (!binding.editMagentoorder.getText().toString().isEmpty()) {
+
+            GETOrderData();
+        }else {
+            binding.editMagentoorder.setError("أدخل ");
+        }
+    }
+
     private void GETOrderData(){
         getOrderDataViewModel.fetchdata(binding.editMagentoorder.getText().toString());
         getOrderDataViewModel.getOrderDataLiveData().observe(GetOrderDatactivity.this,
                 new Observer<ResponseGetOrderData>() {
             @Override
             public void onChanged(ResponseGetOrderData responseGetOrderData) {
-                Log.e(TAG, "onChanged:Out  "+responseGetOrderData.getOutBound_delivery() );
-                OrderDataModuleDBHeader orderDataModuleDBHeader= new OrderDataModuleDBHeader(
-                        responseGetOrderData.getOrder_number(),
-                        responseGetOrderData.getOutBound_delivery(),
-                        responseGetOrderData.getCustomer().getName(),
-                        responseGetOrderData.getCustomer().getPhone_number(),
-                        responseGetOrderData.getCustomer().getCustomer_code(),
-                        responseGetOrderData.getCustomer().getAddress().getGovern(),
-                        responseGetOrderData.getCustomer().getAddress().getCity(),
-                        responseGetOrderData.getCustomer().getAddress().getDistrict(),
-                        responseGetOrderData.getCustomer().getAddress().getCustomer_address_detail(),
-                        responseGetOrderData.getDelivery().getDate(),
-                        responseGetOrderData.getDelivery().getTime(),
-                        responseGetOrderData.getGrand_total(),
-                        responseGetOrderData.getShipping_fees(),
-                        responseGetOrderData.getPicker_confirmation_time(),
-                        responseGetOrderData.getCurrency(),responseGetOrderData.getOut_From_Loc()
-                );
-
-                database.userDao().deleteAllHeader();
-                database.userDao().deleteAllOrderItems();
-                database.userDao().deleteAllTrckingNumber();
-
-                database.userDao().insertOrderHeader(orderDataModuleDBHeader);
-              //  database.userDao().UpdateOutBoundDelievery(binding.editOutbounddelievery.getText().toString(),responseGetOrderData.getOrder_number());
-                database.userDao().insertOrderItems(responseGetOrderData.getItemsOrderDataDBDetails());
-                Log.e(TAG, "zzz>> currency " +  responseGetOrderData.getItemsOrderDataDBDetails().size());
-                Log.e(TAG, "zzz>> items size " + responseGetOrderData.getItemsOrderDataDBDetails().size());
-                Log.e(TAG, "zzz>> Qty " + responseGetOrderData.getItemsOrderDataDBDetails().get(0).getQuantity());
-                Log.e(TAG, "zzz>> sku " + responseGetOrderData.getItemsOrderDataDBDetails().get(0).getSku());
-                Toast.makeText(GetOrderDatactivity.this, responseGetOrderData.getOrder_number(), Toast.LENGTH_SHORT).show();
-
-                //  Toast.makeText(GetOrderDatactivity.this, database.userDao().getHeader().size(), Toast.LENGTH_SHORT).show();
-                // Log.e(TAG, "onChanged: ","ccc "+ database.userDao().getHeader().size());
-//                        Toast.makeText(GetOrderDatactivity.this, database.userDao().getHeader().get(0).getOrder_number(), Toast.LENGTH_SHORT).show();
-//                        Log.e(TAG, "onChanged: ","cccdd "+ database.userDao().getHeader().get(0).getOrder_number().toString());
-
-                Intent i = new Intent(getApplicationContext(), AssignItemToPackagesActivity.class);
-                startActivity(i);
+                Log.e(TAG, "onChanged: "+responseGetOrderData.getStatus() );
+                if (responseGetOrderData.getStatus().equalsIgnoreCase("Not Packed Yet")) {
+                    ActionAfterGetData(responseGetOrderData);
+                }else {
+                    Toast.makeText(GetOrderDatactivity.this, "This Order in "+responseGetOrderData.getStatus()+" State", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
     }
+
+    private void ActionAfterGetData(ResponseGetOrderData responseGetOrderData) {
+        OrderDataModuleDBHeader orderDataModuleDBHeader= new OrderDataModuleDBHeader(
+                responseGetOrderData.getOrder_number(),
+                responseGetOrderData.getOutBound_delivery(),
+                responseGetOrderData.getCustomer().getName(),
+                responseGetOrderData.getCustomer().getPhone_number(),
+                responseGetOrderData.getCustomer().getCustomer_code(),
+                responseGetOrderData.getCustomer().getAddress().getGovern(),
+                responseGetOrderData.getCustomer().getAddress().getCity(),
+                responseGetOrderData.getCustomer().getAddress().getDistrict(),
+                responseGetOrderData.getCustomer().getAddress().getCustomer_address_detail(),
+                responseGetOrderData.getDelivery().getDate(),
+                responseGetOrderData.getDelivery().getTime(),
+                responseGetOrderData.getGrand_total(),
+                responseGetOrderData.getShipping_fees(),
+                responseGetOrderData.getPicker_confirmation_time(),
+                responseGetOrderData.getCurrency(),responseGetOrderData.getOut_From_Loc()
+        );
+
+        database.userDao().deleteAllHeader();
+        database.userDao().deleteAllOrderItems();
+        database.userDao().deleteAllTrckingNumber();
+
+        database.userDao().insertOrderHeader(orderDataModuleDBHeader);
+        //  database.userDao().UpdateOutBoundDelievery(binding.editOutbounddelievery.getText().toString(),responseGetOrderData.getOrder_number());
+        database.userDao().insertOrderItems(responseGetOrderData.getItemsOrderDataDBDetails());
+        Log.e(TAG, "zzz>> currency " +  responseGetOrderData.getItemsOrderDataDBDetails().size());
+        Log.e(TAG, "zzz>> items size " + responseGetOrderData.getItemsOrderDataDBDetails().size());
+        Log.e(TAG, "zzz>> Qty " + responseGetOrderData.getItemsOrderDataDBDetails().get(0).getQuantity());
+        Log.e(TAG, "zzz>> sku " + responseGetOrderData.getItemsOrderDataDBDetails().get(0).getSku());
+        // Toast.makeText(GetOrderDatactivity.this, responseGetOrderData.getOrder_number(), Toast.LENGTH_SHORT).show();
+
+        //  Toast.makeText(GetOrderDatactivity.this, database.userDao().getHeader().size(), Toast.LENGTH_SHORT).show();
+        // Log.e(TAG, "onChanged: ","ccc "+ database.userDao().getHeader().size());
+//                        Toast.makeText(GetOrderDatactivity.this, database.userDao().getHeader().get(0).getOrder_number(), Toast.LENGTH_SHORT).show();
+//                        Log.e(TAG, "onChanged: ","cccdd "+ database.userDao().getHeader().get(0).getOrder_number().toString());
+
+        Intent i = new Intent(getApplicationContext(), AssignItemToPackagesActivity.class);
+        i.putExtra("AddNewPackageORAddForExistPackage","New");
+        startActivity(i);
+    }
+
     private void UploadDetails() {
         if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
             List<ItemsOrderDataDBDetails> itemsOrderDataDBDetailsList = database.userDao().getDetailsTrackingnumberToUpload();
@@ -152,8 +191,8 @@ public class GetOrderDatactivity extends AppCompatActivity {
             OrderDataModuleDBHeader orderDataModuleDBHeader = database.userDao().getHeaderToUpload();
             String NO_OF_PACKAGES =
                     database.userDao().getNoOfPackagesToUpload(orderDataModuleDBHeader.getOrder_number() +"%");
-            Log.e(TAG, "zzUploadHeader: "+NO_OF_PACKAGES );
-
+            Log.e(TAG, "zzUploadHeader:NO_OF_PAC: "+NO_OF_PACKAGES );
+            Log.e(TAG, "zzUploadHeader:OutBo: "+orderDataModuleDBHeader.getOutBound_delivery() );
             getOrderDataViewModel.InsertOrderdataHeader(
                         orderDataModuleDBHeader.getOrder_number(),
                         orderDataModuleDBHeader.getOutBound_delivery(),

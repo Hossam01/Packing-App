@@ -20,6 +20,10 @@ public class RecievePackedModule {
         @SerializedName("NO_OF_PACKAGES")
         private String NO_OF_PACKAGES;
 
+       @ColumnInfo(name ="STATUS")
+        @SerializedName("STATUS")
+        private String STATUS;
+
         @ColumnInfo(name ="Tracking_Number")
         @SerializedName("Tracking_Number")
         private String Tracking_Number;
@@ -53,6 +57,14 @@ public class RecievePackedModule {
 
     public void setUid(int uid) {
         this.uid = uid;
+    }
+
+    public String getSTATUS() {
+        return STATUS;
+    }
+
+    public void setSTATUS(String STATUS) {
+        this.STATUS = STATUS;
     }
 
     public String getORDER_NO() {

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.packingapp.Retrofit.ApiClient;
 import com.example.packingapp.model.DriverModules.DriverPackages_Respones_Details_recycler;
 import com.example.packingapp.model.ResponseSms;
+import com.example.packingapp.model.ResponseUpdateStatus;
 
 import java.util.HashMap;
 
@@ -60,5 +61,53 @@ public class OrderDetailsForDriverViewModel extends ViewModel {
                         });
     }
 
+    public static MutableLiveData<ResponseUpdateStatus> mutableLiveData_UpdateStatus_ON_83 = new MutableLiveData<>();
+
+    public void UpdateStatus_ON_83(String ORDER_NO, String Status) {
+
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("ORDER_NO", ORDER_NO);
+        map.put("STATUS", Status);
+        ApiClient.build().UpdateOrderStatus_ON_83(map)
+
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(responseSms -> {
+                            mutableLiveData_UpdateStatus_ON_83.setValue(responseSms);
+
+                        }
+                        ,throwable -> {
+                            Log.d("Error",throwable.getMessage());
+
+                        });
+    }
+
+    public static MutableLiveData<ResponseUpdateStatus> mutableLiveData_UpdateStatus = new MutableLiveData<>();
+    public static MutableLiveData<String> mutableLiveDataError = new MutableLiveData<>();
+
+    public void UpdateStatus(String ORDER_NO, String Status) {
+
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("status", Status);
+
+        ApiClient.RoubstaAPIRetrofit_UpdateStatus().UpdateOrderStatus(ORDER_NO ,
+                "Bearer lnv0klr00jkprbugmojf3smj4i5gnn71",
+                Status
+        )
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(responseSms -> {
+                            mutableLiveData_UpdateStatus.setValue(responseSms);
+
+                        }
+                        ,throwable -> {
+                            mutableLiveDataError.setValue(throwable.getMessage());
+                            Log.d("Error",throwable.getMessage());
+
+                        });
+
+    }
 
 }

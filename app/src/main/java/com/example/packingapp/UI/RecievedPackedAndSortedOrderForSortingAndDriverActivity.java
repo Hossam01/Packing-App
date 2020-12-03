@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.packingapp.Database.AppDatabase;
@@ -47,52 +50,26 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
         binding.btnLoadingNewPurchaseOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String OrderNumber;
-                if (!binding.editTrackingnumber.getText().toString().isEmpty() &&
-                        binding.editTrackingnumber.getText().toString().contains("-")) {
-                  //  if (!my_match.find()) {
-                    if (Constant.RegulerExpre_forTrackingNumbeer(binding.editTrackingnumber.getText().toString())) {
-                        Toast.makeText(context, "Special character not found in the string", Toast.LENGTH_SHORT).show();
-                        OrderNumber =
-                                binding.editTrackingnumber.getText().toString().substring(0,
-                                        binding.editTrackingnumber.getText().toString().indexOf("-"));
-                       //TODO CHECK IF TRACKING NUMBER MORE THAN require no of packages
-                        String NOtrackingnumber = binding.editTrackingnumber.getText().toString().substring(
-                                binding.editTrackingnumber.getText().toString().indexOf("-") + 1);
-                        Log.e(TAG, "onClick: " + NOtrackingnumber);
+                LoadNewPurchaseOrder();
+            }
+        });
 
-                        List<RecievePackedModule> recievePackedlist = database.userDao().getRecievePacked_ORDER_NO(OrderNumber);
-                        if (recievePackedlist.size() == 0) {
-                            binding.editTrackingnumber.setError(null);
-
-                            GETOrderData(OrderNumber, binding.editTrackingnumber.getText().toString());
-                            Log.e(TAG, "onClick: Ord " + OrderNumber);
-                            //    Toast.makeText(RecievePackedOrderForSortingActivity.this, "تم", Toast.LENGTH_SHORT).show();
-                        } else {
-                            //TODO CHECK IF TRACKING NUMBER MORE THAN require no of packages
-                            if (database.userDao().getRecievePacked_Tracking_Number(binding.editTrackingnumber.getText().toString())
-                                    .size() == 0 && Integer.valueOf(recievePackedlist.get(0).getNO_OF_PACKAGES()) >=
-                                    Integer.valueOf(NOtrackingnumber)) {
-                                binding.editTrackingnumber.setError(null);
-                                database.userDao().insertRecievePacked(new RecievePackedModule(
-                                        recievePackedlist.get(0).getORDER_NO(), recievePackedlist.get(0).getNO_OF_PACKAGES(),
-                                        binding.editTrackingnumber.getText().toString()));
-                                //    GETOrderData(binding.editTrackingnumber.getText().toString());
-                                Log.e(TAG, "onClick: Trac " + binding.editTrackingnumber.getText().toString());
-                                Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
-                            } else {
-                                binding.editTrackingnumber.setError("تم أدخال هذا من قبل ");
-                                binding.editTrackingnumber.setText("");
-                            }
-                        }
-                    }else {
-                        Toast.makeText(context, "Special character found in the string", Toast.LENGTH_SHORT).show();
-                    }
-                }else {
-
-                    binding.editTrackingnumber.setError(getString(R.string.enter_tracking_number));
-                    binding.editTrackingnumber.setText("");
+        binding.editTrackingnumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_GO
+                        || actionId == EditorInfo.IME_ACTION_NEXT
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent == null
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_NUMPAD_ENTER
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_DPAD_CENTER){
+                    LoadNewPurchaseOrder();
                 }
+
+                return false;
             }
         });
 
@@ -100,6 +77,7 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
         binding.btnUpdateOrderStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO CHECK IF TRACKING NUMBER MORE THAN require no of packages
                 List<RecievePackedModule>  recievePackedORDER_NO_Distinctlist=  database.userDao().getRecievePacked_ORDER_NO_Distinct();
                 List<RecievePackedModule>  NOTrecievedPackedORDERlist=  new ArrayList<>();
                 if (recievePackedORDER_NO_Distinctlist.size()>0) {
@@ -153,7 +131,6 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                 }
             }
         });
-
       /*  binding.btnAssignOrdersToZone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -212,6 +189,59 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
         });*/
     }
 
+    private void LoadNewPurchaseOrder() {
+        String OrderNumber;
+        if (!binding.editTrackingnumber.getText().toString().isEmpty() &&
+                binding.editTrackingnumber.getText().toString().contains("-")) {
+            //  if (!my_match.find()) {
+            if (Constant.RegulerExpre_forTrackingNumbeer(binding.editTrackingnumber.getText().toString())) {
+                // Toast.makeText(context, "Special character not found in the string", Toast.LENGTH_SHORT).show();
+                OrderNumber =
+                        binding.editTrackingnumber.getText().toString().substring(0,
+                                binding.editTrackingnumber.getText().toString().indexOf("-"));
+                //TODO CHECK IF TRACKING NUMBER MORE THAN require no of packages
+                String NOtrackingnumber = binding.editTrackingnumber.getText().toString().substring(
+                        binding.editTrackingnumber.getText().toString().indexOf("-") + 1);
+                Log.e(TAG, "onClick: " + NOtrackingnumber);
+
+                List<RecievePackedModule> recievePackedlist = database.userDao().getRecievePacked_ORDER_NO(OrderNumber);
+                if (recievePackedlist.size() == 0) {
+                    binding.editTrackingnumber.setError(null);
+
+                    GETOrderData(OrderNumber, binding.editTrackingnumber.getText().toString());
+                    Log.e(TAG, "onClick: Ord " + OrderNumber);
+                    //    Toast.makeText(RecievePackedOrderForSortingActivity.this, "تم", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (database.userDao().getRecievePacked_Tracking_Number(binding.editTrackingnumber.getText().toString())
+                            .size() == 0 && Integer.valueOf(recievePackedlist.get(0).getNO_OF_PACKAGES()) >=
+                            Integer.valueOf(NOtrackingnumber)) {
+                        binding.editTrackingnumber.setError(null);
+                        database.userDao().insertRecievePacked(new RecievePackedModule(
+                                recievePackedlist.get(0).getORDER_NO(), recievePackedlist.get(0).getNO_OF_PACKAGES(),
+                                binding.editTrackingnumber.getText().toString()));
+                        //    GETOrderData(binding.editTrackingnumber.getText().toString());
+                        Log.e(TAG, "onClick: Trac " + binding.editTrackingnumber.getText().toString());
+                        Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (database.userDao().getRecievePacked_Tracking_Number(binding.editTrackingnumber.getText().toString())
+                                .size() > 0) {
+                            binding.editTrackingnumber.setError("تم أدخال هذا من قبل ");
+                            binding.editTrackingnumber.setText("");
+                        }else {
+                            binding.editTrackingnumber.setError("تم أدخال رقم غير صحيح ");
+                            binding.editTrackingnumber.setText("");
+                        }
+                    }
+                }
+            }else {
+                Toast.makeText(context, "Special character found in the string", Toast.LENGTH_SHORT).show();
+            }
+        }else {
+            binding.editTrackingnumber.setError(getString(R.string.enter_tracking_number));
+            binding.editTrackingnumber.setText("");
+        }
+    }
+
 
     private void GETOrderData(String ordernumber , String trackingnumber){
         recievePackedOrderViewModel.fetchdata(ordernumber);
@@ -219,20 +249,22 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
             @Override
             public void onChanged(RecievePackedModule responseGetOrderData) {
                 Log.e(TAG, "onChanged: "+ responseGetOrderData.getNO_OF_PACKAGES());
-                String NOtrackingnumber= binding.editTrackingnumber.getText().toString().substring(
-                        binding.editTrackingnumber.getText().toString().indexOf("-")+1);
-
-                if (Integer.valueOf(responseGetOrderData.getNO_OF_PACKAGES()) >=
-                        Integer.valueOf(NOtrackingnumber)) {
-                    database.userDao().insertRecievePacked(new RecievePackedModule(
-                            responseGetOrderData.getORDER_NO(), responseGetOrderData.getNO_OF_PACKAGES(),
-                            trackingnumber));
-                    Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
-
-                }else {
-                    Toast.makeText(context, "تم أدخال رقم غير صحيح", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onChanged:stat "+ responseGetOrderData.getSTATUS());
+                Log.e(TAG, "onChanged:packeOr "+ RecievePackedOrConfirmForDriver);
+                if (RecievePackedOrConfirmForDriver.equalsIgnoreCase("RecievePacked")) {
+                    if (responseGetOrderData.getSTATUS().equalsIgnoreCase("packed")) {
+                        AfterGetOrderData(responseGetOrderData ,trackingnumber);
+                    }else {
+                        Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "This Order in "+responseGetOrderData.getSTATUS()+" State", Toast.LENGTH_SHORT).show();
+                    }
+                }else if (RecievePackedOrConfirmForDriver.equalsIgnoreCase("ConfirmForDriver")) {
+                    if (responseGetOrderData.getSTATUS().equalsIgnoreCase("sorted")) {
+                        AfterGetOrderData(responseGetOrderData , trackingnumber);
+                    }else {
+                        Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "This Order in "+responseGetOrderData.getSTATUS()+" State", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                Log.e(TAG, "onChanged: insertR"+trackingnumber );
+
             }
 
         });
@@ -248,6 +280,22 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                 }
             }
         });
+    }
+
+    private void AfterGetOrderData(RecievePackedModule responseGetOrderData , String trackingnumber) {
+        String NOtrackingnumber= binding.editTrackingnumber.getText().toString().substring(
+                binding.editTrackingnumber.getText().toString().indexOf("-")+1);
+
+        if (Integer.valueOf(responseGetOrderData.getNO_OF_PACKAGES()) >=
+                Integer.valueOf(NOtrackingnumber)) {
+            database.userDao().insertRecievePacked(new RecievePackedModule(
+                    responseGetOrderData.getORDER_NO(), responseGetOrderData.getNO_OF_PACKAGES(),
+                    trackingnumber));
+            Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "تم أدخال رقم غير صحيح", Toast.LENGTH_SHORT).show();
+        }
+        Log.e(TAG, "onChanged: insertR"+trackingnumber );
     }
 
     public void UpdateStatus_ON_83(){

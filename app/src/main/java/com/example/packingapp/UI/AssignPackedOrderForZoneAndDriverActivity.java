@@ -12,21 +12,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityAssignPackedOrderForZoneDriverBinding;
-import com.example.packingapp.model.GetOrderResponse.OrderDataModuleDBHeader;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.ResponseDriver;
 import com.example.packingapp.model.ResponseUpdateStatus;
@@ -43,6 +39,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity {
     private static final String TAG = "AssignPackedOrderForZon";
@@ -74,26 +76,28 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
     }
 
     private void ButtonsClickListnerForAssignToZone() {
+        binding.editTrackingnumberZone.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_GO
+                        || actionId == EditorInfo.IME_ACTION_NEXT
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent == null
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_NUMPAD_ENTER
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_DPAD_CENTER){
+                    LoadingNewPurchaseOrderZone();
+                }
+
+                return false;
+            }
+        });
         binding.btnLoadingNewPurchaseOrderZone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!binding.editTrackingnumberZone.getText().toString().isEmpty() &&
-                        !binding.editZone.getText().toString().isEmpty()) {
-                    if (Constant.RegulerExpre_forTrackingNumbeer(binding.editTrackingnumberDriver.getText().toString())) {
-                        Toast.makeText(context, "Special character not found in the string", Toast.LENGTH_SHORT).show();
-                        LoadNewPurchaseOrderBTN_Zone();
-                    }else {
-                        Toast.makeText(context, "Special character found in the string", Toast.LENGTH_SHORT).show();
-                    }
-                }else {
-                    if (binding.editTrackingnumberZone.getText().toString().isEmpty()) {
-                        binding.editTrackingnumberZone.setError("أدخل السريال");
-                        binding.editTrackingnumberZone.requestFocus();
-                    }else if (binding.editZone.getText().toString().isEmpty()){
-                        binding.editZone.setError("أدخل المنطقه");
-                        binding.editZone.requestFocus();
-                    }
-                }
+                LoadingNewPurchaseOrderZone();
             }
         });
 
@@ -157,22 +161,50 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
         });
     }
 
+    private void LoadingNewPurchaseOrderZone() {
+        if (!binding.editTrackingnumberZone.getText().toString().isEmpty() &&
+                !binding.editZone.getText().toString().isEmpty()) {
+            if (Constant.RegulerExpre_forTrackingNumbeer(binding.editTrackingnumberDriver.getText().toString())) {
+                // Toast.makeText(context, "Special character not found in the string", Toast.LENGTH_SHORT).show();
+                LoadNewPurchaseOrderBTN_Zone();
+            }else {
+                Toast.makeText(context, "Special character found in the string", Toast.LENGTH_SHORT).show();
+            }
+        }else {
+            if (binding.editTrackingnumberZone.getText().toString().isEmpty()) {
+                binding.editTrackingnumberZone.setError("أدخل السريال");
+                binding.editTrackingnumberZone.requestFocus();
+            }else if (binding.editZone.getText().toString().isEmpty()){
+                binding.editZone.setError("أدخل المنطقه");
+                binding.editZone.requestFocus();
+            }
+        }
+    }
+
     private void ButtonsClickListnerForAssignToDriver() {
+        binding.editTrackingnumberDriver.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_GO
+                        || actionId == EditorInfo.IME_ACTION_NEXT
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent == null
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_NUMPAD_ENTER
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_DPAD_CENTER){
+                    LoadingNewPurchaseOrderDriver();
+                }
+
+                return false;
+            }
+        });
+
         binding.btnLoadingNewPurchaseOrderDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!binding.editTrackingnumberDriver.getText().toString().isEmpty()) {
-                    if (Constant.RegulerExpre_forTrackingNumbeer(binding.editTrackingnumberDriver.getText().toString())) {
-                        Toast.makeText(context, "Special character not found in the string", Toast.LENGTH_SHORT).show();
-                        trackingNo=binding.editTrackingnumberDriver.getText().toString();
-                        LoadNewPurchaseOrderBTN_Driver();
-                    }else {
-                        Toast.makeText(context, "Special character found in the string", Toast.LENGTH_SHORT).show();
-                    }
-                }else {
-                        binding.editTrackingnumberDriver.setError("أدخل السريال");
-                        binding.editTrackingnumberDriver.requestFocus();
-                }
+                LoadingNewPurchaseOrderDriver();
             }
         });
 
@@ -227,8 +259,13 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                             // UpdateStatus_zone_ON_83("sorted");
                             // UpdateStatus("sorted");
                             UpdateDriverID_ON_83(binding.spinerDriverId.getSelectedItem().toString());
-                            OrderDataModuleDBHeader orderDataModuleDBHeader= database.userDao().getHeaderToUpload();
-                            PrintRunTimeSheet(trackingNo,orderDataModuleDBHeader.getCustomer_name(),orderDataModuleDBHeader.getCustomer_address_city(),orderDataModuleDBHeader.getOutBound_delivery());
+
+                            //TODO Print RunTime sheet
+                            /*OrderDataModuleDBHeader orderDataModuleDBHeader= database.userDao().getHeaderToUpload();
+                            PrintRunTimeSheet(trackingNo,orderDataModuleDBHeader.getCustomer_name(),
+                                    orderDataModuleDBHeader.getCustomer_address_city(),orderDataModuleDBHeader.getOutBound_delivery());
+
+                             */
                         } else {
                             Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, String.format("%s",
                                     getString(R.string.message_not_equalfornoofpaclkageandcountoftrackingnumbers)), Toast.LENGTH_SHORT).show();
@@ -243,6 +280,21 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
 
             }
         });
+    }
+
+    private void LoadingNewPurchaseOrderDriver() {
+        if (!binding.editTrackingnumberDriver.getText().toString().isEmpty()) {
+            if (Constant.RegulerExpre_forTrackingNumbeer(binding.editTrackingnumberDriver.getText().toString())) {
+                //  Toast.makeText(context, "Special character not found in the string", Toast.LENGTH_SHORT).show();
+                trackingNo=binding.editTrackingnumberDriver.getText().toString();
+                LoadNewPurchaseOrderBTN_Driver();
+            }else {
+                Toast.makeText(context, "Special character found in the string", Toast.LENGTH_SHORT).show();
+            }
+        }else {
+            binding.editTrackingnumberDriver.setError("أدخل السريال");
+            binding.editTrackingnumberDriver.requestFocus();
+        }
     }
 
     private void ControlLayout() {
@@ -382,11 +434,13 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                             trackingnumber1, Zone));
                     binding.editTrackingnumberZone.setText("");
                     binding.editTrackingnumberZone.setError(null);
+                    binding.editTrackingnumberDriver.setText("");
+                    binding.editTrackingnumberDriver.setError(null);
                     binding.editZone.setText("");
                     binding.editZone.setError(null);
                     Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(context, "تم", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(context, "تم", Toast.LENGTH_SHORT).show();
                 } else {
                     new AlertDialog.Builder(AssignPackedOrderForZoneAndDriverActivity.this)
                             .setTitle(getString(R.string.updte_zone_if_exist))
@@ -397,6 +451,8 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                                             trackingnumber1, Zone));
                                     binding.editTrackingnumberZone.setText("");
                                     binding.editTrackingnumberZone.setError(null);
+                                    binding.editTrackingnumberDriver.setText("");
+                                    binding.editTrackingnumberDriver.setError(null);
                                     binding.editZone.setText("");
                                     binding.editZone.setError(null);
                                     database.userDao().UpdatezoneForORDER_NO(OrderNumber, Zone1);
@@ -412,23 +468,29 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
 
         }
     }
-
+//in sorting
     private void GETOrderData(String trackingnumber ,String Zone ){
         assignPackedOrderToZoneViewModel.fetchdata(trackingnumber);
         assignPackedOrderToZoneViewModel.getOrderDataLiveData().observe(AssignPackedOrderForZoneAndDriverActivity.this, new Observer<RecievePackedModule>() {
             @Override
             public void onChanged(RecievePackedModule responseGetOrderData) {
-                    Log.e(TAG, "onChanged: " + responseGetOrderData.getNO_OF_PACKAGES());
-                    database.userDao().insertRecievePacked(new RecievePackedModule(
-                            responseGetOrderData.getORDER_NO(), responseGetOrderData.getNO_OF_PACKAGES(),
-                            trackingnumber,Zone));
-                    binding.editTrackingnumberZone.setText("");
-                    binding.editTrackingnumberZone.setError(null);
-                    binding.editZone.setText("");
-                    binding.editZone.setError(null);
-                    Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "onChanged: insertR" + trackingnumber);
+                //|| responseGetOrderData.getSTATUS().equalsIgnoreCase("sorted")
+                Log.e(TAG, "onChanged:stat  "+ responseGetOrderData.getSTATUS());
+                if (Zone != null) {
+                    if (responseGetOrderData.getSTATUS().equalsIgnoreCase("in sorting")
+                    ) {
+                        AfterGetOrderData(responseGetOrderData, trackingnumber, Zone);
+                    } else {
+                        Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "This Order in " + responseGetOrderData.getSTATUS() + " State", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    if (responseGetOrderData.getSTATUS().equalsIgnoreCase("sorted")) {
+                        AfterGetOrderData(responseGetOrderData, trackingnumber, Zone);
+                    } else {
+                        Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "This Order in " + responseGetOrderData.getSTATUS() + " State", Toast.LENGTH_SHORT).show();
 
+                    }
+                }
             }
 
         });
@@ -445,6 +507,21 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 }
             }
         });
+    }
+
+    private void AfterGetOrderData(RecievePackedModule responseGetOrderData, String trackingnumber ,String Zone) {
+        Log.e(TAG, "onChanged: " + responseGetOrderData.getNO_OF_PACKAGES());
+        database.userDao().insertRecievePacked(new RecievePackedModule(
+                responseGetOrderData.getORDER_NO(), responseGetOrderData.getNO_OF_PACKAGES(),
+                trackingnumber,Zone));
+        binding.editTrackingnumberZone.setText("");
+        binding.editTrackingnumberZone.setError(null);
+        binding.editTrackingnumberDriver.setText("");
+        binding.editTrackingnumberDriver.setError(null);
+        binding.editZone.setText("");
+        binding.editZone.setError(null);
+        Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
+        Log.e(TAG, "onChanged: insertR" + trackingnumber);
     }
 
     public void UpdateStatus_zone_ON_83(String Status){
@@ -561,12 +638,16 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
 
                 GETOrderData(binding.editTrackingnumberDriver.getText().toString(),null);
                 Log.e(TAG, "onClick: Ord "+OrderNumber );
+                binding.editTrackingnumberDriver.setText("");
+                binding.editTrackingnumberDriver.setError(null);
                 Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
             }else if (database.userDao().getRecievePacked_Tracking_Number(binding.editTrackingnumberDriver.getText().toString())
                     .size() ==0){
                 binding.editTrackingnumberDriver.setError(null);
 
                 GETOrderData(binding.editTrackingnumberDriver.getText().toString(),null);
+                binding.editTrackingnumberDriver.setText("");
+                binding.editTrackingnumberDriver.setError(null);
                 Log.e(TAG, "onClick: Trac "+binding.editTrackingnumberDriver.getText().toString() );
                 Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
             }else {

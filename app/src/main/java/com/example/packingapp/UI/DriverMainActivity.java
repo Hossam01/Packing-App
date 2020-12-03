@@ -33,7 +33,9 @@ public class DriverMainActivity extends AppCompatActivity {
                         .setTitle(getString(R.string.delete_last_assigned_order_of_driver))
                         .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                database.userDao().deleteRecievePackedModule();
+                                //TODO why you delete
+                                database.userDao().deleteDriverPackages_Header_DB();
+                                database.userDao().deleteDriverPackages_Header_DB();
                                 Intent gotoconfirmrecieve = new Intent(DriverMainActivity.this,RecievedPackedAndSortedOrderForSortingAndDriverActivity.class);
                                 gotoconfirmrecieve.putExtra("RecievePackedOrConfirmForDriver","ConfirmForDriver");
                                 startActivity(gotoconfirmrecieve);

@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.UI.OrderDetails_forDriverActivity;
 import com.example.packingapp.databinding.FragmentConfirmPasscodeBinding;
+import com.example.packingapp.model.DriverModules.DriverPackages_Details_DB;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.ResponseUpdateStatus;
 import com.example.packingapp.viewmodel.ConfirmPasscodeViewModel;
@@ -111,18 +112,27 @@ FragmentConfirmPasscodeBinding binding;
         binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                    //  Rejected under inspection
+                //Reschedule
+                //Has-Been-Delivered
                if (Passcode.equalsIgnoreCase(binding.editPasscode.getText().toString())) {
-                   UpdateStatus_zone_ON_83("Delivered");
+                   List<DriverPackages_Details_DB> driverPackages_details_dbList  =database.userDao().getAllPckagesForReject();
+                   if (driverPackages_details_dbList.size() >0 ){
+                       UpdateStatus_Passcode_Header_ON_83("Rejected under inspection");
+                       //TODO list for tracking number and reason and status for details _check file name
+                     //  UpdateStatus_Passcode_Details_ON_83();
+                   }else {
+                       UpdateStatus_Passcode_Header_ON_83("Has-Been-Delivered");
+                       //TODO list for tracking number and reason and status for details
+                       //  UpdateStatus_Passcode_Details_ON_83();
 
-
+                   }
 
 //                   OrderDetails_forDriverActivity orderDetails_forDriverActivity = (OrderDetails_forDriverActivity) getActivity();
 //                   if (orderDetails_forDriverActivity != null) {
 //                       //   mainActivity.CreateORUpdateRecycleView(2);
 //                       Log.e("nnnnnnnnn", "");
 //                   }
-
                }else {
                    binding.editPasscode.setError("Incorrect passcode");
                }
@@ -146,11 +156,38 @@ FragmentConfirmPasscodeBinding binding;
 
     }
 
-    public void UpdateStatus_zone_ON_83(String Status) {
+    public void UpdateStatus_Passcode_Header_ON_83(String Status) {
 //        if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
         List<RecievePackedModule> orderDataModuleDBHeaderkist = database.userDao().getorderNORecievePackedModule();
         if (Orderclicked != null) {
-            confirmPasscodeViewModel.UpdateOrderStatus_Passcode_ON_83(
+            confirmPasscodeViewModel.UpdateOrderStatus_Passcode_Header_ON_83(
+                    Orderclicked,
+                    Passcode, Status
+            );
+            Log.e(TAG, "UpdateStatus_zone_ON_83 zzzo : " + Orderclicked);
+            Log.e(TAG, "UpdateStatus_zone_ON_83 zzzpa : " + Passcode);
+            Log.e(TAG, "UpdateStatus_zone_ON_83 zzzsta : " + Status);
+
+            confirmPasscodeViewModel.mutableLiveData_UpdateStatus_PASSCODE_ON_83.observe(getViewLifecycleOwner(), new Observer<ResponseUpdateStatus>() {
+                @Override
+                public void onChanged(ResponseUpdateStatus message) {
+                    Toast.makeText(getActivity(), "Confirmed", Toast.LENGTH_SHORT).show();
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+                    fm.popBackStack();
+                    Log.e(TAG, "onChanged:update " + message.getMessage());
+                }
+            });
+        } else {
+            Toast.makeText(getActivity(), "لم الرفع .. أضغط مره أخرى ", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public void UpdateStatus_Passcode_Details_ON_83(String Status) {
+//        if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
+        List<RecievePackedModule> orderDataModuleDBHeaderkist = database.userDao().getorderNORecievePackedModule();
+        if (Orderclicked != null) {
+            confirmPasscodeViewModel.UpdateOrderStatus_Passcode_Header_ON_83(
                     Orderclicked,
                     Passcode, Status
             );

@@ -39,6 +39,9 @@ public class ResponseGetOrderData {
     @SerializedName("items")
     private List<ItemsOrderDataDBDetails> itemsOrderDataDBDetails;
 
+    @SerializedName("Status")
+    private String Status;
+
     public String getOutBound_delivery() {
         return OutBound_delivery;
     }
@@ -131,4 +134,11 @@ public class ResponseGetOrderData {
         this.itemsOrderDataDBDetails = itemsOrderDataDBDetails;
     }
 
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
 }

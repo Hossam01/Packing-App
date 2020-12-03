@@ -16,7 +16,7 @@ public class ConfirmPasscodeViewModel extends ViewModel {
 
     public static MutableLiveData<ResponseUpdateStatus> mutableLiveData_UpdateStatus_PASSCODE_ON_83 = new MutableLiveData<>();
 
-    public void UpdateOrderStatus_Passcode_ON_83(String ORDER_NO, String PASSCODE, String Status) {
+    public void UpdateOrderStatus_Passcode_Header_ON_83(String ORDER_NO, String PASSCODE, String Status) {
 
 
         HashMap<String, String> map = new HashMap<>();
@@ -39,4 +39,25 @@ public class ConfirmPasscodeViewModel extends ViewModel {
     }
 
 
+    public static MutableLiveData<ResponseUpdateStatus> mutableLiveData_UpdateStatus_Reason_ON_83 = new MutableLiveData<>();
+
+    public void UpdateOrderStatus_Passcode_Details_ON_83(String ORDER_NO, String PASSCODE, String Status) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("ORDER_NO", ORDER_NO);
+        map.put("PASSCODE", PASSCODE);
+        map.put("STATUS", Status);
+        ApiClient.build().UpdateOrderStatus_Reasone_ON_83(map)
+
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(responseSms -> {
+                            mutableLiveData_UpdateStatus_Reason_ON_83.setValue(responseSms);
+
+                        }
+                        ,throwable -> {
+                            Log.d("Error",throwable.getMessage());
+
+                        });
+
+    }
 }

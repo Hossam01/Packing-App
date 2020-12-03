@@ -46,5 +46,8 @@
     <string name="delete_last_assigned_order_of_driver">هل تريد حذف أخر أستلامه والأستلام من جديد</string>
     <string name="passcode">الكود</string>
     <string name="enter_passcode">enter passcode</string>
+    <string name="enter_sms_body">Enter SMS Body</string>
+    <string name="add_items">أضافه</string>
+    <string name="enter_reject_reason">Write Reject Reason</string>
 
 </resources>
