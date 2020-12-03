@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UI.OrderDetails_forDriverActivity"></activity>
+        <activity android:name=".UI.EndOfDayActivity"></activity>
+        <activity android:name=".UI.OrderDetails_forDriverActivity" />
         <activity android:name=".UI.OrdersOfRuntimeSheetNowForDriverActivity" />
         <activity android:name=".UI.DriverMainActivity" />
         <activity android:name=".UI.AdminstratorActivity" />

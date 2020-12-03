@@ -81,7 +81,8 @@ public class DriverMainActivity extends AppCompatActivity {
         binding.btnShowMyOrdersOfEndofday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent endofday=new Intent(DriverMainActivity.this,EndOfDayActivity.class);
+                startActivity(endofday);
             }
         });
 

@@ -2,6 +2,7 @@ package com.example.packingapp.Retrofit;
 
 import com.example.packingapp.model.DriverModules.DriverPackages_Respones_Details_recycler;
 import com.example.packingapp.model.DriverModules.DriverPackages_Respones_Header_recycler;
+import com.example.packingapp.model.DriverModules.ResponeEndOfDay;
 import com.example.packingapp.model.Message;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.ResponseDriver;
@@ -96,5 +97,5 @@ public interface APIRetrofit {
     Observable<ResponseUpdateStatus> UpdateOrderStatus_Reasone_ON_83(@Body Map<String, String> mobile);
 
     @POST("Packing_Api/Ordernumber/GetOrderForEndOfDay.php")
-    Observable<ResponseUpdateStatus> GetOrderForEndOfDay_ON_83(@Body Map<String, String> mobile);
+    Observable<ResponeEndOfDay> GetOrderForEndOfDay_ON_83(@Body Map<String, String> mobile);
 }
