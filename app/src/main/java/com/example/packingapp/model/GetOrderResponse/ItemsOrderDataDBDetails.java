@@ -23,10 +23,6 @@ public class ItemsOrderDataDBDetails {
 //    @SerializedName("Name_of_item")
 //    private String Name_of_item;
 
-    @ColumnInfo(name = "sku")
-    @SerializedName("sku")
-    private String sku;
-
     @ColumnInfo(name = "price")
     @SerializedName("price")
     private String price;
@@ -35,8 +31,17 @@ public class ItemsOrderDataDBDetails {
     @SerializedName("quantity")
     private String quantity;
 
-    @ColumnInfo(name = "unite")
-    @SerializedName("unite")
+
+    @ColumnInfo(name = "sku")
+    @SerializedName("sku")
+    private String sku;
+
+
+
+
+
+    @ColumnInfo(name = "unit_of_measurement")
+    @SerializedName("unit_of_measurement")
     private String unite;
 
     @ColumnInfo(name = "TrackingNumber")

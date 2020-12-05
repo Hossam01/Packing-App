@@ -9,38 +9,37 @@ public class ResponseGetOrderData {
     @SerializedName("order_number")
     private String order_number;
 
-    @SerializedName("OutBound_delivery")
-    private String OutBound_delivery;
-
     @SerializedName("customer")
     private customer customer;
 
     @SerializedName("delivery")
     private delivery delivery;
 
-    @SerializedName("picker_confirmation_time")
-    private String picker_confirmation_time;
-
     @SerializedName("grand_total")
     private String grand_total;
-
-    @SerializedName("currency")
-    private String currency;
 
     @SerializedName("shipping_fees")
     private String shipping_fees;
 
-    @SerializedName("time_slot")
-    private String time_slot;
+    @SerializedName("picker_confirmation_time")
+    private String picker_confirmation_time;
 
-    @SerializedName("Out_From_Loc")
+    @SerializedName("currency")
+    private String currency;
+
+    @SerializedName("status")
+    private String Status;
+
+    @SerializedName("outbound_delivery")
+    private String OutBound_delivery;
+
+    @SerializedName("out_from_site")
     private String Out_From_Loc;
 
     @SerializedName("items")
     private List<ItemsOrderDataDBDetails> itemsOrderDataDBDetails;
 
-    @SerializedName("Status")
-    private String Status;
+
 
     public String getOutBound_delivery() {
         return OutBound_delivery;
@@ -76,14 +75,6 @@ public class ResponseGetOrderData {
 
     public void setCurrency(String currency) {
         this.currency = currency;
-    }
-
-    public String getTime_slot() {
-        return time_slot;
-    }
-
-    public void setTime_slot(String time_slot) {
-        this.time_slot = time_slot;
     }
 
     public String getOrder_number() {

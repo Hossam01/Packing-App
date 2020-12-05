@@ -16,7 +16,6 @@ import retrofit2.http.Path;
 
 public interface RoubstaAPI_UpdateRetrofit {
       @Headers("Accept:application/json")
-
    // @Headers("Accept: */*")
     @POST("{ORDER_NO}/status")
     @FormUrlEncoded

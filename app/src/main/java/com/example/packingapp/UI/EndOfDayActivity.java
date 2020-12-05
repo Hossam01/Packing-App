@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.R;
+import com.example.packingapp.databinding.ActivityEndOfDayBinding;
 import com.example.packingapp.model.DriverModules.ResponeEndOfDay;
 import com.example.packingapp.model.RecordsItem;
 import com.example.packingapp.viewmodel.EndOfDayViewModel;
@@ -17,15 +18,16 @@ public class EndOfDayActivity extends AppCompatActivity {
     private static final String TAG = "EndOfDayActivity";
     AppDatabase database;
     EndOfDayViewModel endOfDayViewModel;
+    ActivityEndOfDayBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_end_of_day);
+        binding=ActivityEndOfDayBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         database= AppDatabase.getDatabaseInstance(this);
         endOfDayViewModel= ViewModelProviders.of(this).get(EndOfDayViewModel.class);
         RecordsItem recordsItem = database.userDao().getUserData_MU();
         Log.e(TAG, "onCreate: "+recordsItem.getUser_id() );
-
 
         endOfDayViewModel.GetOrderForEndOfDay_ON_83(recordsItem.getUser_id());
         endOfDayViewModel.DriverOrdersReadyDataLiveData().observe(EndOfDayActivity.this,

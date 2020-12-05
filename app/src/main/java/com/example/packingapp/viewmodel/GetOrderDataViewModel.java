@@ -26,25 +26,31 @@ public class GetOrderDataViewModel extends ViewModel {
         return OrderDataLiveData;
     }
 
-    public static MutableLiveData<String> mutableLiveDataError = new MutableLiveData<>();
+    public static MutableLiveData<Throwable> mutableLiveDataError = new MutableLiveData<Throwable>();
 
-    public void fetchdata(String OrderNumber) {
+    public void fetchdata(String ORDER_NO) {
 
         HashMap<String, String> map = new HashMap<>();
-        map.put("OrderNumber", OrderNumber);
+        map.put("OrderNumber", ORDER_NO);
 
-        ApiClient.buildRo().GetOrderData(map)
+        ApiClient.buildRo().GetOrderData(
+                "Bearer lnv0klr00jkprbugmojf3smj4i5gnn71",
+                ORDER_NO
+        )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe( (responseGetOrderData) -> {
+                .subscribe(responseGetOrderData -> {
                             OrderDataLiveData.setValue(responseGetOrderData);
                             Log.d(TAG, "fetchdata: "+responseGetOrderData);
+                        },ErrorBodyForRoubstaAPI ->{
+                            mutableLiveDataError.setValue(ErrorBodyForRoubstaAPI);
+                            Log.d("Error..",ErrorBodyForRoubstaAPI.getMessage());
                         }
-                        ,throwable -> {
-                            mutableLiveDataError.setValue(throwable.getMessage());
-                            Log.d("Error",throwable.getMessage());
+                       /* ,throwable -> {
+                           // mutableLiveDataError.setValue(throwable.getMessage());
+                           // Log.d("Error",throwable);
 
-                        });
+                        }*/);
     }
 
     public static MutableLiveData<Message> mutableLiveData = new MutableLiveData<>();

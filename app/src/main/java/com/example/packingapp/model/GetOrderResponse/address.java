@@ -13,7 +13,7 @@ public class address {
     @SerializedName("district")
     private String district;
 
-    @SerializedName("customer_address_detail")
+    @SerializedName("shipping_address")
     private String customer_address_detail;
 
     public String getGovern() {

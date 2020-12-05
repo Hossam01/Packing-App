@@ -5,5 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.EndOfDayActivity">
+<TextView
+    android:id="@+id/txt_success_header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/success_header_of_driver"
+    android:textColor="@color/white"
+    android:background="@color/endofday_header_bg"
+    app:layout_constraintTop_toTopOf="parent"
+    />
 
+    <TextView
+        android:id="@+id/txt_success_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/success_header_of_driver"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/txt_success_header"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/txt_failed_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/success_header_of_driver"
+        android:textColor="@color/white"
+        android:background="@color/endofday_header_bg"
+        app:layout_constraintTop_toBottomOf="@id/txt_success_value"
+        />
+
+    <TextView
+        android:id="@+id/txt_failed_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/success_header_of_driver"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/txt_failed_header"
+        android:gravity="center_horizontal"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

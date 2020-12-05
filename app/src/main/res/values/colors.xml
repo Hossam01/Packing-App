@@ -54,6 +54,7 @@
     <color name="zebra_yellow">#FFD200</color>
     <color name="error_color">#FFBB86FC</color>
     <color name="light_gray">#CCCCCC</color>
+    <color name="endofday_header_bg">#AAA4A3</color>
 
 
 </resources>
