@@ -1,10 +1,10 @@
 package com.example.packingapp.model.GetOrderResponse;
 
-import com.google.gson.annotations.SerializedName;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "ItemsOrderDataDBDetails")
 public class ItemsOrderDataDBDetails {
@@ -83,7 +83,10 @@ public class ItemsOrderDataDBDetails {
     }
 
     public String getPrice() {
-        return price;
+        if (price.isEmpty()||price==" ")
+            return "0";
+        else
+            return price;
     }
 
     public void setPrice(String price) {

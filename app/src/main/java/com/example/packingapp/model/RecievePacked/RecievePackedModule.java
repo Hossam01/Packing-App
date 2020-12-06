@@ -1,10 +1,10 @@
 package com.example.packingapp.model.RecievePacked;
 
-import com.google.gson.annotations.SerializedName;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "RecievePackedModule")
 public class RecievePackedModule {
@@ -32,8 +32,68 @@ public class RecievePackedModule {
     @SerializedName("Zone")
     private String Zone;
 
+    @ColumnInfo(name ="OutBound")
+    @SerializedName("OutBound")
+    private String OutBound;
+
+    @ColumnInfo(name ="CustomerName")
+    @SerializedName("CustomerName")
+    private String CustomerName;
+
+    @ColumnInfo(name ="CustomerAddress")
+    @SerializedName("CustomerAddress")
+    private String CustomerAddress;
+
+    @ColumnInfo(name ="shipmentValue")
+    @SerializedName("shipmentValue")
+    private String shipmentValue;
+
+    @ColumnInfo(name ="PaymentMethod")
+    @SerializedName("PaymentMethod")
+    private String PaymentMethod;
+
 
     public RecievePackedModule() {
+    }
+
+    public String getOutBound() {
+        return OutBound;
+    }
+
+    public void setOutBound(String outBound) {
+        OutBound = outBound;
+    }
+
+    public String getCustomerName() {
+        return CustomerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        CustomerName = customerName;
+    }
+
+    public String getCustomerAddress() {
+        return CustomerAddress;
+    }
+
+    public void setCustomerAddress(String customerAddress) {
+        CustomerAddress = customerAddress;
+    }
+
+    public String getShipmentValue() {
+        return shipmentValue;
+    }
+
+    public void setShipmentValue(String shipmentValue) {
+        this.shipmentValue = shipmentValue;
+    }
+
+    public String getPaymentMethod() {
+        return PaymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        PaymentMethod = paymentMethod;
     }
 
     public RecievePackedModule(String ORDER_NO, String NO_OF_PACKAGES,

@@ -21,6 +21,12 @@ public class RecordItemDriver {
     private String vechileID;
     @SerializedName("National_ID")
     private String National_ID;
+    @SerializedName("EmployeeID")
+    private String EmployeeID;
+
+    public String getEmployeeID() {
+        return EmployeeID;
+    }
 
     public String getNational_ID() {
         return National_ID;
