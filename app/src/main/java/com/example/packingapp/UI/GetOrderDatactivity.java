@@ -9,10 +9,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.databinding.ActivityGetOrderDataBinding;
 import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
@@ -23,6 +19,10 @@ import com.example.packingapp.model.ResponseUpdateStatus;
 import com.example.packingapp.viewmodel.GetOrderDataViewModel;
 
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 public class GetOrderDatactivity extends AppCompatActivity {
     ActivityGetOrderDataBinding binding;
@@ -117,7 +117,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
             @Override
             public void onChanged(ResponseGetOrderData responseGetOrderData) {
                 Log.e(TAG, "onChanged: "+responseGetOrderData.getStatus() );
-                if (responseGetOrderData.getStatus().equalsIgnoreCase("Not Packed Yet")) {
+                if (responseGetOrderData.getStatus().equalsIgnoreCase("picked")) {
                     ActionAfterGetData(responseGetOrderData);
                 }else {
                     Toast.makeText(GetOrderDatactivity.this, "This Order in "+responseGetOrderData.getStatus()+" State", Toast.LENGTH_SHORT).show();

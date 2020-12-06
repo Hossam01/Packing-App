@@ -2,9 +2,6 @@ package com.example.packingapp.viewmodel;
 
 import android.util.Log;
 
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
 import com.example.packingapp.Retrofit.ApiClient;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.ResponseDriver;
@@ -12,6 +9,8 @@ import com.example.packingapp.model.ResponseUpdateStatus;
 
 import java.util.HashMap;
 
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -49,8 +48,8 @@ public class AssignPackedOrderToZoneViewModel extends ViewModel {
         HashMap<String, String> map = new HashMap<>();
         map.put("status", Status);
 
-        ApiClient.RoubstaAPIRetrofit_UpdateStatus().UpdateOrderStatus(ORDER_NO ,
-                "Bearer lnv0klr00jkprbugmojf3smj4i5gnn71",
+        ApiClient.RoubstaAPIRetrofit_UpdateStatus().UpdateOrderStatus(
+                "Bearer lnv0klr00jkprbugmojf3smj4i5gnn71",ORDER_NO ,
                 Status
         )
                 .observeOn(AndroidSchedulers.mainThread())

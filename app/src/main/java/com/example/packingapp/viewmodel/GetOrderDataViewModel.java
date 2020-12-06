@@ -138,10 +138,10 @@ public class GetOrderDataViewModel extends ViewModel {
         HashMap<String, String> map = new HashMap<>();
         map.put("status", Status);
 
-        ApiClient.RoubstaAPIRetrofit_UpdateStatus().UpdateOrderStatus(ORDER_NO ,
-                "Bearer lnv0klr00jkprbugmojf3smj4i5gnn71",
-                 Status
-                )
+        ApiClient.RoubstaAPIRetrofit_UpdateStatus().UpdateOrderStatus(
+                "Bearer lnv0klr00jkprbugmojf3smj4i5gnn71",ORDER_NO ,
+                Status
+        )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(responseSms -> {

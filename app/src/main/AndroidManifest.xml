@@ -24,7 +24,7 @@
         <activity android:name=".UI.INOUTActivity" />
         <activity android:name=".UI.CallActivity" />
         <activity
-            android:name=".UI.GetOrderDatactivity"
+            android:name=".UI.LoginActivity"
             android:theme="@style/NoAction">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +34,7 @@
         </activity>
         <activity android:name=".UI.SendSMSActivity" />
         <activity android:name=".UI.AddAndEditActivity" />
-        <activity android:name=".UI.LoginActivity" />
+        <activity android:name=".UI.GetOrderDatactivity" />
         <activity android:name=".UI.MainActivity" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />

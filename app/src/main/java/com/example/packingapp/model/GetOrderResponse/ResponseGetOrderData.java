@@ -39,8 +39,6 @@ public class ResponseGetOrderData {
     @SerializedName("items")
     private List<ItemsOrderDataDBDetails> itemsOrderDataDBDetails;
 
-
-
     public String getOutBound_delivery() {
         return OutBound_delivery;
     }

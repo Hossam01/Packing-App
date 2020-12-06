@@ -44,11 +44,10 @@ public class ApiClient {
         return retrofit.create(RoubstaAPIRetrofit.class);
     }
 
-    public static final String BASE_URL_Roubsta_Update_Status = "https://mcprod.hyperone.com.eg/rest/V1/integration/orders/";
 
     public static  RoubstaAPI_UpdateRetrofit RoubstaAPIRetrofit_UpdateStatus() {
         final Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL_Roubsta_Update_Status)
+                .baseUrl(BASE_URL_Roubsta)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

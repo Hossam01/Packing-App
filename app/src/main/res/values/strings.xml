@@ -85,4 +85,5 @@
     <string name="cannot_print">Cannot print</string>
     <string name="no_printers_found">No printers found</string>
     <string name="success_header_of_driver">Success</string>
+    <string name="failed_header_of_driver">Failed</string>
 </resources>
