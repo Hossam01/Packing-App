@@ -264,8 +264,10 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                             List<RecievePackedModule> orderDataModuleDBHeader= database.userDao().getRecievePackedModule();
 
                             if (orderDataModuleDBHeader.size()>0) {
-                                PrintRunTimeSheet(trackingNo, orderDataModuleDBHeader.get(0).getCustomerName(),
-                                        orderDataModuleDBHeader.get(0).getCustomerAddress(), orderDataModuleDBHeader.get(0).getOutBound(), orderDataModuleDBHeader.get(0).getPaymentMethod(), orderDataModuleDBHeader.get(0).getShipmentValue());
+                                PrintRunTimeSheet(trackingNo, orderDataModuleDBHeader.get(0).getCUSTOMER_NAME(),
+                                        orderDataModuleDBHeader.get(0).getADDRESS_CITY(), orderDataModuleDBHeader.get(0).getOUTBOUND_DELIVERY(),"كاش", orderDataModuleDBHeader.get(0).getITEM_PRICE());
+
+
                             }
                             else {Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this,"لا تحتوي علي بيانات",Toast.LENGTH_SHORT).show(); }
 
@@ -434,7 +436,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 if (recievePackedlist.get(0).getZone().equalsIgnoreCase(Zone1)) {
                     database.userDao().insertRecievePacked(new RecievePackedModule(
                             recievePackedlist.get(0).getORDER_NO(), recievePackedlist.get(0).getNO_OF_PACKAGES(),
-                            trackingnumber1, Zone));
+                            trackingnumber1, Zone,recievePackedlist.get(0).getCUSTOMER_NAME(),recievePackedlist.get(0).getADDRESS_CITY(),recievePackedlist.get(0).getITEM_PRICE(),recievePackedlist.get(0).getOUTBOUND_DELIVERY()));
                     binding.editTrackingnumberZone.setText("");
                     binding.editTrackingnumberZone.setError(null);
                     binding.editTrackingnumberDriver.setText("");
@@ -451,7 +453,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     database.userDao().insertRecievePacked(new RecievePackedModule(
                                             recievePackedlist.get(0).getORDER_NO(), recievePackedlist.get(0).getNO_OF_PACKAGES(),
-                                            trackingnumber1, Zone));
+                                            trackingnumber1, Zone,recievePackedlist.get(0).getCUSTOMER_NAME(),recievePackedlist.get(0).getADDRESS_CITY(),recievePackedlist.get(0).getITEM_PRICE(),recievePackedlist.get(0).getOUTBOUND_DELIVERY()));
                                     binding.editTrackingnumberZone.setText("");
                                     binding.editTrackingnumberZone.setError(null);
                                     binding.editTrackingnumberDriver.setText("");
@@ -516,7 +518,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
         Log.e(TAG, "onChanged: " + responseGetOrderData.getNO_OF_PACKAGES());
         database.userDao().insertRecievePacked(new RecievePackedModule(
                 responseGetOrderData.getORDER_NO(), responseGetOrderData.getNO_OF_PACKAGES(),
-                trackingnumber,Zone));
+                trackingnumber,Zone,responseGetOrderData.getCUSTOMER_NAME(),responseGetOrderData.getADDRESS_CITY(),responseGetOrderData.getITEM_PRICE(),responseGetOrderData.getOUTBOUND_DELIVERY()));
         binding.editTrackingnumberZone.setText("");
         binding.editTrackingnumberZone.setError(null);
         binding.editTrackingnumberDriver.setText("");
