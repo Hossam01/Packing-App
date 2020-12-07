@@ -25,6 +25,7 @@ import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityAssignPackedOrderForZoneDriverBinding;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.ResponseDriver;
+import com.example.packingapp.model.ResponseSms;
 import com.example.packingapp.model.ResponseUpdateStatus;
 import com.example.packingapp.viewmodel.AssignPackedOrderToZoneViewModel;
 import com.onbarcode.barcode.android.AndroidColor;
@@ -259,7 +260,8 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                             // UpdateStatus_zone_ON_83("sorted");
                             // UpdateStatus("sorted");
                             UpdateDriverID_ON_83(binding.spinerDriverId.getSelectedItem().toString());
-
+                            //TODO Send SMS To Customer That his order in his way with national ID of driver (What if there is list of sms )
+                          //  SendSMS(CustomerPhone, edit_smsInput.getText().toString());
                             //TODO Print RunTime sheet
                             /*OrderDataModuleDBHeader orderDataModuleDBHeader= database.userDao().getHeaderToUpload();
                             PrintRunTimeSheet(trackingNo,orderDataModuleDBHeader.getCustomer_name(),
@@ -554,7 +556,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
 //        if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
         List<RecievePackedModule> orderDataModuleDBHeaderkist = database.userDao().getorderNORecievePackedModule();
         if (orderDataModuleDBHeaderkist.size() > 0) {
-            for (int i=0;i<=orderDataModuleDBHeaderkist.size();i++) {
+            for (int i=0;i<orderDataModuleDBHeaderkist.size();i++) {
                 assignPackedOrderToZoneViewModel.UpdateOrder_DriverID_ON_83(
                         orderDataModuleDBHeaderkist.get(i).getORDER_NO(),
                         DriverID
@@ -580,11 +582,14 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
 //        if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
 
         List<RecievePackedModule> orderDataModuleDBHeaderkist = database.userDao().getorderNORecievePackedModule();
-
-        assignPackedOrderToZoneViewModel.UpdateStatus(
-                orderDataModuleDBHeaderkist.get(0).getORDER_NO(),
-                Status
-        );
+        if (orderDataModuleDBHeaderkist.size() > 0) {
+            for (int i = 0; i < orderDataModuleDBHeaderkist.size(); i++) {
+                assignPackedOrderToZoneViewModel.UpdateStatus(
+                        orderDataModuleDBHeaderkist.get(0).getORDER_NO(),
+                        Status
+                );
+            }
+        }
         assignPackedOrderToZoneViewModel.mutableLiveData_UpdateStatus.observe(AssignPackedOrderForZoneAndDriverActivity.this, new Observer<ResponseUpdateStatus>() {
             @Override
             public void onChanged(ResponseUpdateStatus message) {
@@ -667,6 +672,18 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
 
         }
 
+    }
+
+    private void SendSMS(String CustomerPhone ,String SMSBody) {
+
+        assignPackedOrderToZoneViewModel.SendSms(CustomerPhone , SMSBody);
+        assignPackedOrderToZoneViewModel.getSmsLiveData().observe(AssignPackedOrderForZoneAndDriverActivity.this, new Observer<ResponseSms>() {
+            @Override
+            public void onChanged(ResponseSms responseSms) {
+                Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this,
+                        responseSms.getSMSStatus().toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     //TODO

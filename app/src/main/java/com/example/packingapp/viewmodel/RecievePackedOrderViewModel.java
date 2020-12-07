@@ -14,6 +14,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class RecievePackedOrderViewModel extends ViewModel {
+    private static final String TAG = "RecievePackedOrderViewM";
     private MutableLiveData<RecievePackedModule> OrderDataLiveData = new MutableLiveData<>();
     public MutableLiveData<RecievePackedModule> getOrderDataLiveData() {
         return OrderDataLiveData;
@@ -35,20 +36,21 @@ public class RecievePackedOrderViewModel extends ViewModel {
                         }
                         ,throwable -> {
                             mutableLiveDataError.setValue(throwable.getMessage());
-                            Log.d("Error",throwable.getMessage());
+                            Log.d("Error_fetchda",throwable.getMessage());
                         });
     }
 
     public static MutableLiveData<ResponseUpdateStatus> mutableLiveData_UpdateStatus = new MutableLiveData<>();
-    public void UpdateStatus(String ORDER_NO, String Status) {
-
-
+    public void UpdateStatus(String ORDER_NO, String status) {
         HashMap<String, String> map = new HashMap<>();
-        map.put("status", Status);
+        map.put("status", status);
 
-        ApiClient.RoubstaAPIRetrofit_UpdateStatus().UpdateOrderStatus(
-                "Bearer lnv0klr00jkprbugmojf3smj4i5gnn71",ORDER_NO ,
-                Status
+        Log.e(TAG, "UpdateStatus: "+ ORDER_NO);
+
+        ApiClient.buildRo().UpdateOrderStatus(
+                "Bearer lnv0klr00jkprbugmojf3smj4i5gnn71",
+                ORDER_NO ,
+                map
         )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -57,12 +59,12 @@ public class RecievePackedOrderViewModel extends ViewModel {
 
                         }
                         ,throwable -> {
-                            mutableLiveDataError.setValue(throwable.getMessage());
-                            Log.d("Error",throwable.getMessage());
+                            Log.d("Error_rou",throwable.getMessage());
 
                         });
 
     }
+
 
 
     public static MutableLiveData<ResponseUpdateStatus> mutableLiveData_UpdateStatus_ON_83 = new MutableLiveData<>();
@@ -86,4 +88,8 @@ public class RecievePackedOrderViewModel extends ViewModel {
                         });
 
     }
+
+
+
+
 }

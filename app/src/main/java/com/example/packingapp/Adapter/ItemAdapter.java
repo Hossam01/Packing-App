@@ -6,14 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.packingapp.R;
 import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
-import com.example.packingapp.model.Product;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder>{
     private static final String TAG = "ItemAdapter";
@@ -51,7 +50,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemHolder>{
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
         holder.item_name.setText(dataList.get(position).getName());
-        holder.item_qty.setText(dataList.get(position).getQuantity());
+        holder.item_qty.setText(String.valueOf(dataList.get(position).getQuantity()));
     }
 
     @Override

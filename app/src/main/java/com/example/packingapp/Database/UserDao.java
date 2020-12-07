@@ -60,11 +60,14 @@ public interface UserDao {
     @Query("SELECT * FROM OrderDataModuleDBHeader")
     OrderDataModuleDBHeader getHeaderToUpload();
 
+    @Query("SELECT * FROM OrderDataModuleDBHeader where Order_number =:Order_number")
+    OrderDataModuleDBHeader getordernumberData(String Order_number);
+
     @Query("SELECT * FROM itemsOrderDataDBDetails")
     List<ItemsOrderDataDBDetails> getDetailsTrackingnumberToUpload();
 
-    @Query("SELECT count(TrackingNumber) NO_OF_PACKAGES FROM itemsOrderDataDBDetails where TrackingNumber LIKE :ORDER_NO ")
-    String getNoOfPackagesToUpload(String ORDER_NO);
+    @Query("SELECT distinct(TrackingNumber) FROM itemsOrderDataDBDetails where TrackingNumber LIKE :ORDER_NO ")
+    List<String> getNoOfPackagesToUpload(String ORDER_NO);
 
     @Query("SELECT Order_number FROM OrderDataModuleDBHeader")
     String getOrderNumber();
@@ -128,14 +131,14 @@ public interface UserDao {
     @Query("SELECT * FROM RecievePackedModule where ORDER_NO =:ORDER_NO")
     List<RecievePackedModule> getRecievePacked_ORDER_NO(String ORDER_NO);
 
-    @Query("SELECT * FROM RecievePackedModule where Tracking_Number =:Tracking_Number")
+    @Query("SELECT * FROM RecievePackedModule where TRACKING_NO =:Tracking_Number")
     List<RecievePackedModule> getRecievePacked_Tracking_Number(String Tracking_Number);
 
     @Query("SELECT DISTINCT( ORDER_NO ) ,NO_OF_PACKAGES  , uid FROM RecievePackedModule ")
     List<RecievePackedModule> getRecievePacked_ORDER_NO_Distinct();
 
     //NO_OF_PACKAGES THAT RETURN FROM THIS QUERY IDECATE TO COUNT OF NO OF PACKAGES FOR ORDERNUMBER
-    @Query("SELECT count(Tracking_Number) NO_OF_PACKAGES FROM RecievePackedModule where ORDER_NO =:ORDER_NO")
+    @Query("SELECT count(TRACKING_NO) NO_OF_PACKAGES FROM RecievePackedModule where ORDER_NO =:ORDER_NO")
     List<String> getRecievePacked_Tracking_Number_count(String ORDER_NO);
 
     @Query("DELETE FROM RecievePackedModule")
@@ -178,4 +181,7 @@ public interface UserDao {
 
     @Query("SELECT * FROM DriverPackages_Details_DB WHERE  ORDER_NO =:OrderNumber")
     List<DriverPackages_Details_DB> getAllPckagesForUpload(String OrderNumber);
+
+    @Query("select sum(quantity) FROM itemsOrderDataDBDetails ")
+    float SumOfQTYFromDetials();
 }

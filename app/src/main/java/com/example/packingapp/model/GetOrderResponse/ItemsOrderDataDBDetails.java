@@ -25,19 +25,16 @@ public class ItemsOrderDataDBDetails {
 
     @ColumnInfo(name = "price")
     @SerializedName("price")
-    private String price;
+    private float price;
 
     @ColumnInfo(name = "quantity")
     @SerializedName("quantity")
-    private String quantity;
+    private float quantity;
 
 
     @ColumnInfo(name = "sku")
     @SerializedName("sku")
     private String sku;
-
-
-
 
 
     @ColumnInfo(name = "unit_of_measurement")
@@ -49,7 +46,7 @@ public class ItemsOrderDataDBDetails {
     private String TrackingNumber;
 
 
-    public ItemsOrderDataDBDetails(String name, String sku, String price, String quantity, String unite) {
+    public ItemsOrderDataDBDetails(String name, String sku, float price, float quantity, String unite) {
         this.name = name;
         this.sku = sku;
         this.price = price;
@@ -82,19 +79,19 @@ public class ItemsOrderDataDBDetails {
         this.sku = sku;
     }
 
-    public String getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
-    public String getQuantity() {
+    public float getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(float quantity) {
         this.quantity = quantity;
     }
 

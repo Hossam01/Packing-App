@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.packingapp.Retrofit.ApiClient;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.ResponseDriver;
+import com.example.packingapp.model.ResponseSms;
 import com.example.packingapp.model.ResponseUpdateStatus;
 
 import java.util.HashMap;
@@ -48,9 +49,9 @@ public class AssignPackedOrderToZoneViewModel extends ViewModel {
         HashMap<String, String> map = new HashMap<>();
         map.put("status", Status);
 
-        ApiClient.RoubstaAPIRetrofit_UpdateStatus().UpdateOrderStatus(
+        ApiClient.buildRo().UpdateOrderStatus(
                 "Bearer lnv0klr00jkprbugmojf3smj4i5gnn71",ORDER_NO ,
-                Status
+                map
         )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -116,6 +117,26 @@ public class AssignPackedOrderToZoneViewModel extends ViewModel {
                         }
                         ,throwable -> {
                             Log.d("Error",throwable.getMessage());
+
+                        });
+
+    }
+
+
+    private MutableLiveData<ResponseSms> smsLiveData = new MutableLiveData<>();
+    public MutableLiveData<ResponseSms> getSmsLiveData() {
+        return smsLiveData;
+    }
+
+    public void SendSms(String number, String message) {
+        ApiClient.build().sendSms(number,message)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(responseSms -> {
+                            smsLiveData.setValue(responseSms);
+                        }
+                        ,throwable -> {
+                            Log.d("Error_Vof ",throwable.getMessage());
 
                         });
 

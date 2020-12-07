@@ -24,12 +24,12 @@ public class RecievePackedModule {
         @SerializedName("STATUS")
         private String STATUS;
 
-        @ColumnInfo(name ="Tracking_Number")
-        @SerializedName("Tracking_Number")
+        @ColumnInfo(name ="TRACKING_NO")
+        @SerializedName("TRACKING_NO")
         private String Tracking_Number;
 
-    @ColumnInfo(name ="Zone")
-    @SerializedName("Zone")
+    @ColumnInfo(name ="ZONE")
+    @SerializedName("ZONE")
     private String Zone;
 
 

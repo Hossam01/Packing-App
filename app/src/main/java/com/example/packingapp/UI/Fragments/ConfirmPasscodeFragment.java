@@ -8,22 +8,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.packingapp.Database.AppDatabase;
+import com.example.packingapp.UI.OrderDetails_forDriverActivity;
+import com.example.packingapp.databinding.FragmentConfirmPasscodeBinding;
+import com.example.packingapp.model.DriverModules.DriverPackages_Details_DB;
+import com.example.packingapp.model.GetOrderResponse.OrderDataModuleDBHeader;
+import com.example.packingapp.model.RecievePacked.RecievePackedModule;
+import com.example.packingapp.model.ResponseUpdateStatus;
+import com.example.packingapp.viewmodel.ConfirmPasscodeViewModel;
+
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
-import com.example.packingapp.Database.AppDatabase;
-import com.example.packingapp.UI.OrderDetails_forDriverActivity;
-import com.example.packingapp.databinding.FragmentConfirmPasscodeBinding;
-import com.example.packingapp.model.DriverModules.DriverPackages_Details_DB;
-import com.example.packingapp.model.RecievePacked.RecievePackedModule;
-import com.example.packingapp.model.ResponseUpdateStatus;
-import com.example.packingapp.viewmodel.ConfirmPasscodeViewModel;
-
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -128,11 +129,12 @@ FragmentConfirmPasscodeBinding binding;
                        UpdateStatus_Passcode_Header_ON_83("Rejected under inspection");
                        //TODO list for tracking number and reason and status for details _check file name
                        UpdateStatus_Reason_Details_ON_83(driverPackages_details_dbList);
+                       UpdateStatus("rejected_under_inspection");
                    }else {
                        UpdateStatus_Passcode_Header_ON_83("Has-Been-Delivered");
                        //TODO list for tracking number and reason and status for details
                          UpdateStatus_Reason_Details_ON_83(driverPackages_details_dbList);
-
+                       UpdateStatus("has_been_delivered");
                    }
 
 //                   OrderDetails_forDriverActivity orderDetails_forDriverActivity = (OrderDetails_forDriverActivity) getActivity();
@@ -178,7 +180,7 @@ FragmentConfirmPasscodeBinding binding;
             confirmPasscodeViewModel.mutableLiveData_UpdateStatus_PASSCODE_ON_83.observe(getViewLifecycleOwner(), new Observer<ResponseUpdateStatus>() {
                 @Override
                 public void onChanged(ResponseUpdateStatus message) {
-                    Toast.makeText(getActivity(), "Confirmed", Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(getActivity(), "ConfirmedH", Toast.LENGTH_SHORT).show();
                     FragmentManager fm = getActivity().getSupportFragmentManager();
                     fm.popBackStack();
                     Log.e(TAG, "onChanged:update " + message.getMessage());
@@ -196,15 +198,15 @@ FragmentConfirmPasscodeBinding binding;
 
         if (Orderclicked != null) {
             confirmPasscodeViewModel.UpdateOrderStatus_Reason_Details_ON_83(driverPackages_details_dbList);
-            Log.e(TAG, "UpdateStatus_zone_ON_83 zzzo : " + driverPackages_details_dbList.size());
+            Log.e(TAG, "UpdateStatus_zone_ON_83 ErrorDet : " + driverPackages_details_dbList.size());
 
             confirmPasscodeViewModel.mutableLiveData_UpdateStatus_Reason_ON_83.observe(getViewLifecycleOwner(), new Observer<ResponseUpdateStatus>() {
                 @Override
                 public void onChanged(ResponseUpdateStatus message) {
-                    Toast.makeText(getActivity(), "Confirmed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "ConfirmedD", Toast.LENGTH_SHORT).show();
                     FragmentManager fm = getActivity().getSupportFragmentManager();
                     fm.popBackStack();
-                    Log.e(TAG, "onChanged:update " + message.getMessage());
+                    Log.e(TAG, "onChanged:updateErrorDet " + message.getMessage());
                 }
             });
         } else {
@@ -212,4 +214,25 @@ FragmentConfirmPasscodeBinding binding;
         }
 
     }
+
+
+    public void UpdateStatus(String status){
+//        if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
+        OrderDataModuleDBHeader orderDataModuleDBHeader = database.userDao().getHeaderToUpload();
+        confirmPasscodeViewModel.UpdateStatus(
+                Orderclicked,
+                status
+        );
+        confirmPasscodeViewModel.mutableLiveData_UpdateStatus.observe(getActivity(), new Observer<ResponseUpdateStatus>() {
+            @Override
+            public void onChanged(ResponseUpdateStatus message) {
+                Toast.makeText(getActivity(), ""+message.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onChanged: "+message.getMessage() );
+            }
+        });
+//        }else {
+//            Toast.makeText(GetOrderDatactivity.this, "توجد عناصر لم يتم تعبئتها", Toast.LENGTH_SHORT).show();
+//        }
+    }
+
 }

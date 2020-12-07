@@ -32,7 +32,7 @@ public class ApiClient {
         return retrofit.create(RoubstaAPIRetrofit.class);
     }*/
 
-    public static final String BASE_URL_Roubsta = "https://mcprod.hyperone.com.eg/rest/ar_EG/V1/integration/orders/";
+    public static final String BASE_URL_Roubsta = "https://mcprod.hyperone.com.eg/rest/";
 
     public static RoubstaAPIRetrofit buildRo() {
         final Retrofit retrofit = new Retrofit.Builder()
@@ -44,14 +44,4 @@ public class ApiClient {
         return retrofit.create(RoubstaAPIRetrofit.class);
     }
 
-
-    public static  RoubstaAPI_UpdateRetrofit RoubstaAPIRetrofit_UpdateStatus() {
-        final Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL_Roubsta)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        TrafficStats.setThreadStatsTag(0x1000);
-        return retrofit.create(RoubstaAPI_UpdateRetrofit.class);
-    }
 }

@@ -77,7 +77,7 @@ private static final int REQUEST_PHONE_CALL = 1;
             @Override
             public void onClick(View v) {
                 UpdateStatus_ON_83();
-                //UpdateStatus();
+                UpdateStatus();
             }
         });
         binding.btnSendPasscodeToConfirmDeleivery.setOnClickListener(new View.OnClickListener() {
@@ -368,13 +368,13 @@ private static final int REQUEST_PHONE_CALL = 1;
             @Override
             public void onChanged(ResponseUpdateStatus message) {
                 Toast.makeText(OrderDetails_forDriverActivity.this, ""+message.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "onChanged:UpdateStatus "+message.getMessage() );
+                Log.e(TAG, "onChanged:UpdateStatusroub "+message.getMessage() );
             }
         });
         orderDetailsForDriverViewModel.mutableLiveDataError.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                Log.e(TAG, "onChanged: "+s );
+                Log.e(TAG, "onChanged:roub "+s );
                 Toast.makeText(OrderDetails_forDriverActivity.this, s, Toast.LENGTH_LONG).show();
             }
         });

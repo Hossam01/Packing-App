@@ -66,7 +66,7 @@ public class OrderDataModuleDBHeader {
 
 	@ColumnInfo(name = "shipping_fees")
 	@SerializedName("shipping_fees")
-	private String shipping_fees;
+	private float shipping_fees;
 
 	@ColumnInfo(name = "picker_confirmation_time")
 	@SerializedName("picker_confirmation_time")
@@ -92,7 +92,7 @@ public class OrderDataModuleDBHeader {
 								   String customer_address_city, String customer_address_district,
 								   String customer_address_detail, String delivery_date,
 								   String delivery_time,
-								   String grand_total, String shipping_fees,
+								   String grand_total, float shipping_fees,
 								   String picker_confirmation_time, String currency,String Out_From_Loc) {
 		this.Order_number = order_number;
 		this.OutBound_delivery = OutBound_delivery;
@@ -112,11 +112,11 @@ public class OrderDataModuleDBHeader {
 		this.Out_From_Loc= Out_From_Loc;
 	}
 
-	public String getShipping_fees() {
+	public float getShipping_fees() {
 		return shipping_fees;
 	}
 
-	public void setShipping_fees(String shipping_fees) {
+	public void setShipping_fees(float shipping_fees) {
 		this.shipping_fees = shipping_fees;
 	}
 

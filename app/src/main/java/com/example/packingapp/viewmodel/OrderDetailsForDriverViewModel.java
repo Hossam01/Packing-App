@@ -89,9 +89,9 @@ public class OrderDetailsForDriverViewModel extends ViewModel {
         HashMap<String, String> map = new HashMap<>();
         map.put("status", Status);
 
-        ApiClient.RoubstaAPIRetrofit_UpdateStatus().UpdateOrderStatus(
+        ApiClient.buildRo().UpdateOrderStatus(
                 "Bearer lnv0klr00jkprbugmojf3smj4i5gnn71",ORDER_NO ,
-                Status
+                map
         )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -101,7 +101,7 @@ public class OrderDetailsForDriverViewModel extends ViewModel {
                         }
                         ,throwable -> {
                             mutableLiveDataError.setValue(throwable.getMessage());
-                            Log.d("Error",throwable.getMessage());
+                            Log.d("Errorroub",throwable.getMessage());
 
                         });
 

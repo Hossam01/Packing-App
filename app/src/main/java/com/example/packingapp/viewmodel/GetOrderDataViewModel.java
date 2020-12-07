@@ -58,7 +58,7 @@ public class GetOrderDataViewModel extends ViewModel {
     public void InsertOrderdataHeader(String ORDER_NO, String OUTBOUND_DELIVERY, String CUSTOMER_NAME,
                                       String CUSTOMER_PHONE, String CUSTOMER_CODE, String ADDRESS_GOVERN, String ADDRESS_CITY,
                                       String ADDRESS_DISTRICT, String ADDRESS_DETAILS, String ORDER_DELIVERY_DATE, String ORDER_DELIVERY_TIME,
-                                      String PICKER_CONFIMATION_TIME, String GRAND_TOTAL, String CURRENCY, String SHIPPING_FEES,String NO_OF_PACKAGES,
+                                      String PICKER_CONFIMATION_TIME, String GRAND_TOTAL, String CURRENCY, float SHIPPING_FEES,String NO_OF_PACKAGES,
                                       String STORAGE_LOCATION) {
 
         HashMap<String, String> map = new HashMap<>();
@@ -76,7 +76,7 @@ public class GetOrderDataViewModel extends ViewModel {
         map.put("PICKER_CONFIMATION_TIME", PICKER_CONFIMATION_TIME);
         map.put("GRAND_TOTAL", GRAND_TOTAL);
         map.put("CURRENCY", CURRENCY);
-        map.put("SHIPPING_FEES", SHIPPING_FEES);
+        map.put("SHIPPING_FEES", String.valueOf(SHIPPING_FEES));
         map.put("NO_OF_PACKAGES", NO_OF_PACKAGES);
         map.put("STORAGE_LOCATION", STORAGE_LOCATION);
         map.put("STATUS", "packed");
@@ -95,7 +95,9 @@ public class GetOrderDataViewModel extends ViewModel {
 
     public static MutableLiveData<Message> mutableLiveData_Details = new MutableLiveData<>();
 
-    public void InsertOrderdataDetails(String OrderNumber , List<ItemsOrderDataDBDetails> itemsOrderDataDBDetailsList) {
+    public void InsertOrderdataDetails(String OrderNumber ,
+                                       List<ItemsOrderDataDBDetails> itemsOrderDataDBDetailsList ,
+                                       float ShippingfeesPerItem ) {
         HashMap<String, String> map = new HashMap<>();
 
         Gson gson = new GsonBuilder()
@@ -105,6 +107,7 @@ public class GetOrderDataViewModel extends ViewModel {
         //From_Sap_Or_Not=false;
 //        map.put("ItemsOrderDataDBDetailsList", equipmentJsonArray.toString());
 //        map.put("ORDER_NO", OrderNumber);
+        Log.e(TAG, "InsertOrderdataDetails: sss "+ ShippingfeesPerItem );
 
         for (int i =0;i<itemsOrderDataDBDetailsList.size();i++) {
             //"\u200e"
@@ -112,7 +115,7 @@ public class GetOrderDataViewModel extends ViewModel {
            String name= itemsOrderDataDBDetailsList.get(i).getName();
 
             String itemsOrder=itemsOrderDataDBDetailsList.get(i).getTrackingNumber()+"/"+name+"/"+itemsOrderDataDBDetailsList.get(i).getSku()
-                    +"/"+itemsOrderDataDBDetailsList.get(i).getPrice()+"/"+itemsOrderDataDBDetailsList.get(i).getQuantity()
+                    +"/"+(itemsOrderDataDBDetailsList.get(i).getPrice() + ShippingfeesPerItem)+"/"+itemsOrderDataDBDetailsList.get(i).getQuantity()
                     +"/"+itemsOrderDataDBDetailsList.get(i).getUnite();
             Log.e("data",itemsOrder);
             Log.e("OrderNumber",OrderNumber);
@@ -132,15 +135,16 @@ public class GetOrderDataViewModel extends ViewModel {
 
     public static MutableLiveData<ResponseUpdateStatus> mutableLiveData_UpdateStatus = new MutableLiveData<>();
 
-    public void UpdateStatus(String ORDER_NO, String Status) {
-
-
+    public void UpdateStatus(String ORDER_NO, String status) {
         HashMap<String, String> map = new HashMap<>();
-        map.put("status", Status);
+        map.put("status", status);
 
-        ApiClient.RoubstaAPIRetrofit_UpdateStatus().UpdateOrderStatus(
-                "Bearer lnv0klr00jkprbugmojf3smj4i5gnn71",ORDER_NO ,
-                Status
+        Log.e(TAG, "UpdateStatus: "+ ORDER_NO);
+
+        ApiClient.buildRo().UpdateOrderStatus(
+                "Bearer lnv0klr00jkprbugmojf3smj4i5gnn71",
+                ORDER_NO ,
+                map
         )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -149,7 +153,7 @@ public class GetOrderDataViewModel extends ViewModel {
 
                         }
                         ,throwable -> {
-                            Log.d("Error",throwable.getMessage());
+                            Log.d("Error_rou",throwable.getMessage());
 
                         });
 

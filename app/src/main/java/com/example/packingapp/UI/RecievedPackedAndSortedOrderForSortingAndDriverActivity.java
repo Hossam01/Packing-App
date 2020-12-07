@@ -11,10 +11,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
@@ -25,6 +21,10 @@ import com.example.packingapp.viewmodel.RecievePackedOrderViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 public class RecievedPackedAndSortedOrderForSortingAndDriverActivity extends AppCompatActivity {
 ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
@@ -95,7 +95,7 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                        // Toast.makeText(RecievePackedOrderForSortingActivity.this, String.format("%s",getString(R.string.message_equalfornoofpaclkageandcountoftrackingnumbers)), Toast.LENGTH_SHORT).show();
                         UpdateStatus_ON_83();
                         //TODO TODO UPDATE STATUS on magento
-                        //UpdateStatus();
+                        UpdateStatus();
                     }else {
                         Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, String.format("%s",
                                 getString(R.string.message_not_equalfornoofpaclkageandcountoftrackingnumbers)), Toast.LENGTH_SHORT).show();
@@ -210,17 +210,22 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
 
                     GETOrderData(OrderNumber, binding.editTrackingnumber.getText().toString());
                     Log.e(TAG, "onClick: Ord " + OrderNumber);
+
+                    binding.editTrackingnumber.setError(null);
+                    binding.editTrackingnumber.setText("");
+
                     //    Toast.makeText(RecievePackedOrderForSortingActivity.this, "تم", Toast.LENGTH_SHORT).show();
                 } else {
                     if (database.userDao().getRecievePacked_Tracking_Number(binding.editTrackingnumber.getText().toString())
                             .size() == 0 && Integer.valueOf(recievePackedlist.get(0).getNO_OF_PACKAGES()) >=
                             Integer.valueOf(NOtrackingnumber)) {
-                        binding.editTrackingnumber.setError(null);
                         database.userDao().insertRecievePacked(new RecievePackedModule(
                                 recievePackedlist.get(0).getORDER_NO(), recievePackedlist.get(0).getNO_OF_PACKAGES(),
                                 binding.editTrackingnumber.getText().toString()));
                         //    GETOrderData(binding.editTrackingnumber.getText().toString());
                         Log.e(TAG, "onClick: Trac " + binding.editTrackingnumber.getText().toString());
+                        binding.editTrackingnumber.setError(null);
+                        binding.editTrackingnumber.setText("");
                         Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
                     } else {
                         if (database.userDao().getRecievePacked_Tracking_Number(binding.editTrackingnumber.getText().toString())
@@ -256,12 +261,16 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                         AfterGetOrderData(responseGetOrderData ,trackingnumber);
                     }else {
                         Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "This Order in "+responseGetOrderData.getSTATUS()+" State", Toast.LENGTH_SHORT).show();
+                        binding.editTrackingnumber.setError(null);
+                        binding.editTrackingnumber.setText("");
                     }
                 }else if (RecievePackedOrConfirmForDriver.equalsIgnoreCase("ConfirmForDriver")) {
                     if (responseGetOrderData.getSTATUS().equalsIgnoreCase("sorted")) {
                         AfterGetOrderData(responseGetOrderData , trackingnumber);
                     }else {
                         Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "This Order in "+responseGetOrderData.getSTATUS()+" State", Toast.LENGTH_SHORT).show();
+                        binding.editTrackingnumber.setError(null);
+                        binding.editTrackingnumber.setText("");
                     }
                 }
 
@@ -273,7 +282,7 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
             @Override
             public void onChanged(String s) {
                 Log.e(TAG, "onChanged: "+s );
-                Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, s, Toast.LENGTH_LONG).show();
+                Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "load order data error "+s, Toast.LENGTH_LONG).show();
 
                 if (s.equals("HTTP 503 Service Unavailable")) {
                     Toast.makeText(context, "تم أدخال رقم غير صحيح", Toast.LENGTH_SHORT).show();
@@ -309,12 +318,12 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                             orderDataModuleDBHeaderkist.get(i).getORDER_NO(),
                             "in sorting"
                     );
-
             }else if (RecievePackedOrConfirmForDriver.equalsIgnoreCase("ConfirmForDriver")){
                 recievePackedOrderViewModel.UpdateStatus_ON_83(
                         orderDataModuleDBHeaderkist.get(i).getORDER_NO(),
                         "Ready To Go"
                 );
+
             }else {
                 Toast.makeText(context, "لم يتم تعديل الحاله", Toast.LENGTH_SHORT).show();
             }
@@ -327,7 +336,7 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
             @Override
             public void onChanged(ResponseUpdateStatus message) {
                 Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, ""+message.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "onChanged:update "+message.getMessage() );
+                Log.e(TAG, "onChanged:update83 "+message.getMessage() );
             }
         });
 //        }else {
@@ -337,38 +346,45 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
 
     public void UpdateStatus(){
 //        if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
-
         List<RecievePackedModule> orderDataModuleDBHeaderkist = database.userDao().getorderNORecievePackedModule();
+        if (orderDataModuleDBHeaderkist.size() > 0) {
+            for (int i=0;i<orderDataModuleDBHeaderkist.size();i++) {
 
-        if (RecievePackedOrConfirmForDriver.equalsIgnoreCase("RecievePacked")) {
-            recievePackedOrderViewModel.UpdateStatus(
-                    orderDataModuleDBHeaderkist.get(0).getORDER_NO(),
-                    "in sorting"
-            );
-        }else if (RecievePackedOrConfirmForDriver.equalsIgnoreCase("ConfirmForDriver")){
-            recievePackedOrderViewModel.UpdateStatus(
-                    orderDataModuleDBHeaderkist.get(0).getORDER_NO(),
-                    "Ready To Go"
-            );
+                if (RecievePackedOrConfirmForDriver.equalsIgnoreCase("RecievePacked")) {
+
+                    recievePackedOrderViewModel.UpdateStatus(orderDataModuleDBHeaderkist.get(i).getORDER_NO(),"in_sorting");
+
+                }else if (RecievePackedOrConfirmForDriver.equalsIgnoreCase("ConfirmForDriver")){
+
+                    recievePackedOrderViewModel.UpdateStatus(orderDataModuleDBHeaderkist.get(i).getORDER_NO(),"ready_to_go");
+                }else {
+                    Toast.makeText(context, "لم يتم تعديل الحاله", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }else {
+            Toast.makeText(context, "لم يتم أدخال ", Toast.LENGTH_SHORT).show();
         }
 
         recievePackedOrderViewModel.mutableLiveData_UpdateStatus.observe(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, new Observer<ResponseUpdateStatus>() {
             @Override
             public void onChanged(ResponseUpdateStatus message) {
                 Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, ""+message.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "onChanged:UpdateStatus "+message.getMessage() );
+                Log.e(TAG, "onChanged:UpdateStatusrou "+message.getMessage() );
             }
         });
         recievePackedOrderViewModel.mutableLiveDataError.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                Log.e(TAG, "onChanged: "+s );
+                Log.e(TAG, "onChanged:roub "+s );
                 Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, s, Toast.LENGTH_LONG).show();
             }
         });
 
 
     }
+
+
+
 
     /*
     private void AssignToZone(String trackingnumber1 ,String Zone1){

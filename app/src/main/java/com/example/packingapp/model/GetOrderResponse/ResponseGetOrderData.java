@@ -19,7 +19,7 @@ public class ResponseGetOrderData {
     private String grand_total;
 
     @SerializedName("shipping_fees")
-    private String shipping_fees;
+    private float shipping_fees;
 
     @SerializedName("picker_confirmation_time")
     private String picker_confirmation_time;
@@ -55,11 +55,11 @@ public class ResponseGetOrderData {
         this.picker_confirmation_time = picker_confirmation_time;
     }
 
-    public String getShipping_fees() {
+    public float getShipping_fees() {
         return shipping_fees;
     }
 
-    public void setShipping_fees(String shipping_fees) {
+    public void setShipping_fees(float shipping_fees) {
         this.shipping_fees = shipping_fees;
     }
 

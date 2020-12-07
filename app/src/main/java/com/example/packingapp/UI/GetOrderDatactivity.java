@@ -83,7 +83,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
                 UploadHeader();
                 UploadDetails();
                 //TODO Update staatus on magento
-              //  UpdateStatus();
+                UpdateStatus();
             }
         });
 
@@ -173,8 +173,16 @@ public class GetOrderDatactivity extends AppCompatActivity {
         if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
             List<ItemsOrderDataDBDetails> itemsOrderDataDBDetailsList = database.userDao().getDetailsTrackingnumberToUpload();
             String OrderNumber = database.userDao().getOrderNumber();
+            OrderDataModuleDBHeader orderDataModuleDBHeader = database.userDao().getordernumberData(OrderNumber);
 
-            getOrderDataViewModel.InsertOrderdataDetails(OrderNumber , itemsOrderDataDBDetailsList);
+            float SumOfQTY = database.userDao().SumOfQTYFromDetials();
+            Log.e(TAG, "UploadDetails:SumOfQTY "+SumOfQTY );
+            float Shippingfees=orderDataModuleDBHeader.getShipping_fees();
+            Log.e(TAG, "UploadDetails:Shippingfees "+Shippingfees );
+            float ShippingfeesPerItem=Shippingfees/SumOfQTY ;
+            Log.e(TAG, "UploadDetails:ShippingfeesPerItem "+ShippingfeesPerItem );
+
+            getOrderDataViewModel.InsertOrderdataDetails(OrderNumber , itemsOrderDataDBDetailsList , ShippingfeesPerItem );
 
             getOrderDataViewModel.mutableLiveData_Details.observe(GetOrderDatactivity.this, new Observer<Message>() {
                 @Override
@@ -191,10 +199,27 @@ public class GetOrderDatactivity extends AppCompatActivity {
     public void UploadHeader(){
         if (database.userDao().getAllItemsWithoutTrackingnumber().size() == 0){
             OrderDataModuleDBHeader orderDataModuleDBHeader = database.userDao().getHeaderToUpload();
-            String NO_OF_PACKAGES =
+            List<String> NO_OF_PACKAGES =
                     database.userDao().getNoOfPackagesToUpload(orderDataModuleDBHeader.getOrder_number() +"%");
-            Log.e(TAG, "zzUploadHeader:NO_OF_PAC: "+NO_OF_PACKAGES );
+            Log.e(TAG, "UploadHeader:NO_OF_P "+NO_OF_PACKAGES.size() );
+            /*Log.e(TAG, "zzUploadHeader:NO_OF_PAC: "+NO_OF_PACKAGES );
             Log.e(TAG, "zzUploadHeader:OutBo: "+orderDataModuleDBHeader.getOutBound_delivery() );
+            Log.e(TAG, "zzUploadHeader:OutBo: "+orderDataModuleDBHeader.getCustomer_name() );
+            Log.e(TAG, "zzUploadHeader:OutBo: "+orderDataModuleDBHeader.getCustomer_phone() );
+            Log.e(TAG, "zzUploadHeader:OutBo: "+orderDataModuleDBHeader.getCustomer_code() );
+            Log.e(TAG, "zzUploadHeader:OutBo: "+orderDataModuleDBHeader.getCustomer_address_govern() );
+            Log.e(TAG, "zzUploadHeader:OutBo: "+orderDataModuleDBHeader.getCustomer_address_city() );
+            Log.e(TAG, "zzUploadHeader:OutBo: "+orderDataModuleDBHeader.getCustomer_address_district() );
+            Log.e(TAG, "zzUploadHeader:OutBo: "+orderDataModuleDBHeader.getCustomer_address_detail() );
+            Log.e(TAG, "zzUploadHeader:OutBo: "+orderDataModuleDBHeader.getDelivery_date() );
+            Log.e(TAG, "zzUploadHeader:OutBo: "+orderDataModuleDBHeader.getDelivery_time() );
+            Log.e(TAG, "zzUploadHeader:OutBo: "+orderDataModuleDBHeader.getPicker_confirmation_time() );
+            Log.e(TAG, "zzUploadHeader:OutBo: "+orderDataModuleDBHeader.getGrand_total() );
+            Log.e(TAG, "zzUploadHeader:OutBo: "+orderDataModuleDBHeader.getCurrency() );
+
+            Log.e(TAG, "zzUploadHeader:OutBo: "+orderDataModuleDBHeader.getShipping_fees() );
+            Log.e(TAG, "zzUploadHeader:OutBo: "+NO_OF_PACKAGES );
+            Log.e(TAG, "zzUploadHeader:OutBo: "+orderDataModuleDBHeader.getOut_From_Loc() );*/
             getOrderDataViewModel.InsertOrderdataHeader(
                         orderDataModuleDBHeader.getOrder_number(),
                         orderDataModuleDBHeader.getOutBound_delivery(),
@@ -211,7 +236,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
                         orderDataModuleDBHeader.getGrand_total(),
                         orderDataModuleDBHeader.getCurrency(),
                         orderDataModuleDBHeader.getShipping_fees(),
-                        NO_OF_PACKAGES,
+                        String.valueOf(NO_OF_PACKAGES.size()),
                         orderDataModuleDBHeader.getOut_From_Loc()
             );
 
