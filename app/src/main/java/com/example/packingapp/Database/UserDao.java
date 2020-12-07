@@ -184,4 +184,14 @@ public interface UserDao {
 
     @Query("select sum(quantity) FROM itemsOrderDataDBDetails ")
     float SumOfQTYFromDetials();
+
+    @Query("SELECT * FROM RecievePackedModule")
+    List<RecievePackedModule> getRecievePackedModule();
+
+    @Query("SELECT * FROM OrderDataModuleDBHeader where Order_number =:OrderNumber")
+    OrderDataModuleDBHeader getHeaderToUpload(String OrderNumber);
+
+    @Query("SELECT * FROM TrackingnumbersListDB")
+    List<TrackingnumbersListDB> countShipment();
+
 }

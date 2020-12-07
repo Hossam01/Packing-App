@@ -194,6 +194,30 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textInputLayout8"
+            android:background="@drawable/bg_layout_edit"
+            android:textColorHint="@color/white"
+            >
+
+            <EditText
+                android:id="@+id/Employeeid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/EmployeeID"
+                android:inputType="textPersonName"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
     <TextView
         android:id="@+id/textName"
         android:layout_width="wrap_content"
@@ -202,7 +226,7 @@
         android:text="@string/Vechile_ID"
         android:textSize="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout8" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout9" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout6"

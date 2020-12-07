@@ -8,16 +8,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.example.packingapp.databinding.ManageDriverBinding;
 import com.example.packingapp.model.ResponseDriver;
 import com.example.packingapp.viewmodel.DriverViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 public class DriverManage extends Fragment {
     ManageDriverBinding binding;
@@ -55,7 +55,7 @@ public class DriverManage extends Fragment {
                 for (int i = 0; i < responseDriver.getRecords().size(); i++) {
                     if (i == 0)
                         driver.add("Select ID Driver");
-                    driver.add(responseDriver.getRecords().get(i).getDriverID());
+                    driver.add(responseDriver.getRecords().get(i).getEmployeeID());
                 }
             }
             this.responseDriver = responseDriver;
@@ -76,6 +76,7 @@ public class DriverManage extends Fragment {
                     binding.Address.setText(responseDriver.getRecords().get(position - 1).getAddress().toString());
                     binding.VechileID.setPrompt(responseDriver.getRecords().get(position - 1).getVechileID().toString());
                     binding.National.setText(responseDriver.getRecords().get(position - 1).getNational_ID().toString());
+                    binding.Employeeid.setText(responseDriver.getRecords().get(position - 1).getEmployeeID().toString());
                     binding.create.setText("Update");
                     State = "update";
                 }
@@ -117,7 +118,7 @@ public class DriverManage extends Fragment {
 
     public void create() {
         State = "create";
-        driverViewModel.fetchdata(binding.NameArabic.getText().toString(), binding.NameEnglish.getText().toString(), binding.Status.getText().toString(), binding.Company.getText().toString(), binding.Phone.getText().toString(), binding.Address.getText().toString(), binding.VechileID.getSelectedItem().toString(),binding.National.getText().toString());
+        driverViewModel.fetchdata(binding.NameArabic.getText().toString(), binding.NameEnglish.getText().toString(), binding.Status.getText().toString(), binding.Company.getText().toString(), binding.Phone.getText().toString(), binding.Address.getText().toString(), binding.VechileID.getSelectedItem().toString(),binding.National.getText().toString(),binding.Employeeid.getText().toString());
         driverViewModel.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show());
         binding.create.setText("Create");
 
@@ -125,7 +126,7 @@ public class DriverManage extends Fragment {
     }
 
     public void update() {
-        driverViewModel.updateData(binding.DriverID.getSelectedItem().toString(), binding.NameArabic.getText().toString(), binding.NameEnglish.getText().toString(), binding.Status.getText().toString(), binding.Company.getText().toString(), binding.Phone.getText().toString(), binding.Address.getText().toString(), binding.VechileID.getSelectedItem().toString(),binding.National.getText().toString());
+        driverViewModel.updateData(binding.DriverID.getSelectedItem().toString(), binding.NameArabic.getText().toString(), binding.NameEnglish.getText().toString(), binding.Status.getText().toString(), binding.Company.getText().toString(), binding.Phone.getText().toString(), binding.Address.getText().toString(), binding.VechileID.getSelectedItem().toString(),binding.National.getText().toString(),binding.Employeeid.getText().toString());
         driverViewModel.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show());
         binding.create.setText("Create");
         State = "create";
@@ -140,5 +141,6 @@ public class DriverManage extends Fragment {
         binding.Phone.setText("");
         binding.Address.setText("");
         binding.National.setText("");
+        binding.Employeeid.setText("");
     }
 }

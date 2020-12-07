@@ -19,6 +19,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
@@ -40,12 +46,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity {
     private static final String TAG = "AssignPackedOrderForZon";
@@ -263,11 +263,16 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                             //TODO Send SMS To Customer That his order in his way with national ID of driver (What if there is list of sms )
                           //  SendSMS(CustomerPhone, edit_smsInput.getText().toString());
                             //TODO Print RunTime sheet
-                            /*OrderDataModuleDBHeader orderDataModuleDBHeader= database.userDao().getHeaderToUpload();
-                            PrintRunTimeSheet(trackingNo,orderDataModuleDBHeader.getCustomer_name(),
-                                    orderDataModuleDBHeader.getCustomer_address_city(),orderDataModuleDBHeader.getOutBound_delivery());
+                            List<RecievePackedModule> orderDataModuleDBHeader= database.userDao().getRecievePackedModule();
 
-                             */
+                            if (orderDataModuleDBHeader.size()>0) {
+                                PrintRunTimeSheet(trackingNo, orderDataModuleDBHeader.get(0).getCUSTOMER_NAME(),
+                                        orderDataModuleDBHeader.get(0).getADDRESS_CITY(), orderDataModuleDBHeader.get(0).getOUTBOUND_DELIVERY(),"كاش", orderDataModuleDBHeader.get(0).getITEM_PRICE());
+
+
+                            }
+                            else {Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this,"لا تحتوي علي بيانات",Toast.LENGTH_SHORT).show(); }
+
                         } else {
                             Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, String.format("%s",
                                     getString(R.string.message_not_equalfornoofpaclkageandcountoftrackingnumbers)), Toast.LENGTH_SHORT).show();
@@ -433,7 +438,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 if (recievePackedlist.get(0).getZone().equalsIgnoreCase(Zone1)) {
                     database.userDao().insertRecievePacked(new RecievePackedModule(
                             recievePackedlist.get(0).getORDER_NO(), recievePackedlist.get(0).getNO_OF_PACKAGES(),
-                            trackingnumber1, Zone));
+                            trackingnumber1, Zone,recievePackedlist.get(0).getCUSTOMER_NAME(),recievePackedlist.get(0).getADDRESS_CITY(),recievePackedlist.get(0).getITEM_PRICE(),recievePackedlist.get(0).getOUTBOUND_DELIVERY()));
                     binding.editTrackingnumberZone.setText("");
                     binding.editTrackingnumberZone.setError(null);
                     binding.editTrackingnumberDriver.setText("");
@@ -450,7 +455,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     database.userDao().insertRecievePacked(new RecievePackedModule(
                                             recievePackedlist.get(0).getORDER_NO(), recievePackedlist.get(0).getNO_OF_PACKAGES(),
-                                            trackingnumber1, Zone));
+                                            trackingnumber1, Zone,recievePackedlist.get(0).getCUSTOMER_NAME(),recievePackedlist.get(0).getADDRESS_CITY(),recievePackedlist.get(0).getITEM_PRICE(),recievePackedlist.get(0).getOUTBOUND_DELIVERY()));
                                     binding.editTrackingnumberZone.setText("");
                                     binding.editTrackingnumberZone.setError(null);
                                     binding.editTrackingnumberDriver.setText("");
@@ -515,7 +520,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
         Log.e(TAG, "onChanged: " + responseGetOrderData.getNO_OF_PACKAGES());
         database.userDao().insertRecievePacked(new RecievePackedModule(
                 responseGetOrderData.getORDER_NO(), responseGetOrderData.getNO_OF_PACKAGES(),
-                trackingnumber,Zone));
+                trackingnumber,Zone,responseGetOrderData.getCUSTOMER_NAME(),responseGetOrderData.getADDRESS_CITY(),responseGetOrderData.getITEM_PRICE(),responseGetOrderData.getOUTBOUND_DELIVERY()));
         binding.editTrackingnumberZone.setText("");
         binding.editTrackingnumberZone.setError(null);
         binding.editTrackingnumberDriver.setText("");
@@ -688,12 +693,12 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
 
     //TODO
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void PrintRunTimeSheet(String trackingNo,String customer_name,String address,String outDelivery) {
+    private void PrintRunTimeSheet(String trackingNo,String customer_name,String address,String outDelivery,String paymentMethod,String shipmentValue) {
         ActivityCompat.requestPermissions(this, new String[]{"android.permission.WRITE_EXTERNAL_STORAGE"}, 0);
-        createPdf(trackingNo,customer_name,address,outDelivery);
+        createPdf(trackingNo,customer_name,address,outDelivery,paymentMethod,shipmentValue);
     }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void createPdf(String trackingNo,String customer_name,String address,String outDelivery) {
+    private void createPdf(String trackingNo,String customer_name,String address,String outDelivery,String paymentMethod,String shipmentValue) {
 
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
@@ -710,16 +715,10 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
         canvas.drawText("من العملاء لخزينة الشركة وتعتبر البضاعة وما أقوم بتحصيله من العملاء هو أمانة في ذمتي أتعهد بتسليمها للشركة, وإذا أخلللت بذلك أكون مبددا وخائنا للأمانة . ", 30.0f, 220.0f, paint);
         canvas.drawText("وأتحمل كافة المسئولية الجنائية والمدنية المترتبة على ذلك. ", 550.0f, 260.0f, paint);
 
-              /*  canvas.drawText("I ............................................................. id no. .......................................  as (HyperOne Co.) delivery associate admit that I received the products in the packages numbers mentioned ", 20.0f, 230.0f, paint);
-                canvas.drawText("below to deliver to (HyperOne Co.) customers and collect their values from them and I commit to return the failed delivery  to (HyperOne Co.) warehouse in", 20.0f, 270.0f, paint);
-                canvas.drawText("the same receiving condition and pay what I had collected to (HyperOne Co.) cashier.", 20.0f, 310.0f, paint);
-                canvas.drawText("the products and the money that belong to (HyperOne Co.) are fidelity I pledge to give it to (HyperOne Co.), if I didn't do this, I will be a traitor to the fidelity", 20.0f, 350.0f, paint);
-                canvas.drawText("and bear all criminal and civil liability arising therefrom.", 20.0f, 230.0f, paint);*/
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(2.0f);
         Paint paint2 = paint;
-        //top of header row  line change bottom
-        //bottom of table    change top
+
         canvas.drawRect(30.0f, 2600.0f, 1940.0f, 280.0f, paint2);
         paint.setTextAlign(Paint.Align.RIGHT);
         paint.setStyle(Paint.Style.FILL);
@@ -734,15 +733,9 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
         canvas.drawLine(997.0f, 280.0f, 997.0f, 2600.0f, paint2);
         canvas.drawText("طريقة الدفع", 990.0f, 310.0f, paint);
         canvas.drawLine(850.0f, 280.0f, 850.0f, 2600.0f, paint2);
-//                canvas.drawText("نوع الشحنة", 700.0f, 280.0f, paint);
-//                canvas.drawLine(660.0f, 780.0f, 660.0f, 250.0f, paint2);
         canvas.drawText("إسم العميل", 760.0f, 310.0f, paint);
         canvas.drawLine(500.0f, 280.0f, 500.0f, 2600.0f, paint2);
-//                canvas.drawText("نوع الشحنة", 580.0f, 280.0f, paint);
-//                canvas.drawLine(500.0f, 780.0f, 500.0f, 250.0f, paint2);
         canvas.drawText("عنوان العميل", 480.0f, 310.0f, paint);
-//                canvas.drawLine(400.0f, 780.0f, 400.0f, 250.0f, paint2);
-//                canvas.drawText("تليفون العميل", 380.0f, 280.0f, paint);
         canvas.drawLine(300.0f, 280.0f, 300.0f, 2600.0f, paint2);
         canvas.drawText("ملاحظات", 180.0f, 310.0f, paint);
 
