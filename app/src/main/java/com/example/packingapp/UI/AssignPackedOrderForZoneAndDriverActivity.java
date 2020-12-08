@@ -19,6 +19,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
@@ -27,6 +33,8 @@ import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.ResponseDriver;
 import com.example.packingapp.model.ResponseSms;
 import com.example.packingapp.model.ResponseUpdateStatus;
+import com.example.packingapp.model.TimeSheet.RecordsItem;
+import com.example.packingapp.model.TimeSheet.Response;
 import com.example.packingapp.viewmodel.AssignPackedOrderToZoneViewModel;
 import com.onbarcode.barcode.android.AndroidColor;
 import com.onbarcode.barcode.android.Code93;
@@ -57,6 +65,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
     ArrayList<String> Drivers_IDs_list ;
     ResponseDriver responseDriver;
     String trackingNo="";
+
 
 
     @Override
@@ -263,15 +272,22 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                             //TODO Send SMS To Customer That his order in his way with national ID of driver (What if there is list of sms )
                           //  SendSMS(CustomerPhone, edit_smsInput.getText().toString());
                             //TODO Print RunTime sheet
-                            List<RecievePackedModule> orderDataModuleDBHeader= database.userDao().getRecievePackedModule();
+                            assignPackedOrderToZoneViewModel.SheetData("2000000296");
+                            assignPackedOrderToZoneViewModel.getSheetLiveData().observe(AssignPackedOrderForZoneAndDriverActivity.this, new Observer<Response>() {
+                                @Override
+                                public void onChanged(Response response) {
+                                    if (response.getRecords().size()>0) {
+                                        PrintRunTimeSheet(response.getRecords());
+//                                        for (int i=0;i<response.getRecords().size();i++)
+//                                        {
+////                                        PrintRunTimeSheet(response.getRecords().get(i).getTRACKING_NO(), response.getRecords().get(i).getCUSTOMER_NAME(),
+////                                                response.getRecords().get(i).getADDRESS_CITY(), response.getRecords().get(i).getOUTBOUND_DELIVERY(),"كاش", response.getRecords().get(i).getITEM_PRICE());
+//                                        }
+                                    }
+                                    else {Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this,"لا تحتوي علي بيانات",Toast.LENGTH_SHORT).show(); }
 
-                            if (orderDataModuleDBHeader.size()>0) {
-//                                PrintRunTimeSheet(trackingNo, orderDataModuleDBHeader.get(0).getCUSTOMER_NAME(),
-//                                        orderDataModuleDBHeader.get(0).getADDRESS_CITY(), orderDataModuleDBHeader.get(0).getOUTBOUND_DELIVERY(),"كاش", orderDataModuleDBHeader.get(0).getITEM_PRICE());
-
-
-                            }
-                            else {Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this,"لا تحتوي علي بيانات",Toast.LENGTH_SHORT).show(); }
+                                }
+                            });
 
                         } else {
                             Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, String.format("%s",
@@ -287,6 +303,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
 
             }
         });
+
     }
 
     private void LoadingNewPurchaseOrderDriver() {
@@ -438,9 +455,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 if (recievePackedlist.get(0).getZone().equalsIgnoreCase(Zone1)) {
                     database.userDao().insertRecievePacked(new RecievePackedModule(
                             recievePackedlist.get(0).getORDER_NO(), recievePackedlist.get(0).getNO_OF_PACKAGES(),
-                            trackingnumber1, Zone1 /*,
-                            recievePackedlist.get(0).getCUSTOMER_NAME(),recievePackedlist.get(0).getADDRESS_CITY(),
-                            recievePackedlist.get(0).getITEM_PRICE(),recievePackedlist.get(0).getOUTBOUND_DELIVERY()*/));
+                            trackingnumber1, Zone,recievePackedlist.get(0).getCUSTOMER_NAME(),recievePackedlist.get(0).getADDRESS_CITY(),recievePackedlist.get(0).getITEM_PRICE(),recievePackedlist.get(0).getOUTBOUND_DELIVERY()));
                     binding.editTrackingnumberZone.setText("");
                     binding.editTrackingnumberZone.setError(null);
                     binding.editTrackingnumberDriver.setText("");
@@ -699,12 +714,12 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
 
     //TODO
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void PrintRunTimeSheet(String trackingNo,String customer_name,String address,String outDelivery,String paymentMethod,String shipmentValue) {
+    private void PrintRunTimeSheet(List<RecordsItem> items) {
         ActivityCompat.requestPermissions(this, new String[]{"android.permission.WRITE_EXTERNAL_STORAGE"}, 0);
-        createPdf(trackingNo,customer_name,address,outDelivery,paymentMethod,shipmentValue);
+        createPdf(items);
     }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void createPdf(String trackingNo,String customer_name,String address,String outDelivery,String paymentMethod,String shipmentValue) {
+    private void createPdf(List<RecordsItem> items) {
 
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
@@ -750,21 +765,27 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
 
         canvas.drawText("توقيع المستلم/Receiver sign", 1500.0f, 2700.0f, paint);
         canvas.drawText("توقيع مسئول أمن المخزن", 1000.0f, 2700.0f, paint);
+
         canvas.drawText("توقيع منسق التوصيل", 600.0f, 2700.0f, paint);
+        int pos=0;
+        for (int i=0;i<items.size();i++) {
+            canvas.drawText(items.get(i).getADDRESS_CITY(), 480.0f, 390+pos, paint);
+            canvas.drawText(items.get(i).getCUSTOMER_NAME(), 760.0f, 390+pos, paint);
+            canvas.drawText("كاش", 990.0f, 390+pos, paint);
+            canvas.drawText(items.get(i).getOUTBOUND_DELIVERY(), 1830.0f, 390+pos, paint);
+            canvas.drawText(items.get(i).getITEM_PRICE(), 1160.0f, 390+pos, paint);
 
-        canvas.drawText(customer_name, 760.0f, 390, paint);
-        canvas.drawText(address, 480.0f, 390, paint);
-        canvas.drawText(outDelivery, 1830.0f, 390, paint);
 
-        try {
-            testCODE93(canvas,1150.0f, 340.0f,trackingNo);
-            canvas.drawLine(30.0f, 430.0f, 1940.0f, 430.0f, paint2);
+            try {
+                testCODE93(canvas, 1150.0f, 340+pos, items.get(i).getTRACKING_NO());
+                canvas.drawLine(30.0f, 430.0f+pos, 1940.0f, 430.0f+pos, paint2);
 
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            pos+=100;
         }
-
         pdfDocument.finishPage(page);
         try {
             pdfDocument.writeTo(new FileOutputStream(new File(Environment.getExternalStorageDirectory(), "/HyperOne.pdf")));

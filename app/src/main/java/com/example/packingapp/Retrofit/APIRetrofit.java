@@ -11,6 +11,7 @@ import com.example.packingapp.model.ResponseSms;
 import com.example.packingapp.model.ResponseUpdateStatus;
 import com.example.packingapp.model.ResponseVehicle;
 import com.example.packingapp.model.ResponseWay;
+import com.example.packingapp.model.TimeSheet.Response;
 
 import java.util.Map;
 
@@ -103,7 +104,8 @@ public interface APIRetrofit {
     @POST("Packing_Api/Ordernumber/GetOrderForEndOfDay.php")
     Observable<ResponeEndOfDay> GetOrderForEndOfDay_ON_83(@Body Map<String, String> mobile);
 
-
+    @POST("Packing_Api/Ordernumber/Read_ForRunTimeSheet.php")
+    Observable<Response> ReadRunTimeSheet(@Body Map<String, String> mobile);
 
 
 }
