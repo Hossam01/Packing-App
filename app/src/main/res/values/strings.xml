@@ -88,4 +88,6 @@
     <string name="success_header_of_driver">Success</string>
     <string name="failed_header_of_driver">Failed</string>
     <string name="you_choice_mulite_or_choice_noting">لقد اخترت اكثر من اختيار أو لم تختار شى</string>
+    <string name="there_is_no_data_todelete">لايوجد بيانات للحذف</string>
+    <string name="special_character_found_in_string">Special character found in the string</string>
 </resources>

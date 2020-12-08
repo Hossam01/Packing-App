@@ -232,7 +232,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                                 }
                             }).show();
                 }else {
-                    Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "لايوجد بيانات للحذف", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, R.string.there_is_no_data_todelete, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -262,12 +262,14 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                             // Toast.makeText(RecievePackedOrderForSortingActivity.this, String.format("%s",getString(R.string.message_equalfornoofpaclkageandcountoftrackingnumbers)), Toast.LENGTH_SHORT).show();
                             // UpdateStatus_zone_ON_83("sorted");
                             // UpdateStatus("sorted");
-                            
-                            UpdateDriverID_ON_83(binding.spinerDriverId.getSelectedItem().toString());
+                            Log.e(TAG, "onClick: "+binding.spinerDriverId.getSelectedItemPosition() );
+                            UpdateDriverID_ON_83(Drivers_IDs_list.get(binding.spinerDriverId.getSelectedItemPosition()));
                             //TODO Send SMS To Customer That his order in his way with national ID of driver (What if there is list of sms )
                           //  SendSMS(CustomerPhone, edit_smsInput.getText().toString());
-                            //TODO Print RunTime sheet
-                            assignPackedOrderToZoneViewModel.SheetData("2000000296");
+                            //TODO Print RunTime sheet -- get data for list of order (recievePackedORDER_NO_Distinctlist)
+                           // List<RecievePackedModule> recievePackedORDER_NO_Distinctlist = database.userDao().getRecievePacked_ORDER_NO_Distinct();
+
+                            assignPackedOrderToZoneViewModel.SheetData(recievePackedORDER_NO_Distinctlist.get(0).getORDER_NO());
                             assignPackedOrderToZoneViewModel.getSheetLiveData().observe(AssignPackedOrderForZoneAndDriverActivity.this, new Observer<Response>() {
                                 @Override
                                 public void onChanged(Response response) {
@@ -308,7 +310,8 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 trackingNo=binding.editTrackingnumberDriver.getText().toString();
                 LoadNewPurchaseOrderBTN_Driver();
             }else {
-                Toast.makeText(context, "Special character found in the string", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,  String.format("%s",
+                        getString(R.string.special_character_found_in_string)), Toast.LENGTH_SHORT).show();
             }
         }else {
             binding.editTrackingnumberDriver.setError("أدخل السريال");
