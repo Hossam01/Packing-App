@@ -1,17 +1,20 @@
 package com.example.packingapp.viewmodel;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
+
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.example.packingapp.Retrofit.ApiClient;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.ResponseDriver;
 import com.example.packingapp.model.ResponseSms;
 import com.example.packingapp.model.ResponseUpdateStatus;
+import com.example.packingapp.model.TimeSheet.Response;
 
 import java.util.HashMap;
 
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -138,6 +141,29 @@ public class AssignPackedOrderToZoneViewModel extends ViewModel {
                         ,throwable -> {
                             Log.d("Error_Vof ",throwable.getMessage());
 
+                        });
+
+    }
+
+
+    private MutableLiveData<Response> runTimeSheetData = new MutableLiveData<>();
+    public MutableLiveData<Response> getSheetLiveData() {
+        return runTimeSheetData;
+    }
+
+    public void SheetData(String number) {
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("ORDER_NO", number);
+
+        ApiClient.build().ReadRunTimeSheet(map)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe((@SuppressLint("CheckResult") Response responseSms) -> {
+                            runTimeSheetData.setValue(responseSms);
+                        }
+                        ,throwable -> {
+                            Log.d("Error_Vof ",throwable.getMessage());
                         });
 
     }

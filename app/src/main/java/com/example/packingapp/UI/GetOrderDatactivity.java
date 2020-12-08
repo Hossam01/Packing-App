@@ -24,10 +24,6 @@ import com.example.packingapp.viewmodel.GetOrderDataViewModel;
 
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 public class GetOrderDatactivity extends AppCompatActivity {
     ActivityGetOrderDataBinding binding;
     GetOrderDataViewModel getOrderDataViewModel;
@@ -107,7 +103,6 @@ public class GetOrderDatactivity extends AppCompatActivity {
 
     private void LoadNewPurchaseOrder() {
         if (!binding.editMagentoorder.getText().toString().isEmpty()) {
-
             GETOrderData();
         }else {
             binding.editMagentoorder.setError("أدخل ");

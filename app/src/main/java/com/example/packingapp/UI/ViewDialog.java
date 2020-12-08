@@ -262,7 +262,7 @@ public class ViewDialog {
             double totel=0.0;
             List<TrackingnumbersListDB> trackingnumbersListDBS=database.userDao().countShipment();
             List<ItemsOrderDataDBDetails> orderDataModuleDBHeaderkist = database.userDao().getDetailsTrackingnumberToUpload();
-            ItemsOrderDataDBDetails itemsOrderDataDBDetails=new ItemsOrderDataDBDetails(" "," "," "," "," ");
+            ItemsOrderDataDBDetails itemsOrderDataDBDetails=new ItemsOrderDataDBDetails(" "," ",0,0," ");
             for (int i=0;i<30;i++)
             {
                 if (i<orderDataModuleDBHeaderkist.size())
@@ -331,36 +331,36 @@ public class ViewDialog {
                             "^FO200,610^CI28^AZN,20,15^FDاسم المنتج^FS" +
                             "^FO405,610^CI28^AZN,20,15^FDالكميه^FS" +
                             "^FO35,610^CI28^AZN,20,15^FDالكميه^FS" +
-                            "^FO50,640^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(1).getQuantity()) + "^FS" +
-                            "^FO50,670^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(3).getQuantity()) + "^FS" +
-                            "^FO50,700^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(5).getQuantity()) + "^FS" +
-                            "^FO50,730^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(7).getQuantity()) + "^FS" +
-                            "^FO50,760^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(9).getQuantity()) + "^FS" +
-                            "^FO50,790^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(11).getQuantity()) + "^FS" +
-                            "^FO50,820^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(13).getQuantity()) + "^FS" +
-                            "^FO50,850^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(15).getQuantity()) + "^FS" +
-                            "^FO50,880^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(17).getQuantity()) + "^FS" +
-                            "^FO50,910^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(19).getQuantity()) + "^FS" +
-                            "^FO50,940^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(21).getQuantity()) + "^FS" +
-                            "^FO50,970^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(23).getQuantity()) + "^FS" +
-                            "^FO50,1000^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(25).getQuantity()) + "^FS" +
-                            "^FO50,1030^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(27).getQuantity()) + "^FS" +
-                            "^FO50,1060^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(29).getQuantity()) + "^FS" +
-                            "^FO420,640^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(0).getQuantity()) + "^FS" +
-                            "^FO420,670^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(2).getQuantity()) + "^FS" +
-                            "^FO420,700^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(4).getQuantity()) + "^FS" +
-                            "^FO420,730^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(6).getQuantity()) + "^FS" +
-                            "^FO420,760^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(8).getQuantity()) + "^FS" +
-                            "^FO420,790^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(10).getQuantity()) + "^FS" +
-                            "^FO420,820^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(12).getQuantity()) + "^FS" +
-                            "^FO420,850^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(14).getQuantity()) + "^FS" +
-                            "^FO420,880^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(16).getQuantity()) + "^FS" +
-                            "^FO420,910^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(18).getQuantity()) + "^FS" +
-                            "^FO420,940^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(20).getQuantity()) + "^FS" +
-                            "^FO420,970^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(22).getQuantity()) + "^FS" +
-                            "^FO420,1000^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(24).getQuantity()) + "^FS" +
-                            "^FO420,1030^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(26).getQuantity()) + "^FS" +
-                            "^FO420,1060^CI28^AZN,20,15^FD" + checkNull(orderDataModuleDBHeaderkist.get(28).getQuantity()) + "^FS" +
+                            "^FO50,640^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(1).getQuantity() + "^FS" +
+                            "^FO50,670^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(3).getQuantity() + "^FS" +
+                            "^FO50,700^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(5).getQuantity() + "^FS" +
+                            "^FO50,730^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(7).getQuantity() + "^FS" +
+                            "^FO50,760^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(9).getQuantity() + "^FS" +
+                            "^FO50,790^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(11).getQuantity() + "^FS" +
+                            "^FO50,820^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(13).getQuantity() + "^FS" +
+                            "^FO50,850^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(15).getQuantity() + "^FS" +
+                            "^FO50,880^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(17).getQuantity() + "^FS" +
+                            "^FO50,910^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(19).getQuantity() + "^FS" +
+                            "^FO50,940^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(21).getQuantity() + "^FS" +
+                            "^FO50,970^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(23).getQuantity() + "^FS" +
+                            "^FO50,1000^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(25).getQuantity() + "^FS" +
+                            "^FO50,1030^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(27).getQuantity() + "^FS" +
+                            "^FO50,1060^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(29).getQuantity() + "^FS" +
+                            "^FO420,640^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(0).getQuantity() + "^FS" +
+                            "^FO420,670^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(2).getQuantity() + "^FS" +
+                            "^FO420,700^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(4).getQuantity() + "^FS" +
+                            "^FO420,730^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(6).getQuantity() + "^FS" +
+                            "^FO420,760^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(8).getQuantity() + "^FS" +
+                            "^FO420,790^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(10).getQuantity() + "^FS" +
+                            "^FO420,820^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(12).getQuantity() + "^FS" +
+                            "^FO420,850^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(14).getQuantity() + "^FS" +
+                            "^FO420,880^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(16).getQuantity() + "^FS" +
+                            "^FO420,910^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(18).getQuantity() + "^FS" +
+                            "^FO420,940^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(20).getQuantity() + "^FS" +
+                            "^FO420,970^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(22).getQuantity() + "^FS" +
+                            "^FO420,1000^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(24).getQuantity() + "^FS" +
+                            "^FO420,1030^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(26).getQuantity() + "^FS" +
+                            "^FO420,1060^CI28^AZN,20,15^FD" + orderDataModuleDBHeaderkist.get(28).getQuantity() + "^FS" +
                             "^FO500,640^CI28^AZN,20,15^FD" + maxLength(checkNull(orderDataModuleDBHeaderkist.get(0).getName())) + "^FS" +
                             "^FO500,670^CI28^AZN,20,15^FD" + maxLength(checkNull(orderDataModuleDBHeaderkist.get(2).getName())) + "^FS" +
                             "^FO500,700^CI28^AZN,20,15^FD" + maxLength(checkNull(orderDataModuleDBHeaderkist.get(4).getName())) + "^FS" +
@@ -491,6 +491,7 @@ public class ViewDialog {
         else
         {return name;}
     }
+
 
     public String checkPaymentMethod(String name)
     {
