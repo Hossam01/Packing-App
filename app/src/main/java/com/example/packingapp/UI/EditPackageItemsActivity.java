@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.example.packingapp.Adapter.PackedPackageItemsAdapter;
 import com.example.packingapp.Database.AppDatabase;
-import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityEditPackageBinding;
 import com.example.packingapp.model.PackedPackageItemsModule;
 
@@ -20,6 +19,8 @@ import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static com.example.packingapp.R.string;
 
 public class EditPackageItemsActivity extends AppCompatActivity {
     AppDatabase database;
@@ -108,10 +109,10 @@ public class EditPackageItemsActivity extends AppCompatActivity {
                 }
                 if (i == (Barcodes_List.size() - 1)) {
                     if (CountChecked < 1 || CountChecked > 1) {
-                        Toast.makeText(EditPackageItemsActivity.this, "لقد اخترت اكثر من اختيار أو لم تختار شى", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditPackageItemsActivity.this, string.you_choice_mulite_or_choice_noting, Toast.LENGTH_LONG).show();
                     } else if (CountChecked == 1) {  //&& !BarCodeChecked.isEmpty()
                         new AlertDialog.Builder(this)
-                                .setTitle(getString(R.string.delete_dialoge))
+                                .setTitle(getString(string.delete_dialoge))
                                 .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
                                         database.userDao().DeleteTrackingNumberForItem(BarcodeToEditORDelete);

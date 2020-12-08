@@ -87,7 +87,7 @@ private static final int REQUEST_PHONE_CALL = 1;
                 int randomNumber = random.nextInt(1280 - 65) + 65;
                 Log.e(TAG, "onClick:randomNumber  "+ String.valueOf(randomNumber) );
                 //ToDo Don't SendPasscode For Test Get asscode From log
-                //SendSMS(CustomerPhone, String.valueOf(randomNumber));
+                SendSMS(CustomerPhone, String.valueOf(randomNumber));
 
                 database.userDao().UpdatePasscode(Orderclicked,String.valueOf(randomNumber));
 
@@ -135,8 +135,9 @@ private static final int REQUEST_PHONE_CALL = 1;
     private void PhoneAndSmsActions() {
         DriverPackages_Header_DB driverPackages_header_db=
                 database.userDao().getDriverorder();
-        CustomerPhone=driverPackages_header_db.getCustomer_phone();
-        CustomerPhone=CustomerPhone.replace("+2","");
+        //TODO adding my number to send sms and amke call
+//        CustomerPhone=driverPackages_header_db.getCustomer_phone();
+//        CustomerPhone=CustomerPhone.replace("+2","");
         Log.e(TAG, "onCreate:vvv "+ CustomerPhone);
 
         binding.imgBtnCall.setOnClickListener(new View.OnClickListener() {

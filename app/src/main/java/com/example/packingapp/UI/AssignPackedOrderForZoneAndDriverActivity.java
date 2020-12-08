@@ -19,12 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
@@ -268,6 +262,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                             // Toast.makeText(RecievePackedOrderForSortingActivity.this, String.format("%s",getString(R.string.message_equalfornoofpaclkageandcountoftrackingnumbers)), Toast.LENGTH_SHORT).show();
                             // UpdateStatus_zone_ON_83("sorted");
                             // UpdateStatus("sorted");
+                            
                             UpdateDriverID_ON_83(binding.spinerDriverId.getSelectedItem().toString());
                             //TODO Send SMS To Customer That his order in his way with national ID of driver (What if there is list of sms )
                           //  SendSMS(CustomerPhone, edit_smsInput.getText().toString());
@@ -405,6 +400,8 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
         if (
                 //!binding.editTrackingnumberZone.getText().toString().isEmpty() &&
                 binding.editTrackingnumberZone.getText().toString().contains("-")) {
+
+            if (Constant.RegulerExpre_forTrackingNumbeer(binding.editTrackingnumberZone.getText().toString())) {
             OrderNumber=
                     binding.editTrackingnumberZone.getText().toString().substring(0,
                             binding.editTrackingnumberZone.getText().toString().indexOf("-"));
@@ -417,7 +414,8 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                         ,binding.editZone.getText().toString());
                 Log.e(TAG, "onClick: Ord "+OrderNumber );
             //    Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
-            }else if (database.userDao().getRecievePacked_Tracking_Number(binding.editTrackingnumberZone.getText().toString())
+            }else if (database.userDao().getRecievePacked_Tracking_Number(
+                    binding.editTrackingnumberZone.getText().toString())
                     .size() ==0){
                 binding.editTrackingnumberZone.setError(null);
 
@@ -431,8 +429,10 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 binding.editZone.setText("");
                 binding.editTrackingnumberZone.requestFocus();
             }
+            }else {
+                Toast.makeText(context, "Special character found in the string", Toast.LENGTH_SHORT).show();
+            }
         }else {
-
             binding.editTrackingnumberZone.setError(getString(R.string.enter_valid_tracking_number));
             binding.editTrackingnumberZone.setText("");
             binding.editZone.setText("");
@@ -446,16 +446,27 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
         String OrderNumber=
                 trackingnumber1.substring(0,
                         trackingnumber1.indexOf("-"));
+       //TODO CHECK IF TRACKING NUMBER MORE THAN require no of packages
+       String NOtrackingnumber =trackingnumber1.substring(
+               trackingnumber1.indexOf("-") + 1);
+
+       Log.e(TAG, "onClick: " + NOtrackingnumber);
 
         List<RecievePackedModule>  recievePackedlist =  database.userDao().getRecievePacked_ORDER_NO(OrderNumber);
         if (recievePackedlist.size() == 0) {
             GETOrderData(trackingnumber1,Zone1);
-            Toast.makeText(context, "تم", Toast.LENGTH_SHORT).show();
-        }else if (recievePackedlist.size() >= 0){
+           // Toast.makeText(context, "تم", Toast.LENGTH_SHORT).show();
+        }else if (recievePackedlist.size() > 0){
+            if (database.userDao().getRecievePacked_Tracking_Number(trackingnumber1)
+                    .size() == 0 && Integer.valueOf(recievePackedlist.get(0).getNO_OF_PACKAGES()) >=
+                    Integer.valueOf(NOtrackingnumber)) {
                 if (recievePackedlist.get(0).getZone().equalsIgnoreCase(Zone1)) {
                     database.userDao().insertRecievePacked(new RecievePackedModule(
                             recievePackedlist.get(0).getORDER_NO(), recievePackedlist.get(0).getNO_OF_PACKAGES(),
-                            trackingnumber1, Zone,recievePackedlist.get(0).getCUSTOMER_NAME(),recievePackedlist.get(0).getADDRESS_CITY(),recievePackedlist.get(0).getITEM_PRICE(),recievePackedlist.get(0).getOUTBOUND_DELIVERY()));
+                            trackingnumber1,
+                            Zone1 /*,recievePackedlist.get(0).getCUSTOMER_NAME(),recievePackedlist.get(0).
+                            getADDRESS_CITY(),recievePackedlist.get(0).getITEM_PRICE(),recievePackedlist.get(0).
+                            getOUTBOUND_DELIVERY()*/));
                     binding.editTrackingnumberZone.setText("");
                     binding.editTrackingnumberZone.setError(null);
                     binding.editTrackingnumberDriver.setText("");
@@ -491,7 +502,10 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                                     dialog.cancel();
                                 }
                             }).show();
-                }
+                }}else {
+                binding.editTrackingnumberZone.setError("تم أدخال رقم غير صحيح ");
+                binding.editTrackingnumberZone.setText("");
+            }
 
         }
     }
@@ -502,7 +516,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
             @Override
             public void onChanged(RecievePackedModule responseGetOrderData) {
                 //|| responseGetOrderData.getSTATUS().equalsIgnoreCase("sorted")
-                Log.e(TAG, "onChanged:stat  "+ responseGetOrderData.getSTATUS());
+                Log.e(TAG, "onChanged:stat_GETOrderData "+ responseGetOrderData.getSTATUS());
                 if (Zone != null) {
                     if (responseGetOrderData.getSTATUS().equalsIgnoreCase("in sorting")
                     ) {
@@ -538,18 +552,33 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
 
     private void AfterGetOrderData(RecievePackedModule responseGetOrderData, String trackingnumber ,String Zone) {
         Log.e(TAG, "onChanged: " + responseGetOrderData.getNO_OF_PACKAGES());
-        database.userDao().insertRecievePacked(new RecievePackedModule(
-                responseGetOrderData.getORDER_NO(), responseGetOrderData.getNO_OF_PACKAGES(),
-                trackingnumber,Zone/*,responseGetOrderData.getCUSTOMER_NAME(),responseGetOrderData.getADDRESS_CITY()
+
+        if (database.userDao().getRecievePacked_Tracking_Number(
+                trackingnumber)
+                .size() ==0){
+            Log.e(TAG, "AfterGetOrderData:getRecievePacked_Tracking_Number "+
+                    database.userDao().getRecievePacked_Tracking_Number(trackingnumber).size() );
+
+            database.userDao().insertRecievePacked(new RecievePackedModule(
+                    responseGetOrderData.getORDER_NO(), responseGetOrderData.getNO_OF_PACKAGES(),
+                    trackingnumber,Zone/*,responseGetOrderData.getCUSTOMER_NAME(),responseGetOrderData.getADDRESS_CITY()
                 ,responseGetOrderData.getITEM_PRICE(),responseGetOrderData.getOUTBOUND_DELIVERY()*/));
-        binding.editTrackingnumberZone.setText("");
-        binding.editTrackingnumberZone.setError(null);
-        binding.editTrackingnumberDriver.setText("");
-        binding.editTrackingnumberDriver.setError(null);
-        binding.editZone.setText("");
-        binding.editZone.setError(null);
-        Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
-        Log.e(TAG, "onChanged: insertR" + trackingnumber);
+            binding.editTrackingnumberZone.setText("");
+            binding.editTrackingnumberZone.setError(null);
+            binding.editTrackingnumberDriver.setText("");
+            binding.editTrackingnumberDriver.setError(null);
+            binding.editZone.setText("");
+            binding.editZone.setError(null);
+            Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "onChanged: insertAfterGetOrderData " + trackingnumber);
+        }else {
+           // binding.editTrackingnumberZone.setError("تم أدخال هذا من قبل ");
+               binding.editTrackingnumberZone.setText("");
+          //  binding.editZone.setText("");
+            binding.editTrackingnumberZone.requestFocus();
+        }
+
+
     }
 
     public void UpdateStatus_zone_ON_83(String Status){
@@ -649,7 +678,8 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                         for (int i = 0; i < responseDriver.getRecords().size(); i++) {
                             if (i == 0)
                                 Drivers_IDs_list.add("Select ID Driver");
-                            Drivers_IDs_list.add(responseDriver.getRecords().get(i).getDriverID());
+                            Drivers_IDs_list.add(responseDriver.getRecords().get(i).getDriverID()+"&"+
+                                    responseDriver.getRecords().get(i).getNameArabic());
                         }
                     }
                     this.responseDriver = responseDriver;
@@ -669,22 +699,26 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
 
             List<RecievePackedModule> recievePackedlist=  database.userDao().getRecievePacked_ORDER_NO(OrderNumber);
             if (recievePackedlist.size() == 0){
-                binding.editTrackingnumberDriver.setError(null);
 
                 GETOrderData(binding.editTrackingnumberDriver.getText().toString(),null);
                 Log.e(TAG, "onClick: Ord "+OrderNumber );
                 binding.editTrackingnumberDriver.setText("");
                 binding.editTrackingnumberDriver.setError(null);
-                Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
             }else if (database.userDao().getRecievePacked_Tracking_Number(binding.editTrackingnumberDriver.getText().toString())
                     .size() ==0){
-                binding.editTrackingnumberDriver.setError(null);
+                database.userDao().insertRecievePacked(new RecievePackedModule(
+                        recievePackedlist.get(0).getORDER_NO(), recievePackedlist.get(0).getNO_OF_PACKAGES(),
+                        binding.editTrackingnumberDriver.getText().toString(),
+                        null /*,recievePackedlist.get(0).getCUSTOMER_NAME(),recievePackedlist.get(0).
+                            getADDRESS_CITY(),recievePackedlist.get(0).getITEM_PRICE(),recievePackedlist.get(0).
+                            getOUTBOUND_DELIVERY()*/));
 
-                GETOrderData(binding.editTrackingnumberDriver.getText().toString(),null);
+               // GETOrderData(binding.editTrackingnumberDriver.getText().toString(),null);
                 binding.editTrackingnumberDriver.setText("");
                 binding.editTrackingnumberDriver.setError(null);
                 Log.e(TAG, "onClick: Trac "+binding.editTrackingnumberDriver.getText().toString() );
-                Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
             }else {
                 binding.editTrackingnumberDriver.setError("تم أدخال هذا من قبل ");
                 binding.editTrackingnumberDriver.setText("");

@@ -150,7 +150,7 @@ public class EditPackagesActivity extends AppCompatActivity {
                 }
                 if (i == (Trackingnumbers_List.size() - 1)) {
                     if (CountChecked < 1 || CountChecked > 1) {
-                        Toast.makeText(EditPackagesActivity.this, "لقد اخترت اكثر من اختيار أو لم تختار شى", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditPackagesActivity.this, R.string.you_choice_mulite_or_choice_noting, Toast.LENGTH_LONG).show();
                     } else if (CountChecked == 1) {  //&& !BarCodeChecked.isEmpty()
                         new AlertDialog.Builder(this)
                                 .setTitle(getString(R.string.delete_dialoge))
@@ -195,7 +195,7 @@ public class EditPackagesActivity extends AppCompatActivity {
                 }
                 if (i == (Trackingnumbers_List.size() - 1)) {
                     if (CountChecked < 1 || CountChecked > 1) {
-                        Toast.makeText(EditPackagesActivity.this, "لقد اخترت اكثر من اختيار أو لم تختار شى", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditPackagesActivity.this, R.string.you_choice_mulite_or_choice_noting, Toast.LENGTH_LONG).show();
                     } else if (CountChecked == 1) {  //&& !BarCodeChecked.isEmpty()
                         Log.e(TAG, "Edit_PDNEWQTY: "+TrackingnumberToEditORDelete );
                         Intent GoToShowItemsOfPackages = new Intent(EditPackagesActivity.this, EditPackageItemsActivity.class);
@@ -204,8 +204,8 @@ public class EditPackagesActivity extends AppCompatActivity {
 
                     }
 
-                } else
-                    Toast.makeText(EditPackagesActivity.this, "لايوجد بيانات للادخال", Toast.LENGTH_SHORT).show();
+                } /*else
+                 //   Toast.makeText(EditPackagesActivity.this, "لايوجد بيانات للادخال", Toast.LENGTH_SHORT).show();*/
             }
         }
     }

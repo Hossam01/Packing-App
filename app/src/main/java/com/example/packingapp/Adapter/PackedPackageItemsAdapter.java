@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.packingapp.R;
-import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
 import com.example.packingapp.model.PackedPackageItemsModule;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public class PackedPackageItemsAdapter extends RecyclerView.Adapter<PackedPackag
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         CheckBox checkBox;
-        public TextView txt_nu , txt_barcode,txt_qty;
+        public TextView txt_nu , txt_barcode,txt_qty ,txt_description;
         LinearLayout main_linear_of_item;
         public MyViewHolder(View view) {
             super(view);
@@ -31,6 +30,7 @@ public class PackedPackageItemsAdapter extends RecyclerView.Adapter<PackedPackag
             txt_barcode =  view.findViewById(R.id.txt_barcode);
             txt_qty=view.findViewById(R.id.txt_qty);
             main_linear_of_item=view.findViewById(R.id.main_linear_of_item);
+            txt_description=view.findViewById(R.id.txt_description);
         }
     }
 
@@ -84,7 +84,7 @@ public class PackedPackageItemsAdapter extends RecyclerView.Adapter<PackedPackag
         holder.txt_nu.setText(""+(position+1));
         holder.txt_qty.setText(packedPackageItemsModule.getQuantity());
         holder.txt_barcode.setText(packedPackageItemsModule.getSku());
-
+        holder.txt_description.setText(packedPackageItemsModule.getName());
         //android:textIsSelectable="true"
 //        holder.txt_ean11.setTextIsSelectable(true);
 //

@@ -87,4 +87,5 @@
     <string name="no_printers_found">No printers found</string>
     <string name="success_header_of_driver">Success</string>
     <string name="failed_header_of_driver">Failed</string>
+    <string name="you_choice_mulite_or_choice_noting">لقد اخترت اكثر من اختيار أو لم تختار شى</string>
 </resources>

@@ -20,6 +20,10 @@ import com.example.packingapp.viewmodel.GetOrderDataViewModel;
 
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 public class GetOrderDatactivity extends AppCompatActivity {
     ActivityGetOrderDataBinding binding;
     GetOrderDataViewModel getOrderDataViewModel;
@@ -74,8 +78,8 @@ public class GetOrderDatactivity extends AppCompatActivity {
         binding.btnPrintAwb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ViewDialog alert = new ViewDialog();
-//                alert.showDialog(GetOrderDatactivity.this);
+                ViewDialog alert = new ViewDialog();
+                alert.showDialog(GetOrderDatactivity.this);
                 UploadHeader();
                 UploadDetails();
                 //TODO Update staatus on magento
@@ -120,6 +124,13 @@ public class GetOrderDatactivity extends AppCompatActivity {
             }
         });
 
+        getOrderDataViewModel.mutableLiveDataError.observe(GetOrderDatactivity.this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Log.d("Error_DataEr",s);
+                Toast.makeText(GetOrderDatactivity.this, "order not found", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void ActionAfterGetData(ResponseGetOrderData responseGetOrderData) {

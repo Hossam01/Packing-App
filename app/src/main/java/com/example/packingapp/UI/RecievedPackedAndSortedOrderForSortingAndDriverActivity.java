@@ -43,7 +43,6 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
 
         if (getIntent().getExtras() !=null){
             RecievePackedOrConfirmForDriver = getIntent().getExtras().getString("RecievePackedOrConfirmForDriver");
-
         }
         recievePackedOrderViewModel= ViewModelProviders.of(this).get(RecievePackedOrderViewModel.class);
 
@@ -96,7 +95,7 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                         //TODO TODO UPDATE STATUS on magento
                         UpdateStatus();
                     }else {
-                        Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, String.format("%s",
+                        Toast.makeText(context, String.format("%s",
                                 getString(R.string.message_not_equalfornoofpaclkageandcountoftrackingnumbers)), Toast.LENGTH_SHORT).show();
                     }
                 }else {
@@ -210,8 +209,8 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                     GETOrderData(OrderNumber, binding.editTrackingnumber.getText().toString());
                     Log.e(TAG, "onClick: Ord " + OrderNumber);
 
-                    binding.editTrackingnumber.setError(null);
-                    binding.editTrackingnumber.setText("");
+//                    binding.editTrackingnumber.setError(null);
+//                    binding.editTrackingnumber.setText("");
 
                     //    Toast.makeText(RecievePackedOrderForSortingActivity.this, "تم", Toast.LENGTH_SHORT).show();
                 } else {
@@ -221,11 +220,13 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                         database.userDao().insertRecievePacked(new RecievePackedModule(
                                 recievePackedlist.get(0).getORDER_NO(), recievePackedlist.get(0).getNO_OF_PACKAGES(),
                                 binding.editTrackingnumber.getText().toString()));
+
+                        Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
+
                         //    GETOrderData(binding.editTrackingnumber.getText().toString());
-                        Log.e(TAG, "onClick: Trac " + binding.editTrackingnumber.getText().toString());
+                  //      Log.e(TAG, "onClick: Trac " + binding.editTrackingnumber.getText().toString());
                         binding.editTrackingnumber.setError(null);
                         binding.editTrackingnumber.setText("");
-                        Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
                     } else {
                         if (database.userDao().getRecievePacked_Tracking_Number(binding.editTrackingnumber.getText().toString())
                                 .size() > 0) {
@@ -300,6 +301,8 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
             database.userDao().insertRecievePacked(new RecievePackedModule(
                     responseGetOrderData.getORDER_NO(), responseGetOrderData.getNO_OF_PACKAGES(),
                     trackingnumber));
+            binding.editTrackingnumber.setError(null);
+            binding.editTrackingnumber.setText("");
             Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(context, "تم أدخال رقم غير صحيح", Toast.LENGTH_SHORT).show();

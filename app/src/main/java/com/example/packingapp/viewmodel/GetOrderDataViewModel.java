@@ -26,7 +26,7 @@ public class GetOrderDataViewModel extends ViewModel {
         return OrderDataLiveData;
     }
 
-    public static MutableLiveData<Throwable> mutableLiveDataError = new MutableLiveData<Throwable>();
+    public static MutableLiveData<String> mutableLiveDataError = new MutableLiveData<>();
 
     public void fetchdata(String ORDER_NO) {
 
@@ -42,15 +42,11 @@ public class GetOrderDataViewModel extends ViewModel {
                 .subscribe(responseGetOrderData -> {
                             OrderDataLiveData.setValue(responseGetOrderData);
                             Log.d(TAG, "fetchdata: "+responseGetOrderData);
-                        },ErrorBodyForRoubstaAPI ->{
-                            mutableLiveDataError.setValue(ErrorBodyForRoubstaAPI);
-                            Log.d("Error..",ErrorBodyForRoubstaAPI.getMessage());
-                        }
-                       /* ,throwable -> {
-                           // mutableLiveDataError.setValue(throwable.getMessage());
-                           // Log.d("Error",throwable);
+                        },throwable -> {
+                            mutableLiveDataError.setValue(throwable.getMessage());
+                            Log.d("Error",throwable.getMessage());
 
-                        }*/);
+                        });
     }
 
     public static MutableLiveData<Message> mutableLiveData = new MutableLiveData<>();

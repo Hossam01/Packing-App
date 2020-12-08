@@ -6,22 +6,21 @@ android:layout_height="wrap_content"
 android:orientation="horizontal"
     android:id="@+id/main_linear_of_item"
     >
-
     <TextView
         android:id="@+id/txt_nu"
         android:layout_width="25dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textSize="@dimen/font_size_for_text_of_app"
-        android:background="@color/count_txt_bg"/>
+        />
 
-
-    <CheckBox
+        <CheckBox
             android:id="@+id/checkbox_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="invisible"
            />
+
 
 
 
