@@ -9,6 +9,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.example.packingapp.Adapter.ItemAdapter;
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.R;
@@ -19,9 +22,6 @@ import com.example.packingapp.model.TrackingnumbersListDB;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class AssignItemToPackagesActivity extends AppCompatActivity {
     private static final String TAG = "ItemActivity";

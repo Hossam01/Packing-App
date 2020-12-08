@@ -34,7 +34,7 @@
         android:text="@string/failed_header_of_driver"
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/txt_success_value" />
-
+ 
     <TextView
         android:id="@+id/txt_failed_value"
         android:layout_width="match_parent"

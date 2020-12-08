@@ -11,32 +11,32 @@
         android:id="@+id/btn_packed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Packed"/>
+        android:text="@string/packed"/>
 
     <Button
         android:id="@+id/btn_SortingTeam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SortingTeam"/>
+        android:text="@string/SortingTeam"/>
 
     <Button
         android:id="@+id/btn_SortedTeam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SortedTeam"/>
+        android:text="@string/SortedTeam"/>
 
 
     <Button
         android:id="@+id/btn_driver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Driver"/>
+        android:text="@string/Driver"/>
 
 
     <Button
         android:id="@+id/btn_supervisor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Supervisor"/>
+        android:text="@string/Supervisor"/>
 
 </LinearLayout>

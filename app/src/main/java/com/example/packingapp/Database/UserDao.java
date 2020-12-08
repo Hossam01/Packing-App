@@ -1,5 +1,12 @@
 package com.example.packingapp.Database;
 
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+import androidx.room.Update;
+
 import com.example.packingapp.model.DriverModules.DriverPackages_Details_DB;
 import com.example.packingapp.model.DriverModules.DriverPackages_Header_DB;
 import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
@@ -12,12 +19,6 @@ import com.example.packingapp.model.TrackingnumbersListDB;
 
 import java.util.List;
 
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
-import androidx.room.Update;
 import io.reactivex.Observable;
 
 import static androidx.room.OnConflictStrategy.REPLACE;
@@ -65,6 +66,9 @@ public interface UserDao {
 
     @Query("SELECT * FROM itemsOrderDataDBDetails")
     List<ItemsOrderDataDBDetails> getDetailsTrackingnumberToUpload();
+
+    @Query("SELECT * FROM TrackingnumbersListDB")
+    List<TrackingnumbersListDB> getTrackingnumberDB();
 
     @Query("SELECT distinct(TrackingNumber) FROM itemsOrderDataDBDetails where TrackingNumber LIKE :ORDER_NO ")
     List<String> getNoOfPackagesToUpload(String ORDER_NO);

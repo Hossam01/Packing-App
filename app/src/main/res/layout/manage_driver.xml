@@ -257,7 +257,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/buttonshap"
             android:layout_margin="10dp"
-            android:text="Create"
+            android:text="@string/add_items"
             android:textColor="@color/white"
             android:elevation="10dp"
             app:layout_constraintLeft_toLeftOf="parent"

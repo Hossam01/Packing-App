@@ -38,6 +38,7 @@
             android:layout_weight="1"
             android:layout_height="40dp"
             android:src="@drawable/message"
+            android:text="@string/Message"
             android:tint="@color/white"
             android:background="@drawable/bg_btn"/>
 
@@ -47,6 +48,7 @@
             android:layout_weight="1"
             android:layout_height="40dp"
             android:tint="@color/white"
+            android:text="@string/call"
             android:src="@android:drawable/stat_sys_phone_call_forward"
             android:background="@drawable/bg_btn"/>
 
@@ -83,7 +85,7 @@
             android:layout_weight="1"
             android:layout_height="40dp"
             android:background="@drawable/bg_btn"
-            android:text="Confirm Deleivery"
+            android:text="@string/Confirm_Deleivery"
             android:textColor="@color/textcolor_btns"/>
 
         <Button
@@ -93,7 +95,7 @@
             android:layout_height="40dp"
             android:background="@drawable/bg_btn"
             app:layout_constraintTop_toBottomOf="@+id/rv_customer_items"
-            android:text="Reschedule"
+            android:text="@string/Reschedule"
             android:textColor="@color/textcolor_btns"/>
 
     </LinearLayout>

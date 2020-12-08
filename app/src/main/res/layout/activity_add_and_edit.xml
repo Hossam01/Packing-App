@@ -33,7 +33,7 @@
             android:paddingTop="@dimen/_3sdp"
             android:paddingRight="@dimen/_16sdp"
             android:paddingBottom="@dimen/_3sdp"
-            android:text="Vehicle"
+            android:text="@string/Vechile"
             android:textColor="@color/radio_flat_text_selector" />
 
         <RadioButton
@@ -47,7 +47,7 @@
             android:paddingTop="@dimen/_3sdp"
             android:paddingRight="@dimen/_16sdp"
             android:paddingBottom="@dimen/_3sdp"
-            android:text="Driver"
+            android:text="@string/driver"
             android:textColor="@color/radio_flat_text_selector" />
         <RadioButton
             android:id="@+id/radio2"
@@ -60,7 +60,7 @@
             android:paddingTop="@dimen/_3sdp"
             android:paddingRight="@dimen/_16sdp"
             android:paddingBottom="@dimen/_3sdp"
-            android:text="Way"
+            android:text="@string/way"
             android:textColor="@color/radio_flat_text_selector" />
 
     </RadioGroup>
