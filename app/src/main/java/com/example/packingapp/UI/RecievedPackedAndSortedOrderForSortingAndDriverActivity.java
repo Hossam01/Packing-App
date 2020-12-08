@@ -68,7 +68,6 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                         || keyEvent.getAction() == KeyEvent.KEYCODE_DPAD_CENTER){
                     LoadNewPurchaseOrder();
                 }
-
                 return false;
             }
         });
@@ -81,10 +80,10 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                 List<RecievePackedModule>  recievePackedORDER_NO_Distinctlist=  database.userDao().getRecievePacked_ORDER_NO_Distinct();
                 List<RecievePackedModule>  NOTrecievedPackedORDERlist=  new ArrayList<>();
                 if (recievePackedORDER_NO_Distinctlist.size()>0) {
-                    for (int i = 0; i>recievePackedORDER_NO_Distinctlist.size();i++){
+                    for (int i = 0; i<recievePackedORDER_NO_Distinctlist.size();i++){
                         List<String>  recievePacked_Tracking_Number_countlist=
                                 database.userDao().getRecievePacked_Tracking_Number_count(recievePackedORDER_NO_Distinctlist.get(i).getORDER_NO());
-                        if (!recievePacked_Tracking_Number_countlist.get(i).
+                        if (!recievePacked_Tracking_Number_countlist.get(0).
                                 equalsIgnoreCase(recievePackedORDER_NO_Distinctlist.get(i).getNO_OF_PACKAGES().toString())){
                             NOTrecievedPackedORDERlist.add(recievePackedORDER_NO_Distinctlist.get(i));
                         }
@@ -253,6 +252,7 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
         recievePackedOrderViewModel.getOrderDataLiveData().observe(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, new Observer<RecievePackedModule>() {
             @Override
             public void onChanged(RecievePackedModule responseGetOrderData) {
+                Log.e(TAG, "onChanged: "+ responseGetOrderData.getORDER_NO());
                 Log.e(TAG, "onChanged: "+ responseGetOrderData.getNO_OF_PACKAGES());
                 Log.e(TAG, "onChanged:stat "+ responseGetOrderData.getSTATUS());
                 Log.e(TAG, "onChanged:packeOr "+ RecievePackedOrConfirmForDriver);

@@ -9,10 +9,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.databinding.ActivityGetOrderDataBinding;
 import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
@@ -82,8 +78,8 @@ public class GetOrderDatactivity extends AppCompatActivity {
         binding.btnPrintAwb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewDialog alert = new ViewDialog();
-                alert.showDialog(GetOrderDatactivity.this);
+//                ViewDialog alert = new ViewDialog();
+//                alert.showDialog(GetOrderDatactivity.this);
                 UploadHeader();
                 UploadDetails();
                 //TODO Update staatus on magento
