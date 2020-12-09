@@ -12,6 +12,10 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
@@ -22,10 +26,6 @@ import com.example.packingapp.viewmodel.RecievePackedOrderViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 public class RecievedPackedAndSortedOrderForSortingAndDriverActivity extends AppCompatActivity {
 ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
@@ -239,10 +239,10 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                     } else {
                         if (database.userDao().getRecievePacked_Tracking_Number(binding.editTrackingnumber.getText().toString())
                                 .size() > 0) {
-                            binding.editTrackingnumber.setError("تم أدخال هذا من قبل ");
+                            binding.editTrackingnumber.setError(getResources().getString(R.string.enterbefor));
                             binding.editTrackingnumber.setText("");
                         }else {
-                            binding.editTrackingnumber.setError("تم أدخال رقم غير صحيح ");
+                            binding.editTrackingnumber.setError(getResources().getString(R.string.invalidnumber));
                             binding.editTrackingnumber.setText("");
                         }
                     }
@@ -295,7 +295,7 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                 Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "load order data error "+s, Toast.LENGTH_LONG).show();
 
                 if (s.equals("HTTP 503 Service Unavailable")) {
-                    Toast.makeText(context, "تم أدخال رقم غير صحيح", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getResources().getString(R.string.invalidnumber), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -314,7 +314,7 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
             binding.editTrackingnumber.setText("");
             Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(context, "تم أدخال رقم غير صحيح", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getResources().getString(R.string.invalidnumber), Toast.LENGTH_SHORT).show();
         }
         Log.e(TAG, "onChanged: insertR"+trackingnumber );
     }
@@ -337,11 +337,11 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                 );
 
             }else {
-                Toast.makeText(context, "لم يتم تعديل الحاله", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, getResources().getString(R.string.statusnotUpdate), Toast.LENGTH_SHORT).show();
             }
             }
         }else {
-            Toast.makeText(context, "لم يتم أدخال ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getResources().getString(R.string.not_enter), Toast.LENGTH_SHORT).show();
         }
         recievePackedOrderViewModel.mutableLiveData_UpdateStatus_ON_83.observe(
                 RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, new Observer<ResponseUpdateStatus>() {
@@ -370,11 +370,11 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
 
                     recievePackedOrderViewModel.UpdateStatus(orderDataModuleDBHeaderkist.get(i).getORDER_NO(),"ready_to_go");
                 }else {
-                    Toast.makeText(context, "لم يتم تعديل الحاله", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getResources().getString(R.string.statusnotUpdate), Toast.LENGTH_SHORT).show();
                 }
             }
         }else {
-            Toast.makeText(context, "لم يتم أدخال ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getResources().getString(R.string.not_enter), Toast.LENGTH_SHORT).show();
         }
 
         recievePackedOrderViewModel.mutableLiveData_UpdateStatus.observe(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, new Observer<ResponseUpdateStatus>() {

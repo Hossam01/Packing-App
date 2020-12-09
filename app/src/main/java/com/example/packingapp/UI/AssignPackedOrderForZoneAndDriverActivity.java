@@ -522,13 +522,13 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                     ) {
                         AfterGetOrderData(responseGetOrderData, trackingnumber, Zone);
                     } else {
-                        Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "This Order in " + responseGetOrderData.getSTATUS() + " State", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, getResources().getString(R.string.order_status) + responseGetOrderData.getSTATUS() , Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     if (responseGetOrderData.getSTATUS().equalsIgnoreCase("sorted")) {
                         AfterGetOrderData(responseGetOrderData, trackingnumber, Zone);
                     } else {
-                        Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "This Order in " + responseGetOrderData.getSTATUS() + " State", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, getResources().getString(R.string.order_status) + responseGetOrderData.getSTATUS() , Toast.LENGTH_SHORT).show();
 
                     }
                 }
@@ -542,7 +542,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 Log.e(TAG, "onChanged: "+s );
 
                 if (s.equals("HTTP 503 Service Unavailable")) {
-                      Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "السريال غير موجود على السرفير", Toast.LENGTH_SHORT).show();
+                      Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, getResources().getString(R.string.tracking_number_server), Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, s, Toast.LENGTH_LONG).show();
                 }
@@ -569,7 +569,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
             binding.editTrackingnumberDriver.setError(null);
             binding.editZone.setText("");
             binding.editZone.setError(null);
-            Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, getResources().getString(R.string.confirm), Toast.LENGTH_SHORT).show();
             Log.e(TAG, "onChanged: insertAfterGetOrderData " + trackingnumber);
         }else {
            // binding.editTrackingnumberZone.setError("تم أدخال هذا من قبل ");
@@ -593,7 +593,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 Log.e(TAG, "UpdateStatus_zone_ON_83 zzzo : " + orderDataModuleDBHeaderkist.get(i).getZone());
             }
         }else {
-            Toast.makeText(context, "لم يتم أدخال ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,getResources().getString(R.string.not_enter), Toast.LENGTH_SHORT).show();
         }
         assignPackedOrderToZoneViewModel.mutableLiveData_UpdateStatus_Zone_ON_83.observe(AssignPackedOrderForZoneAndDriverActivity.this, new Observer<ResponseUpdateStatus>() {
             @Override
@@ -619,7 +619,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
             }
            // Log.e(TAG, "UpdateStatus_zone_ON_83 zzzo : "+orderDataModuleDBHeaderkist.get(0).getZone() );
         }else {
-            Toast.makeText(context, "لم يتم أدخال ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getResources().getString(R.string.not_enter), Toast.LENGTH_SHORT).show();
         }
         assignPackedOrderToZoneViewModel.mutableLiveData_UpdateDriverID_ON_83.observe(AssignPackedOrderForZoneAndDriverActivity.this, new Observer<ResponseUpdateStatus>() {
             @Override
@@ -720,7 +720,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 Log.e(TAG, "onClick: Trac "+binding.editTrackingnumberDriver.getText().toString() );
                // Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
             }else {
-                binding.editTrackingnumberDriver.setError("تم أدخال هذا من قبل ");
+                binding.editTrackingnumberDriver.setError(getResources().getString(R.string.enterbefor));
                 binding.editTrackingnumberDriver.setText("");
                 binding.editTrackingnumberDriver.requestFocus();
             }
