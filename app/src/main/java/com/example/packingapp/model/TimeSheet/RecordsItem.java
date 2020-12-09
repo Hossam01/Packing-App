@@ -20,6 +20,17 @@ public class RecordsItem {
 	@SerializedName("ITEM_PRICE")
 	private String ITEM_PRICE;
 
+	@SerializedName("CUSTOMER_PHONE")
+	private String CUSTOMER_PHONE;
+
+	public String getCUSTOMER_PHONE() {
+		return CUSTOMER_PHONE;
+	}
+
+	public void setCUSTOMER_PHONE(String CUSTOMER_PHONE) {
+		this.CUSTOMER_PHONE = CUSTOMER_PHONE;
+	}
+
 	public String getOUTBOUND_DELIVERY() {
 		return OUTBOUND_DELIVERY;
 	}

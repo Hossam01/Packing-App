@@ -25,6 +25,8 @@
             android:textColor="@color/txt_color"
             android:textColorHint="@color/txt_color_hint"
             android:textSize="@dimen/font_size_for_text_of_app"
+            android:maxLines="1"
+            android:singleLine="true"
             />
 
         <Button
