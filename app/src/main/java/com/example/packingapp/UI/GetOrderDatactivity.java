@@ -78,8 +78,8 @@ public class GetOrderDatactivity extends AppCompatActivity {
         binding.btnPrintAwb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ViewDialog alert = new ViewDialog();
-//                alert.showDialog(GetOrderDatactivity.this);
+                ViewDialog alert = new ViewDialog();
+                alert.showDialog(GetOrderDatactivity.this);
                 UploadHeader();
                 UploadDetails();
                 //TODO Update staatus on magento

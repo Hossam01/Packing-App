@@ -211,11 +211,11 @@ public class ViewDialog {
 
             if (printerStatus.isReadyToPrint) {
                 ArrayList<ItemsOrderDataDBDetails> print = new ArrayList<>();
-                for (int i=0;i<database.userDao().getDetailsTrackingnumberToUpload().size();i++) {
+                for (int i=0;i<database.userDao().getTrackingnumberDB().size();i++) {
                     print.clear();
-                    for (int j=0;j<database.userDao().getTrackingnumberDB().size();j++) {
-                        if (database.userDao().getDetailsTrackingnumberToUpload().get(i).getTrackingNumber().equals(database.userDao().getTrackingnumberDB().get(j).getTrackingNumber())) {
-                            ItemsOrderDataDBDetails itemsOrderDataDBDetails = new ItemsOrderDataDBDetails(database.userDao().getDetailsTrackingnumberToUpload().get(i).getName(),database.userDao().getDetailsTrackingnumberToUpload().get(i).getPrice(),database.userDao().getDetailsTrackingnumberToUpload().get(i).getQuantity(),database.userDao().getDetailsTrackingnumberToUpload().get(i).getSku(),database.userDao().getDetailsTrackingnumberToUpload().get(i).getUnite(),database.userDao().getDetailsTrackingnumberToUpload().get(i).getTrackingNumber());
+                    for (int j=0;j<database.userDao().getDetailsTrackingnumberToUpload().size();j++) {
+                        if (database.userDao().getTrackingnumberDB().get(i).getTrackingNumber().equals(database.userDao().getDetailsTrackingnumberToUpload().get(j).getTrackingNumber())) {
+                            ItemsOrderDataDBDetails itemsOrderDataDBDetails = new ItemsOrderDataDBDetails(database.userDao().getDetailsTrackingnumberToUpload().get(j).getName(),database.userDao().getDetailsTrackingnumberToUpload().get(j).getPrice(),database.userDao().getDetailsTrackingnumberToUpload().get(j).getQuantity(),database.userDao().getDetailsTrackingnumberToUpload().get(j).getSku(),database.userDao().getDetailsTrackingnumberToUpload().get(j).getUnite(),database.userDao().getDetailsTrackingnumberToUpload().get(j).getTrackingNumber());
                             print.add(itemsOrderDataDBDetails);
                         }
                     }
@@ -312,7 +312,7 @@ public class ViewDialog {
                                 "^FO220,550^CI28^AZN,20,15^FDالاجمالي^FS" +
                                 "^FO650,465^CI28^AZN,20,15^FDرقم الطلب^FS" +
                                 "^FO640,505^CI28^AZN,20,15^FDعدد القطع^FS" +
-                                "^FO540,505^CI28^AZN,20,15^FD" + DetailsList.size() + "^FS" +
+                                "^FO540,505^CI28^AZN,20,15^FD" + database.userDao().getDetailsTrackingnumberToUpload().size() + "^FS" +
                                 "^FO500,465^CI28^AZN,20,15^FD" + orderDataModuleDBHeader.getOrder_number() + "^FS" +
                                 "^FO80,465^CI28^AZN,20,15^FD" + totel + "^FS" +
                                 "^FO100,505^CI28^AZN,20,15^FD" + orderDataModuleDBHeader.getShipping_fees() + "^FS\n" +
@@ -385,7 +385,7 @@ public class ViewDialog {
                                 "^FO500,260^GB1,40,1^FS" +
                                 "^FO400,260^GB1,40,1^FS" +
                                 "^FO200,260^GB1,40,1^FS" +
-                                "^CF0,10" +
+                                "^CF0,5" +
                                 "^AZN,35,20^AAN,15,10^FO90,320^BCN,85,Y,N^FD>" + " " + DetailsList.get(0).getTrackingNumber() + "^FS^PQ1" +
                                 "^FO600,320^BQN,2,4^FD" + "   " + DetailsList.get(0).getTrackingNumber() + "^FS" +
                                 "^FO480,450^GB300,80,1^FS" +
