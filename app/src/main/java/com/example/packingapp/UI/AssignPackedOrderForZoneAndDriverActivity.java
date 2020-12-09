@@ -19,6 +19,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
@@ -42,12 +48,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity {
     private static final String TAG = "AssignPackedOrderForZon";
@@ -782,7 +782,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
         canvas.drawText("S/م", 1925.0f, 310.0f, paint);
         canvas.drawLine(1870.0f, 280.0f, 1870.0f, 2600.0f, paint2);
         canvas.drawText("outBound", 1830.0f, 310.0f, paint);
-        canvas.drawLine(1660.0f, 280.0f, 1660.0f, 2600.0f, paint2);
+        canvas.drawLine(1690.0f, 280.0f, 1690.0f, 2600.0f, paint2);
         canvas.drawText("رقم الشحنة", 1500.0f, 310.0f, paint);
         canvas.drawLine(1150.0f, 280.0f, 1150.0f, 2600.0f, paint2);
         canvas.drawText("قيمة الشحنة", 1140.0f, 310.0f, paint);
@@ -806,13 +806,15 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
         for (int i=0;i<items.size();i++) {
             canvas.drawText(items.get(i).getADDRESS_CITY(), 480.0f, 390+pos, paint);
             canvas.drawText(items.get(i).getCUSTOMER_NAME(), 760.0f, 390+pos, paint);
-            canvas.drawText("كاش", 990.0f, 390+pos, paint);
+            canvas.drawText("كاش", 950.0f, 390+pos, paint);
             canvas.drawText(items.get(i).getOUTBOUND_DELIVERY(), 1830.0f, 390+pos, paint);
-            canvas.drawText(items.get(i).getITEM_PRICE(), 1160.0f, 390+pos, paint);
+            canvas.drawText(String.valueOf(i+1), 1920.0f, 390+pos, paint);
+
+            canvas.drawText(items.get(i).getITEM_PRICE(), 1130.0f, 390+pos, paint);
 
 
             try {
-                testCODE93(canvas, 1150.0f, 340+pos, items.get(i).getTRACKING_NO());
+                testCODE93(canvas, 1160.0f, 340+pos, items.get(i).getTRACKING_NO());
                 canvas.drawLine(30.0f, 430.0f+pos, 1940.0f, 430.0f+pos, paint2);
 
 
