@@ -58,10 +58,11 @@
                 android:text="حذف"
                 android:background="@drawable/bg_btn"
                 android:layout_alignParentStart="true"
+                android:textSize="@dimen/font_size_for_button_of_app"
+
                 android:layout_alignParentLeft="true"
                 android:textColor="@color/textcolor_btns"
                 android:onClick="Delete_PDNEWQTY"
-                android:textSize="@dimen/font_size_for_text_of_app"
                 />
             <Button
                 android:id="@+id/btn_edit"
@@ -70,10 +71,11 @@
                 android:text="@string/add_items"
                 android:background="@drawable/bg_btn"
                 android:layout_alignParentEnd="true"
+                android:textSize="@dimen/font_size_for_button_of_app"
+
                 android:layout_alignParentRight="true"
                 android:textColor="@color/textcolor_btns"
                 android:onClick="Edit_PDNEWQTY"
-                android:textSize="@dimen/font_size_for_text_of_app"
                />
 
         </RelativeLayout>

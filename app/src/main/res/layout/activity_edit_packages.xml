@@ -61,7 +61,7 @@
                 android:layout_alignParentLeft="true"
                 android:textColor="@color/textcolor_btns"
                 android:onClick="Delete_PDNEWQTY"
-                android:textSize="@dimen/font_size_for_text_of_app"
+                android:textSize="@dimen/font_size_for_button_of_app"
                 />
             <Button
                 android:id="@+id/btn_edit"
@@ -73,7 +73,7 @@
                 android:layout_alignParentRight="true"
                 android:textColor="@color/textcolor_btns"
                 android:onClick="Edit_PDNEWQTY"
-                android:textSize="@dimen/font_size_for_text_of_app"
+                android:textSize="@dimen/font_size_for_button_of_app"
                 />
 
         </RelativeLayout>

@@ -23,6 +23,17 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/login_bg_for_items_btn"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title"
+        app:layout_constraintBottom_toTopOf="@+id/linear_textInputLayout1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image"
+        android:textSize="@dimen/font_size_for_button_of_app"
+        android:textColor="@color/white"
+       />
     <LinearLayout
         android:id="@+id/linear_textInputLayout1"
 
@@ -34,11 +45,17 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
+
         <ImageView
             android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:src="@drawable/person"
             android:layout_gravity="center"/>
+
+
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout1"
             android:layout_width="match_parent"
@@ -54,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/enter_your_name"
                 android:text="admin"
+                android:textSize="@dimen/font_size_for_text_of_app"
                 android:inputType="textPersonName"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
@@ -93,6 +111,8 @@
               android:layout_height="wrap_content"
               android:hint="@string/enter_your_password"
               android:text="1234321"
+              android:textSize="@dimen/font_size_for_text_of_app"
+
               android:inputType="textPassword"
               android:textColor="@color/white"
               android:textColorHint="@color/white"
@@ -112,5 +132,7 @@
         android:layout_marginTop="90dp"
         android:background="@drawable/buttonshap"
         android:text="@string/login"
+        android:textSize="@dimen/font_size_for_button_of_app"
+
         android:textColor="@color/white" />
 </androidx.constraintlayout.widget.ConstraintLayout>

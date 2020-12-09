@@ -31,9 +31,10 @@
             android:checked="true"
             android:paddingLeft="@dimen/_16sdp"
             android:paddingTop="@dimen/_3sdp"
-            android:paddingRight="@dimen/_16sdp"
+            android:paddingRight="11dp"
             android:paddingBottom="@dimen/_3sdp"
             android:text="@string/Vechile"
+            android:textSize="@dimen/font_size_for_text_of_app"
             android:textColor="@color/radio_flat_text_selector" />
 
         <RadioButton
@@ -48,6 +49,8 @@
             android:paddingRight="@dimen/_16sdp"
             android:paddingBottom="@dimen/_3sdp"
             android:text="@string/driver"
+            android:textSize="@dimen/font_size_for_text_of_app"
+
             android:textColor="@color/radio_flat_text_selector" />
         <RadioButton
             android:id="@+id/radio2"
@@ -61,6 +64,8 @@
             android:paddingRight="@dimen/_16sdp"
             android:paddingBottom="@dimen/_3sdp"
             android:text="@string/way"
+            android:textSize="@dimen/font_size_for_text_of_app"
+
             android:textColor="@color/radio_flat_text_selector" />
 
     </RadioGroup>

@@ -22,6 +22,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/Vechile_ID"
             android:inputType="textPersonName"
+            android:textSize="@dimen/font_size_for_text_of_app"
+
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             />
@@ -45,6 +47,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/NameArabic"
             android:inputType="textPersonName"
+            android:textSize="@dimen/font_size_for_text_of_app"
+
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -68,6 +72,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/NameEnglish"
             android:inputType="textPersonName"
+            android:textSize="@dimen/font_size_for_text_of_app"
+
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -90,6 +96,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/LienceNumber"
             android:inputType="textPersonName"
+            android:textSize="@dimen/font_size_for_text_of_app"
+
             android:textColor="@color/white"
             android:textColorHint="@color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -114,6 +122,8 @@
             android:hint="@string/Weight"
             android:inputType="textPersonName"
             android:textColor="@color/white"
+            android:textSize="@dimen/font_size_for_text_of_app"
+
             android:textColorHint="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,6 +134,8 @@
         android:background="@drawable/buttonshap"
         android:layout_margin="20dp"
         android:text="@string/add_items"
+        android:textSize="@dimen/font_size_for_button_of_app"
+
         android:textColor="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

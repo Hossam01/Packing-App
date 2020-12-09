@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.packingapp.R;
 import com.example.packingapp.databinding.ManageDriverBinding;
 import com.example.packingapp.model.ResponseDriver;
 import com.example.packingapp.viewmodel.DriverViewModel;
@@ -54,7 +55,7 @@ public class DriverManage extends Fragment {
             if (driver.size() == 0) {
                 for (int i = 0; i < responseDriver.getRecords().size(); i++) {
                     if (i == 0)
-                        driver.add("Select ID Driver");
+                        driver.add(getResources().getString(R.string.choice_driver_id));
                     driver.add(responseDriver.getRecords().get(i).getEmployeeID());
                 }
             }
@@ -77,7 +78,7 @@ public class DriverManage extends Fragment {
                     binding.VechileID.setPrompt(responseDriver.getRecords().get(position - 1).getVechileID().toString());
                     binding.National.setText(responseDriver.getRecords().get(position - 1).getNational_ID().toString());
                     binding.Employeeid.setText(responseDriver.getRecords().get(position - 1).getEmployeeID().toString());
-                    binding.create.setText("Update");
+                    binding.create.setText("تعديل");
                     State = "update";
                 }
             }
@@ -120,7 +121,7 @@ public class DriverManage extends Fragment {
         State = "create";
         driverViewModel.fetchdata(binding.NameArabic.getText().toString(), binding.NameEnglish.getText().toString(), binding.Status.getText().toString(), binding.Company.getText().toString(), binding.Phone.getText().toString(), binding.Address.getText().toString(), binding.VechileID.getSelectedItem().toString(),binding.National.getText().toString(),binding.Employeeid.getText().toString());
         driverViewModel.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show());
-        binding.create.setText("Create");
+        binding.create.setText("اضافه");
 
         clear();
     }
@@ -128,7 +129,7 @@ public class DriverManage extends Fragment {
     public void update() {
         driverViewModel.updateData(binding.DriverID.getSelectedItem().toString(), binding.NameArabic.getText().toString(), binding.NameEnglish.getText().toString(), binding.Status.getText().toString(), binding.Company.getText().toString(), binding.Phone.getText().toString(), binding.Address.getText().toString(), binding.VechileID.getSelectedItem().toString(),binding.National.getText().toString(),binding.Employeeid.getText().toString());
         driverViewModel.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show());
-        binding.create.setText("Create");
+        binding.create.setText("اضافه");
         State = "create";
         clear();
     }

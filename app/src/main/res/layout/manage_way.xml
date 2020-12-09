@@ -27,6 +27,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/Vechile_ID"
             android:inputType="textPersonName"
+            android:textSize="@dimen/font_size_for_text_of_app"
+
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             />
@@ -49,6 +51,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/NameArabic"
             android:inputType="textPersonName"
+            android:textSize="@dimen/font_size_for_text_of_app"
+
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -72,6 +76,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/NameEnglish"
             android:inputType="textPersonName"
+            android:textSize="@dimen/font_size_for_text_of_app"
+
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -94,6 +100,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/Status"
             android:inputType="textPersonName"
+            android:textSize="@dimen/font_size_for_text_of_app"
+
             android:textColor="@color/white"
             android:textColorHint="@color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -117,6 +125,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/Estimation_Time"
             android:inputType="textPersonName"
+            android:textSize="@dimen/font_size_for_text_of_app"
+
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             />
@@ -140,6 +150,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/Stations"
             android:inputType="textPersonName"
+            android:textSize="@dimen/font_size_for_text_of_app"
+
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             />
@@ -150,9 +162,11 @@
         android:layout_height="wrap_content"
         android:text="@string/Driver_ID"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="@dimen/font_size_for_text_of_app"
+
         app:layout_constraintTop_toBottomOf="@id/textInputLayout4"
         android:layout_marginLeft="10dp"
-        android:textSize="20dp"/>
+       />
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout5"
         android:layout_width="match_parent"
@@ -171,6 +185,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/Driver_ID"
             android:inputType="textPersonName"
+            android:textSize="@dimen/font_size_for_text_of_app"
+
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             />
@@ -181,9 +197,11 @@
         android:layout_height="wrap_content"
         android:text="@string/Vechile_ID"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="@dimen/font_size_for_text_of_app"
+
         app:layout_constraintTop_toBottomOf="@id/textInputLayout5"
         android:layout_marginLeft="10dp"
-        android:textSize="20dp"/>
+       />
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout6"
         android:layout_width="match_parent"
@@ -204,6 +222,8 @@
             android:inputType="textPersonName"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
+            android:textSize="@dimen/font_size_for_text_of_app"
+
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -214,9 +234,11 @@
             android:layout_height="wrap_content"
             android:background="@drawable/buttonshap"
             android:layout_margin="10dp"
-            android:text="Create"
+            android:text="@string/add_items"
             android:textColor="@color/white"
             android:elevation="10dp"
+            android:textSize="@dimen/font_size_for_button_of_app"
+
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textInputLayout6" />
