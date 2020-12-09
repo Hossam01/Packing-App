@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/include_header_of_rv"
-        layout="@layout/recycle_item_for_driver_orders"
+        layout="@layout/recycle_item_for_driver_orders_header"
         android:visibility="visible"
         />
 

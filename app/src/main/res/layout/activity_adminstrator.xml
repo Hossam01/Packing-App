@@ -5,38 +5,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.AdminstratorActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingEnd="40dp"
+    android:paddingStart="40dp">
 
     <Button
         android:id="@+id/btn_packed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Packed"/>
+        android:text="Packed"
+        android:background="@drawable/bg_btn"
+        android:textColor="@color/textcolor_btns"/>
 
     <Button
         android:id="@+id/btn_SortingTeam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SortingTeam"/>
+        android:text="SortingTeam"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_btn"
+        android:textColor="@color/textcolor_btns"/>
 
     <Button
         android:id="@+id/btn_SortedTeam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SortedTeam"/>
+        android:text="SortedTeam"
+        android:background="@drawable/bg_btn"
+        android:textColor="@color/textcolor_btns"/>
 
 
     <Button
         android:id="@+id/btn_driver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Driver"/>
+        android:text="Driver"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_btn"
+        android:textColor="@color/textcolor_btns"/>
 
 
     <Button
         android:id="@+id/btn_supervisor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Supervisor"/>
+        android:text="Supervisor"
+        android:background="@drawable/bg_btn"
+        android:textColor="@color/textcolor_btns"
+        />
 
 </LinearLayout>

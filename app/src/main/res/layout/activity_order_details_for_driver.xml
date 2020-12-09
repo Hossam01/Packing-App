@@ -31,14 +31,16 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/circle_user_image"
         android:weightSum="2"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
         <ImageButton
             android:id="@+id/img_btn_sms"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="40dp"
             android:src="@drawable/message"
-            android:tint="@color/white"
+            android:tint="@color/textcolor_btns"
             android:background="@drawable/bg_btn"/>
 
         <ImageButton
@@ -46,7 +48,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="40dp"
-            android:tint="@color/white"
+            android:tint="@color/textcolor_btns"
             android:src="@android:drawable/stat_sys_phone_call_forward"
             android:background="@drawable/bg_btn"/>
 
@@ -75,7 +77,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/rv_customer_items"
-        android:weightSum="2">
+        android:weightSum="2"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
 
         <Button
             android:id="@+id/btn_send_passcode_to_confirm_deleivery"
