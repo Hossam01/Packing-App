@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.packingapp.Database.AppDatabase;
+import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityGetOrderDataBinding;
 import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
 import com.example.packingapp.model.GetOrderResponse.OrderDataModuleDBHeader;
@@ -37,7 +38,29 @@ public class GetOrderDatactivity extends AppCompatActivity {
         database=AppDatabase.getDatabaseInstance(this);
 
         getOrderDataViewModel= ViewModelProviders.of(this).get(GetOrderDataViewModel.class);
-
+        getOrderDataViewModel.getOrderDataLiveData().observe(GetOrderDatactivity.this,
+                new Observer<ResponseGetOrderData>() {
+                    @Override
+                    public void onChanged(ResponseGetOrderData responseGetOrderData) {
+                        Log.e(TAG, "onChanged: "+responseGetOrderData.getStatus() );
+                        if (responseGetOrderData.getStatus().equalsIgnoreCase("picked")) {
+                            ActionAfterGetData(responseGetOrderData);
+                        }else {
+                            Toast.makeText(GetOrderDatactivity.this, "This Order in "+responseGetOrderData.getStatus()+" State", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        getOrderDataViewModel.mutableLiveDataError.observe(GetOrderDatactivity.this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Log.e(TAG, "onChanged:mutableLiveD  "+s );
+                if (s.contains("HTTP 400")) {
+                    Toast.makeText(GetOrderDatactivity.this, String.format("%s", getString(R.string.order_not_found)), Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(GetOrderDatactivity.this, s, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         binding.btnLoadingNewPurchaseOrder.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -123,29 +146,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
     private void GETOrderData(){
         getOrderDataViewModel.fetchdata(binding.editMagentoorder.getText().toString());
     }
-        getOrderDataViewModel.getOrderDataLiveData().observe(GetOrderDatactivity.this,
-                new Observer<ResponseGetOrderData>() {
-            @Override
-            public void onChanged(ResponseGetOrderData responseGetOrderData) {
-                Log.e(TAG, "onChanged: "+responseGetOrderData.getStatus() );
-                if (responseGetOrderData.getStatus().equalsIgnoreCase("picked")) {
-                    ActionAfterGetData(responseGetOrderData);
-                }else {
-                    Toast.makeText(GetOrderDatactivity.this, "This Order in "+responseGetOrderData.getStatus()+" State", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        getOrderDataViewModel.mutableLiveDataError.observe(GetOrderDatactivity.this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                Log.e(TAG, "onChanged:mutableLiveD  "+s );
-                if (s.contains("HTTP 400")) {
-                    Toast.makeText(GetOrderDatactivity.this, String.format("%s", getString(R.string.order_not_found)), Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(GetOrderDatactivity.this, s, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+
 
 
     private void ActionAfterGetData(ResponseGetOrderData responseGetOrderData) {
