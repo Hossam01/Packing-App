@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.packingapp.Database.AppDatabase;
+import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityLoginBinding;
 import com.example.packingapp.model.ResponseLogin;
 import com.example.packingapp.viewmodel.LoginViewModel;
@@ -40,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, s, Toast.LENGTH_LONG).show();
 
                 if (s.equals("HTTP 503 Service Unavailable")) {
-                    Toast.makeText(LoginActivity.this, "برجاء التاكد من اسم المستخدم ورقم السري", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.invaliduser), Toast.LENGTH_LONG).show();
                 }
             }
         });

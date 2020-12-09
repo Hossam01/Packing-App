@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.packingapp.Database.AppDatabase;
+import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityGetOrderDataBinding;
 import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
 import com.example.packingapp.model.GetOrderResponse.OrderDataModuleDBHeader;
@@ -51,7 +52,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
                         || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER
                         || keyEvent.getAction() == KeyEvent.KEYCODE_NUMPAD_ENTER
                         || keyEvent.getAction() == KeyEvent.KEYCODE_DPAD_CENTER){
-                    LoadNewPurchaseOrder();
+                   // LoadNewPurchaseOrder();
                 }
 
                 return false;
@@ -65,7 +66,18 @@ public class GetOrderDatactivity extends AppCompatActivity {
                 LoadNewPurchaseOrder();
             }
         });
-
+        getOrderDataViewModel.getOrderDataLiveData().observe(GetOrderDatactivity.this,
+                new Observer<ResponseGetOrderData>() {
+                    @Override
+                    public void onChanged(ResponseGetOrderData responseGetOrderData) {
+                        Log.e(TAG, "onChanged: "+responseGetOrderData.getStatus() );
+                        if (responseGetOrderData.getStatus().equalsIgnoreCase("picked")) {
+                            ActionAfterGetData(responseGetOrderData);
+                        }else {
+                            Toast.makeText(GetOrderDatactivity.this, getResources().getString(R.string.order_status)+responseGetOrderData.getStatus(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
         binding.btnLoadingLastPurchaseOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,7 +106,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
                     Intent GoTopackedPackages=new Intent(GetOrderDatactivity.this, EditPackagesActivity.class);
                     startActivity(GoTopackedPackages);
                 }else {
-                    Toast.makeText(GetOrderDatactivity.this, "لا توجد عناصر  تم تعبئتها لتعديلها", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GetOrderDatactivity.this, getResources().getString(R.string.noitem), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -105,26 +117,14 @@ public class GetOrderDatactivity extends AppCompatActivity {
         if (!binding.editMagentoorder.getText().toString().isEmpty()) {
             GETOrderData();
         }else {
-            binding.editMagentoorder.setError("أدخل ");
+            binding.editMagentoorder.setError(getResources().getString(R.string.enter));
         }
     }
 
     private void GETOrderData(){
         getOrderDataViewModel.fetchdata(binding.editMagentoorder.getText().toString());
-        getOrderDataViewModel.getOrderDataLiveData().observe(GetOrderDatactivity.this,
-                new Observer<ResponseGetOrderData>() {
-            @Override
-            public void onChanged(ResponseGetOrderData responseGetOrderData) {
-                Log.e(TAG, "onChanged: "+responseGetOrderData.getStatus() );
-                if (responseGetOrderData.getStatus().equalsIgnoreCase("picked")) {
-                    ActionAfterGetData(responseGetOrderData);
-                }else {
-                    Toast.makeText(GetOrderDatactivity.this, "This Order in "+responseGetOrderData.getStatus()+" State", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
     }
+
 
     private void ActionAfterGetData(ResponseGetOrderData responseGetOrderData) {
         OrderDataModuleDBHeader orderDataModuleDBHeader= new OrderDataModuleDBHeader(
@@ -165,8 +165,6 @@ public class GetOrderDatactivity extends AppCompatActivity {
 
         Intent i = new Intent(getApplicationContext(), AssignItemToPackagesActivity.class);
         i.putExtra("AddNewPackageORAddForExistPackage","New");
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(i);
     }
 
@@ -193,7 +191,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
                 }
             });
         }else {
-            Toast.makeText(GetOrderDatactivity.this, "توجد عناصر لم يتم تعبئتها", Toast.LENGTH_SHORT).show();
+            Toast.makeText(GetOrderDatactivity.this, getResources().getString(R.string.item_notselected), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -246,11 +244,11 @@ public class GetOrderDatactivity extends AppCompatActivity {
                 public void onChanged(Message message) {
                     Toast.makeText(GetOrderDatactivity.this, ""+message.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "onChanged: "+message.getMessage() );
-                    Toast.makeText(GetOrderDatactivity.this, "Done for Header", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GetOrderDatactivity.this, getResources().getString(R.string.doneforheader), Toast.LENGTH_SHORT).show();
                 }
             });
         }else {
-            Toast.makeText(GetOrderDatactivity.this, "توجد عناصر لم يتم تعبئتها", Toast.LENGTH_SHORT).show();
+            Toast.makeText(GetOrderDatactivity.this, getResources().getString(R.string.item_notselected), Toast.LENGTH_SHORT).show();
         }
     }
 

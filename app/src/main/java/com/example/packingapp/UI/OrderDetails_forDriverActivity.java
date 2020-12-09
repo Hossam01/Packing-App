@@ -197,7 +197,7 @@ private static final int REQUEST_PHONE_CALL = 1;
 
                 }else{
                     if (edit_smsInput.getText().toString().isEmpty()){
-                        edit_smsInput.setError("ادخل الرساله");
+                        edit_smsInput.setError(getResources().getString(R.string.enter_sms_body));
                     }
                 }
             }
@@ -318,7 +318,7 @@ private static final int REQUEST_PHONE_CALL = 1;
 
                 }else{
                     if (edit_rejectinput.getText().toString().isEmpty()){
-                        edit_rejectinput.setError("ادخل الرساله");
+                        edit_rejectinput.setError(getResources().getString(R.string.enter_sms_body));
                     }
                 }
             }
@@ -338,7 +338,7 @@ private static final int REQUEST_PHONE_CALL = 1;
                 );
             }
         }else {
-            Toast.makeText(context, "لم يتم أدخال ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getResources().getString(R.string.not_enter), Toast.LENGTH_SHORT).show();
         }
 
         orderDetailsForDriverViewModel.mutableLiveData_UpdateStatus_ON_83.observe(

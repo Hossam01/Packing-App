@@ -121,4 +121,14 @@
     <string name="notadd">لم يتم اضافه عناصر</string>
     <string name="done">تم إضافة إلى موجود</string>
     <string name="confirm">تم</string>
+    <string name="order_status">"حاله هذا الطلب هي "</string>
+    <string name="noitem">لا توجد عناصر  تم تعبئتها لتعديلها</string>
+    <string name="item_notselected">توجد عناصر لم يتم تعبئتها</string>
+    <string name="doneforheader">Done for Header</string>
+    <string name="invaliduser">برجاء التاكد من اسم المستخدم ورقم السري</string>
+    <string name="not_enter">لم يتم أدخال</string>
+    <string name="enterbefor">تم أدخال هذا من قبل</string>
+    <string name="invalidnumber">تم أدخال رقم غير صحيح</string>
+    <string name="statusnotUpdate">لم يتم تعديل الحاله</string>
+    <string name="tracking_number_server">رقم تتبع الشحنه غير موجود علي السيرفر</string>
 </resources>

@@ -153,12 +153,12 @@ public class AssignItemToPackagesActivity extends AppCompatActivity {
                     binding.editBarcode.setText("");
                     binding.editBarcode.requestFocus();
                 } else {
-                    binding.editBarcode.setError("تم أضافه هذا من قبل");
+                    binding.editBarcode.setError(getResources().getString(R.string.enterbefor));
                     binding.editBarcode.requestFocus();
                 }
 
             }else {
-                Toast.makeText(AssignItemToPackagesActivity.this, "هذا الباركود غير موجود", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AssignItemToPackagesActivity.this, getResources().getString(R.string.enter_valid_barcode), Toast.LENGTH_SHORT).show();
                 binding.editBarcode.setError(getResources().getString(R.string.enter_valid_barcode));
                 binding.editBarcode.requestFocus();
             }
@@ -174,9 +174,5 @@ public class AssignItemToPackagesActivity extends AppCompatActivity {
         itemAdapter.clearAdapterData();
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent i = new Intent(getApplicationContext(), GetOrderDatactivity.class);
-        startActivity(i);
-    }
+
 }
