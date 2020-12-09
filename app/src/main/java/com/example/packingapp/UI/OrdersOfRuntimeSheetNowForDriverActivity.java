@@ -43,7 +43,7 @@ DriverOrdersAdapter driverOrdersAdapter;
         getDriverOrdersViewModel= ViewModelProviders.of(this).get(GetDriverOrdersViewModel.class);
 
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
- 
+
         database=AppDatabase.getDatabaseInstance(this);
         RecordsItem recordsItem = database.userDao().getUserData_MU();
         Log.e(TAG, "onCreate: "+recordsItem.getUser_id() );

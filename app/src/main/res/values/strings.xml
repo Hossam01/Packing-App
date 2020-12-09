@@ -120,4 +120,5 @@
     <string name="title">نظام التعبئة والشحن والتوصيل</string>
     <string name="notadd">لم يتم اضافه عناصر</string>
     <string name="done">تم إضافة إلى موجود</string>
+    <string name="confirm">تم</string>
 </resources>

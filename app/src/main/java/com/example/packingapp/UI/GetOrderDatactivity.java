@@ -165,6 +165,8 @@ public class GetOrderDatactivity extends AppCompatActivity {
 
         Intent i = new Intent(getApplicationContext(), AssignItemToPackagesActivity.class);
         i.putExtra("AddNewPackageORAddForExistPackage","New");
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(i);
     }
 

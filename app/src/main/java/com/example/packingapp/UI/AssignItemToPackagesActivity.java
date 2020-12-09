@@ -173,4 +173,10 @@ public class AssignItemToPackagesActivity extends AppCompatActivity {
         super.onDestroy();
         itemAdapter.clearAdapterData();
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(getApplicationContext(), GetOrderDatactivity.class);
+        startActivity(i);
+    }
 }
