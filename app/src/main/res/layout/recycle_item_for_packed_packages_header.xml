@@ -28,7 +28,7 @@ android:orientation="horizontal"
             android:id="@+id/txt_tracking_number"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:text="السريال"
+            android:text="@string/serial"
             android:gravity="center_horizontal"
             android:textSize="@dimen/font_size_for_text_of_app"
             />

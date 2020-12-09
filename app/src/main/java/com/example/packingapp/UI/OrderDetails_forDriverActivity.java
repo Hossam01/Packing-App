@@ -14,6 +14,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.packingapp.Adapter.DriverOrderpackagesAdapter;
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.ItemclickforRecycler;
@@ -31,15 +40,6 @@ import com.example.packingapp.viewmodel.OrderDetailsForDriverViewModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class OrderDetails_forDriverActivity extends AppCompatActivity {
     private static final String TAG = "OrderDetails_forDriverA";
@@ -197,7 +197,7 @@ private static final int REQUEST_PHONE_CALL = 1;
 
                 }else{
                     if (edit_smsInput.getText().toString().isEmpty()){
-                        edit_smsInput.setError("Enter sms body");
+                        edit_smsInput.setError("ادخل الرساله");
                     }
                 }
             }
@@ -318,7 +318,7 @@ private static final int REQUEST_PHONE_CALL = 1;
 
                 }else{
                     if (edit_rejectinput.getText().toString().isEmpty()){
-                        edit_rejectinput.setError("Enter sms body");
+                        edit_rejectinput.setError("ادخل الرساله");
                     }
                 }
             }

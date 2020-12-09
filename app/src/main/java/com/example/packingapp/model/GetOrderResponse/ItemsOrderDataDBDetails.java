@@ -1,7 +1,5 @@
 package com.example.packingapp.model.GetOrderResponse;
 
-import com.google.gson.annotations.SerializedName;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -47,6 +45,14 @@ public class ItemsOrderDataDBDetails {
     @SerializedName("TrackingNumber")
     private String TrackingNumber;
 
+    public ItemsOrderDataDBDetails(String name, float price, float quantity, String sku, String unite, String trackingNumber) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.sku = sku;
+        this.unite = unite;
+        TrackingNumber = trackingNumber;
+    }
 
     public ItemsOrderDataDBDetails(String name, String sku, float price, float quantity, String unite) {
         this.name = name;

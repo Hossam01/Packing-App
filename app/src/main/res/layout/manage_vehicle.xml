@@ -123,7 +123,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/buttonshap"
         android:layout_margin="20dp"
-        android:text="Create"
+        android:text="@string/add_items"
         android:textColor="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

@@ -14,15 +14,15 @@
         android:id="@+id/btn_packed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Packed"
         android:background="@drawable/bg_btn"
-        android:textColor="@color/textcolor_btns"/>
+        android:textColor="@color/textcolor_btns"
+        android:text="@string/packed"/>
 
     <Button
         android:id="@+id/btn_SortingTeam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SortingTeam"
+        android:text="@string/SortingTeam"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/bg_btn"
@@ -32,16 +32,16 @@
         android:id="@+id/btn_SortedTeam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SortedTeam"
         android:background="@drawable/bg_btn"
-        android:textColor="@color/textcolor_btns"/>
+        android:textColor="@color/textcolor_btns"
+        android:text="@string/SortedTeam"/>
 
 
     <Button
         android:id="@+id/btn_driver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Driver"
+        android:text="@string/Driver"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/bg_btn"
@@ -52,7 +52,7 @@
         android:id="@+id/btn_supervisor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Supervisor"
+        android:text="@string/Supervisor"
         android:background="@drawable/bg_btn"
         android:textColor="@color/textcolor_btns"
         />

@@ -111,6 +111,6 @@
         app:layout_constraintTop_toBottomOf="@id/linear_textInputLayout2"
         android:layout_marginTop="90dp"
         android:background="@drawable/buttonshap"
-        android:text="Login"
+        android:text="@string/login"
         android:textColor="@color/white" />
 </androidx.constraintlayout.widget.ConstraintLayout>

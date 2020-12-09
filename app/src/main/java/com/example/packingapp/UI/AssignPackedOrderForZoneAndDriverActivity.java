@@ -19,6 +19,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
@@ -42,12 +48,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity {
     private static final String TAG = "AssignPackedOrderForZon";
@@ -232,7 +232,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                                 }
                             }).show();
                 }else {
-                    Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, R.string.there_is_no_data_todelete, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "لايوجد بيانات للحذف", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -262,14 +262,12 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                             // Toast.makeText(RecievePackedOrderForSortingActivity.this, String.format("%s",getString(R.string.message_equalfornoofpaclkageandcountoftrackingnumbers)), Toast.LENGTH_SHORT).show();
                             // UpdateStatus_zone_ON_83("sorted");
                             // UpdateStatus("sorted");
-                            Log.e(TAG, "onClick: "+binding.spinerDriverId.getSelectedItemPosition() );
-                            UpdateDriverID_ON_83(Drivers_IDs_list.get(binding.spinerDriverId.getSelectedItemPosition()));
+                            
+                            UpdateDriverID_ON_83(binding.spinerDriverId.getSelectedItem().toString());
                             //TODO Send SMS To Customer That his order in his way with national ID of driver (What if there is list of sms )
                           //  SendSMS(CustomerPhone, edit_smsInput.getText().toString());
-                            //TODO Print RunTime sheet -- get data for list of order (recievePackedORDER_NO_Distinctlist)
-                           // List<RecievePackedModule> recievePackedORDER_NO_Distinctlist = database.userDao().getRecievePacked_ORDER_NO_Distinct();
-
-                            assignPackedOrderToZoneViewModel.SheetData(recievePackedORDER_NO_Distinctlist.get(0).getORDER_NO());
+                            //TODO Print RunTime sheet
+                            assignPackedOrderToZoneViewModel.SheetData("2000000296");
                             assignPackedOrderToZoneViewModel.getSheetLiveData().observe(AssignPackedOrderForZoneAndDriverActivity.this, new Observer<Response>() {
                                 @Override
                                 public void onChanged(Response response) {
@@ -310,8 +308,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 trackingNo=binding.editTrackingnumberDriver.getText().toString();
                 LoadNewPurchaseOrderBTN_Driver();
             }else {
-                Toast.makeText(context,  String.format("%s",
-                        getString(R.string.special_character_found_in_string)), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Special character found in the string", Toast.LENGTH_SHORT).show();
             }
         }else {
             binding.editTrackingnumberDriver.setError("أدخل السريال");
