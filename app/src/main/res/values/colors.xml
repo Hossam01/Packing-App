@@ -34,6 +34,8 @@
     <color name="black">#000000</color>
     <color name="secod_red">#E63124</color>
 
+    <color name="show_btn">#45C57F</color>
+
     <!--used in main driver -->
     <color name="textcolor_btns">#FFFFFF</color>
 

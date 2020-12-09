@@ -5,6 +5,7 @@ android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:orientation="vertical"
     android:id="@+id/main_linear_of_item"
+    android:background="@color/linear_header_bg"
     >
       <LinearLayout
           android:layout_width="match_parent"
@@ -33,7 +34,7 @@ android:orientation="vertical"
               android:text="@string/order_number"
               android:gravity="center_horizontal"
               android:textSize="@dimen/font_size_for_text_of_app"
-              />
+              android:textColor="@color/white"/>
 
           <TextView
               android:id="@+id/txt_phone_number"
@@ -42,7 +43,7 @@ android:orientation="vertical"
               android:text="@string/phone_number"
               android:gravity="center_horizontal"
               android:textSize="@dimen/font_size_for_text_of_app"
-              />
+              android:textColor="@color/white"/>
 
       </LinearLayout>
 

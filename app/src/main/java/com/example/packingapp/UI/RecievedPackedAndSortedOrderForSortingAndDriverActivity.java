@@ -12,10 +12,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
@@ -26,6 +22,10 @@ import com.example.packingapp.viewmodel.RecievePackedOrderViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 public class RecievedPackedAndSortedOrderForSortingAndDriverActivity extends AppCompatActivity {
 ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
@@ -46,7 +46,7 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
             RecievePackedOrConfirmForDriver = getIntent().getExtras().getString("RecievePackedOrConfirmForDriver");
         }
         recievePackedOrderViewModel= ViewModelProviders.of(this).get(RecievePackedOrderViewModel.class);
-
+        ObserveFunct();
         binding.btnLoadingNewPurchaseOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -196,6 +196,49 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
         });*/
     }
 
+    private void ObserveFunct() {
+        recievePackedOrderViewModel.getOrderDataLiveData().observe(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, new Observer<RecievePackedModule>() {
+            @Override
+            public void onChanged(RecievePackedModule responseGetOrderData) {
+                Log.e(TAG, "onChanged: "+ responseGetOrderData.getORDER_NO());
+                Log.e(TAG, "onChanged: "+ responseGetOrderData.getNO_OF_PACKAGES());
+                Log.e(TAG, "onChanged:stat "+ responseGetOrderData.getSTATUS());
+                Log.e(TAG, "onChanged:packeOr "+ RecievePackedOrConfirmForDriver);
+                if (RecievePackedOrConfirmForDriver.equalsIgnoreCase("RecievePacked")) {
+                    if (responseGetOrderData.getSTATUS().equalsIgnoreCase("packed")) {
+                        AfterGetOrderData(responseGetOrderData , binding.editTrackingnumber.getText().toString());
+                    }else {
+                        Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "This Order in "+responseGetOrderData.getSTATUS()+" State", Toast.LENGTH_SHORT).show();
+                        binding.editTrackingnumber.setError(null);
+                        binding.editTrackingnumber.setText("");
+                    }
+                }else if (RecievePackedOrConfirmForDriver.equalsIgnoreCase("ConfirmForDriver")) {
+                    if (responseGetOrderData.getSTATUS().equalsIgnoreCase("sorted")) {
+                        AfterGetOrderData(responseGetOrderData ,  binding.editTrackingnumber.getText().toString());
+                    }else {
+                        Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "This Order in "+responseGetOrderData.getSTATUS()+" State", Toast.LENGTH_SHORT).show();
+                        binding.editTrackingnumber.setError(null);
+                        binding.editTrackingnumber.setText("");
+                    }
+                }
+
+            }
+
+        });
+
+        recievePackedOrderViewModel.mutableLiveDataError.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Log.e(TAG, "onChanged: "+s );
+                Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "load order data error "+s, Toast.LENGTH_LONG).show();
+
+                if (s.equals("HTTP 503 Service Unavailable")) {
+                    Toast.makeText(context, getResources().getString(R.string.invalidnumber), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
     private void LoadNewPurchaseOrder() {
         String OrderNumber;
         if (!binding.editTrackingnumber.getText().toString().isEmpty() &&
@@ -215,7 +258,7 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                 if (recievePackedlist.size() == 0) {
                     binding.editTrackingnumber.setError(null);
 
-                    GETOrderData(OrderNumber, binding.editTrackingnumber.getText().toString());
+                    GETOrderData(OrderNumber);
                     Log.e(TAG, "onClick: Ord " + OrderNumber);
 
 //                    binding.editTrackingnumber.setError(null);
@@ -241,9 +284,11 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                                 .size() > 0) {
                             binding.editTrackingnumber.setError(getResources().getString(R.string.enterbefor));
                             binding.editTrackingnumber.setText("");
+                            binding.editTrackingnumber.requestFocus();
                         }else {
                             binding.editTrackingnumber.setError(getResources().getString(R.string.invalidnumber));
                             binding.editTrackingnumber.setText("");
+                            binding.editTrackingnumber.requestFocus();
                         }
                     }
                 }
@@ -253,52 +298,14 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
         }else {
             binding.editTrackingnumber.setError(getString(R.string.enter_tracking_number));
             binding.editTrackingnumber.setText("");
+            binding.editTrackingnumber.requestFocus();
         }
     }
 
 
-    private void GETOrderData(String ordernumber , String trackingnumber){
+    private void GETOrderData(String ordernumber ){
         recievePackedOrderViewModel.fetchdata(ordernumber);
-        recievePackedOrderViewModel.getOrderDataLiveData().observe(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, new Observer<RecievePackedModule>() {
-            @Override
-            public void onChanged(RecievePackedModule responseGetOrderData) {
-                Log.e(TAG, "onChanged: "+ responseGetOrderData.getORDER_NO());
-                Log.e(TAG, "onChanged: "+ responseGetOrderData.getNO_OF_PACKAGES());
-                Log.e(TAG, "onChanged:stat "+ responseGetOrderData.getSTATUS());
-                Log.e(TAG, "onChanged:packeOr "+ RecievePackedOrConfirmForDriver);
-                if (RecievePackedOrConfirmForDriver.equalsIgnoreCase("RecievePacked")) {
-                    if (responseGetOrderData.getSTATUS().equalsIgnoreCase("packed")) {
-                        AfterGetOrderData(responseGetOrderData ,trackingnumber);
-                    }else {
-                        Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "This Order in "+responseGetOrderData.getSTATUS()+" State", Toast.LENGTH_SHORT).show();
-                        binding.editTrackingnumber.setError(null);
-                        binding.editTrackingnumber.setText("");
-                    }
-                }else if (RecievePackedOrConfirmForDriver.equalsIgnoreCase("ConfirmForDriver")) {
-                    if (responseGetOrderData.getSTATUS().equalsIgnoreCase("sorted")) {
-                        AfterGetOrderData(responseGetOrderData , trackingnumber);
-                    }else {
-                        Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "This Order in "+responseGetOrderData.getSTATUS()+" State", Toast.LENGTH_SHORT).show();
-                        binding.editTrackingnumber.setError(null);
-                        binding.editTrackingnumber.setText("");
-                    }
-                }
 
-            }
-
-        });
-
-        recievePackedOrderViewModel.mutableLiveDataError.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                Log.e(TAG, "onChanged: "+s );
-                Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "load order data error "+s, Toast.LENGTH_LONG).show();
-
-                if (s.equals("HTTP 503 Service Unavailable")) {
-                    Toast.makeText(context, getResources().getString(R.string.invalidnumber), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     private void AfterGetOrderData(RecievePackedModule responseGetOrderData , String trackingnumber) {

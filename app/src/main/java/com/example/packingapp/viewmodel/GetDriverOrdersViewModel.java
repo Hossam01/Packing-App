@@ -3,7 +3,6 @@ package com.example.packingapp.viewmodel;
 import android.util.Log;
 
 import com.example.packingapp.Retrofit.ApiClient;
-import com.example.packingapp.model.DriverModules.DriverPackages_Respones_Details_recycler;
 import com.example.packingapp.model.DriverModules.DriverPackages_Respones_Header_recycler;
 
 import java.util.HashMap;
@@ -28,6 +27,9 @@ public class GetDriverOrdersViewModel extends ViewModel {
         map.put("DRIVER_ID", DRIVER_ID);
         map.put("ASSIGN_DATE", ASSIGN_DATE);
         map.put("STATUS", STATUS);
+        Log.e(TAG, "ReadDriverRunsheetOrdersData: "+DRIVER_ID );
+        Log.e(TAG, "ReadDriverRunsheetOrdersData: "+ASSIGN_DATE );
+        Log.e(TAG, "ReadDriverRunsheetOrdersData: "+ STATUS);
 
         ApiClient.build().ReadDriverRunsheetOrders_83(map)
                 .observeOn(AndroidSchedulers.mainThread())

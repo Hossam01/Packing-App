@@ -60,8 +60,6 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
     ResponseDriver responseDriver;
     String trackingNo="";
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +78,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
     }
 
     private void ButtonsClickListnerForAssignToZone() {
-        binding.editTrackingnumberZone.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        binding.editZone.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if(actionId == EditorInfo.IME_ACTION_SEARCH
@@ -223,7 +221,6 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     database.userDao().deleteRecievePackedModule();
                                     binding.editTrackingnumberDriver.setError(null);
-
                                 }
                             })
                             .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
@@ -273,7 +270,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                                 public void onChanged(Response response) {
                                     if (response.getRecords().size()>0) {
                                         PrintRunTimeSheet(response.getRecords());
-                                       
+
 //                                        for (int i=0;i<response.getRecords().size();i++)
 //                                        {
 ////                                        PrintRunTimeSheet(response.getRecords().get(i).getTRACKING_NO(), response.getRecords().get(i).getCUSTOMER_NAME(),
@@ -506,6 +503,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 }}else {
                 binding.editTrackingnumberZone.setError("تم أدخال رقم غير صحيح ");
                 binding.editTrackingnumberZone.setText("");
+                binding.editTrackingnumberZone.requestFocus();
             }
 
         }
@@ -752,6 +750,10 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
     private void PrintRunTimeSheet(List<RecordsItem> items) {
         ActivityCompat.requestPermissions(this, new String[]{"android.permission.WRITE_EXTERNAL_STORAGE"}, 0);
         createPdf(items);
+
+      //  String CustomerPhone =items.get(0).getCUSTOMER_PHONE().toString().replace("+2","");
+        String CustomerPhone ="01065286596";
+        SendSMS(CustomerPhone,"Your Order In His Way");
     }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void createPdf(List<RecordsItem> items) {

@@ -7,14 +7,15 @@
         android:orientation="vertical"
         android:gravity="center_horizontal|center_vertical"
         android:background="@color/main_background_color"
-        tools:context=".UI.AssignPackedOrderForZoneAndDriverActivity">
+        tools:context=".UI.AssignPackedOrderForZoneAndDriverActivity"
+    android:layoutDirection="rtl">
 
         <Button
             android:id="@+id/btn_show_assign_orders_to_zone"
             android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:text="@string/Show_Assign_Orders_To_Zone"
-            android:background="@drawable/bg_btn"
+            android:background="@drawable/bg_btn_show"
             android:textColor="@color/textcolor_btns"
             android:layout_marginTop="20dp"
             android:paddingEnd="20dp"
@@ -36,73 +37,92 @@
             android:layout_marginBottom="15dp"
             android:visibility="gone">
             <EditText
-                    android:id="@+id/edit_trackingnumber_zone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_tracking_number"
-                    android:textColor="@color/txt_color"
-                    android:textColorHint="@color/txt_color_hint"
-                    android:textSize="@dimen/font_size_for_text_of_app"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginStart="15dp"
-                    android:singleLine="true"
+                android:id="@+id/edit_trackingnumber_zone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_tracking_number"
+                android:textColor="@color/txt_color"
+                android:textColorHint="@color/txt_color_hint"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:singleLine="true"
 
                 />
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp">
 
                 <EditText
                     android:id="@+id/edit_zone"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_zone"
                     android:textColorHint="#DDD"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginStart="15dp"
                     android:singleLine="true"
 
                     />
 
                 <Button
                     android:id="@+id/btn_loading_new_purchase_order_zone"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="@string/search"
                     android:background="@drawable/bg_btn"
                     android:textColor="@color/textcolor_btns"
-                    android:layout_marginTop="20dp"
                     android:paddingEnd="20dp"
                     android:paddingStart="20dp"
                     android:textSize="@dimen/font_size_for_text_of_app"
-                    />
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp" />
+            </LinearLayout>
 
 
 
-                <Button
-                    android:id="@+id/btn_delete_last_trackingnumbers_zone"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/delete_last_assign"
-                    android:background="@drawable/bg_btn"
-                    android:textColor="@color/textcolor_btns"
-                    android:layout_marginTop="20dp"
-                    android:paddingEnd="20dp"
-                    android:paddingStart="20dp"
-                    android:textSize="@dimen/font_size_for_text_of_app"
-                    />
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp">
+
+                    <Button
+                        android:id="@+id/btn_delete_last_trackingnumbers_zone"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="@string/delete_last_assign"
+                        android:background="@drawable/bg_btn"
+                        android:textColor="@color/textcolor_btns"
+                        android:layout_marginTop="20dp"
+                        android:paddingEnd="20dp"
+                        android:paddingStart="20dp"
+                        android:textSize="@dimen/font_size_for_text_of_app"
+                        />
 
 
-                <Button
-                    android:id="@+id/btn_confirm_assign_orders_to_zone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/confirm_assign_orders_to_zone"
-                    android:background="@drawable/bg_btn"
-                    android:textColor="@color/textcolor_btns"
-                    android:layout_marginTop="20dp"
-                    android:paddingEnd="20dp"
-                    android:paddingStart="20dp"
-                    android:textSize="@dimen/font_size_for_text_of_app"
-                    />
+                    <Button
+                        android:id="@+id/btn_confirm_assign_orders_to_zone"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="@string/confirm_assign_orders_to_zone"
+                        android:background="@drawable/bg_btn"
+                        android:textColor="@color/textcolor_btns"
+                        android:layout_marginTop="20dp"
+                        android:paddingEnd="20dp"
+                        android:paddingStart="20dp"
+                        android:textSize="@dimen/font_size_for_text_of_app"
+                        />
+
+                </LinearLayout>
 
         </LinearLayout>
 
@@ -112,7 +132,7 @@
             android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:text="@string/show_assign_orders_to_driver"
-            android:background="@drawable/bg_btn"
+            android:background="@drawable/bg_btn_show"
             android:textColor="@color/textcolor_btns"
             android:layout_marginTop="20dp"
             android:paddingEnd="20dp"
@@ -134,71 +154,93 @@
             android:layout_marginBottom="15dp"
             android:visibility="gone"
             >
-                <EditText
-                    android:id="@+id/edit_trackingnumber_driver"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_tracking_number"
-                    android:textColor="@color/txt_color"
-                    android:textColorHint="@color/txt_color_hint"
-                    android:textSize="@dimen/font_size_for_text_of_app"
-                    android:layout_marginEnd="15dp"
+                    android:orientation="horizontal"
+                    android:weightSum="4"
                     android:layout_marginStart="15dp"
-                    android:singleLine="true"
+                    android:layout_marginEnd="15dp">
 
-                    />
+                    <EditText
+                        android:id="@+id/edit_trackingnumber_driver"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/enter_tracking_number"
+                        android:textColor="@color/txt_color"
+                        android:textColorHint="@color/txt_color_hint"
+                        android:textSize="@dimen/font_size_for_text_of_app"
+                        android:singleLine="true"
+
+                        />
+                    <Button
+                        android:id="@+id/btn_loading_new_purchase_order_driver"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="@string/enter"
+                        android:background="@drawable/bg_btn"
+                        android:textColor="@color/textcolor_btns"
+                        android:paddingEnd="20dp"
+                        android:paddingStart="20dp"
+                        android:textSize="@dimen/font_size_for_text_of_app"
+                         android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp" />
+
+                </LinearLayout>
 
             <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                 android:id="@+id/spiner_driver_id"
                 android:layout_width="fill_parent"
-                android:layout_height="match_parent"
+                android:layout_height="35dp"
                 android:textSize="@dimen/font_size_for_text_of_app"
                 android:textDirection="rtl"
                 android:textColor="@color/third_white"
                 android:backgroundTint="@color/third_white"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"/>
 
-                />
 
-            <Button
-                    android:id="@+id/btn_loading_new_purchase_order_driver"
-                    android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/enter"
-                android:background="@drawable/bg_btn"
-                android:textColor="@color/textcolor_btns"
-                    android:layout_marginTop="20dp"
-                    android:paddingEnd="20dp"
-                    android:paddingStart="20dp"
-                    android:textSize="@dimen/font_size_for_text_of_app"
-                    />
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp">
+
+                    <Button
+                        android:id="@+id/btn_delete_last_trackingnumbers_driver"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="@string/delete_last_assign"
+                        android:background="@drawable/bg_btn"
+                        android:textColor="@color/textcolor_btns"
+                        android:paddingEnd="20dp"
+                        android:paddingStart="20dp"
+                        android:textSize="@dimen/font_size_for_text_of_app"
+                        />
 
 
-                <Button
-                    android:id="@+id/btn_delete_last_trackingnumbers_driver"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/delete_last_assign"
-                    android:background="@drawable/bg_btn"
-                    android:textColor="@color/textcolor_btns"
-                    android:layout_marginTop="20dp"
-                    android:paddingEnd="20dp"
-                    android:paddingStart="20dp"
-                    android:textSize="@dimen/font_size_for_text_of_app"
-                    />
+                    <Button
+                        android:id="@+id/btn_confirm_assign_orders_to_driver"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="@string/confirm_assign_orders_to_driver"
+                        android:background="@drawable/bg_btn"
+                        android:textColor="@color/textcolor_btns"
+                        android:paddingEnd="20dp"
+                        android:paddingStart="20dp"
+                        android:textSize="@dimen/font_size_for_text_of_app"
+                        />
 
-
-                <Button
-                    android:id="@+id/btn_confirm_assign_orders_to_driver"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/confirm_assign_orders_to_driver"
-                    android:background="@drawable/bg_btn"
-                    android:textColor="@color/textcolor_btns"
-                    android:layout_marginTop="20dp"
-                    android:paddingEnd="20dp"
-                    android:paddingStart="20dp"
-                    android:textSize="@dimen/font_size_for_text_of_app"
-                    />
+                </LinearLayout>
 
         </LinearLayout>
 

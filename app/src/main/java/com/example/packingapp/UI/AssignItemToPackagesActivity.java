@@ -131,7 +131,7 @@ public class AssignItemToPackagesActivity extends AppCompatActivity {
     private void SearchOfBarcode() {
         if (!binding.editBarcode.getText().toString().isEmpty()) {
             List<ItemsOrderDataDBDetails> itemsOrderDataDBDetailsList =new ArrayList<>();
-            String KQTY,GQTY,TotalQTYFor23 , BarcodeFor23  , Depart;
+           /* String KQTY,GQTY,TotalQTYFor23 , BarcodeFor23  , Depart;
             KQTY="00";
             GQTY="000";
             TotalQTYFor23="";
@@ -147,10 +147,10 @@ public class AssignItemToPackagesActivity extends AppCompatActivity {
                 itemsOrderDataDBDetailsList = database.userDao().getItem_scales(BarcodeFor23+"%");
                 Calculatcheckdigitforscales(binding.editBarcode.getText().toString().substring(0,7)+"00000");
 
-            }else {
+            }else {*/
                 itemsOrderDataDBDetailsList = database.userDao().getItem(binding.editBarcode.getText().toString());
 //                    product = new Product("laptop", "5");
-            }
+        //    }
             if (itemsOrderDataDBDetailsList.size() >0 ) {
                 List<ItemsOrderDataDBDetails> Adapterlist = itemAdapter.ReturnListOfAdapter();
                 List<String> listClone = new ArrayList<>();
@@ -191,12 +191,6 @@ public class AssignItemToPackagesActivity extends AppCompatActivity {
         itemAdapter.clearAdapterData();
     }
 
-
-    @Override
-    public void onBackPressed() {
-        Intent i = new Intent(getApplicationContext(), GetOrderDatactivity.class);
-        startActivity(i);
-    }
 
     private String Calculatcheckdigitforscales(String toString) {
         String Barcode;

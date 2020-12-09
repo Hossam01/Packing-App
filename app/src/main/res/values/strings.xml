@@ -30,7 +30,7 @@
     <string name="enter_valid_tracking_number">أدخل رقم تتبع صحيح </string>
 
     <string name="enter">أدخال</string>
-    <string name="confirm_assign_orders_to_driver">Confirm ِAnd Print Assign Orders To Driver</string>
+    <string name="confirm_assign_orders_to_driver">تأكيد وطباعه</string>
     <string name="confirm_assign_orders_to_zone">تاكيد</string>
     <string name="National">الرقم القومي</string>
     <string name="EmployeeID">رقم الموظف</string>
@@ -86,7 +86,7 @@
     <string name="paper_out">Paper out</string>
     <string name="cannot_print">Cannot print</string>
     <string name="no_printers_found">No printers found</string>
-    <string name="success_header_of_driver">اجمالي ما تم تسليمه</string>
+    <string name="success_header_of_driver">اجمالى اوامر بيع اليوم</string>
     <string name="failed_header_of_driver">اجمالي ما تم رفضه</string>
     <string name="you_choice_mulite_or_choice_noting">لقد اخترت اكثر من اختيار أو لم تختار شى</string>
     <string name="there_is_no_data_todelete">لايوجد بيانات للحذف</string>
@@ -133,4 +133,5 @@
     <string name="tracking_number_server">رقم تتبع الشحنه غير موجود علي السيرفر</string>
     <string name="order_not_found">Order not found</string>
     <string name="required_header_of_driver">اجمالى المبلغ المطلوب</string>
+    <string name="rejected_packages">الشحنات المرفوضه</string>
 </resources>

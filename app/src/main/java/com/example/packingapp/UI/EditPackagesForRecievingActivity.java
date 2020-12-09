@@ -36,9 +36,6 @@ ActivityEditPackagesForRecievingBinding binding;
         setContentView(binding.getRoot());
         database= AppDatabase.getDatabaseInstance(this);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         CreateORUpdateRecycleView();
     }
 
@@ -114,8 +111,7 @@ ActivityEditPackagesForRecievingBinding binding;
                                 .setTitle(getString(R.string.delete_dialoge))
                                 .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
-                                        database.userDao().deleteRecievePackedModule_ForTrackingNumber("'"+TrackingnumberToEditORDelete+"'");
-
+                                        database.userDao().deleteRecievePackedModule_ForTrackingNumber(TrackingnumberToEditORDelete);
                                         CreateORUpdateRecycleView();
                                     }
                                 })
