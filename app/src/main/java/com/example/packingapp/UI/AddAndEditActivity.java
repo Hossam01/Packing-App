@@ -52,7 +52,7 @@ public class AddAndEditActivity extends AppCompatActivity {
                 }
             }
         });
-    } 
+    }
 
     @Override
     protected void onDestroy() {

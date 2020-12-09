@@ -52,7 +52,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
                         || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER
                         || keyEvent.getAction() == KeyEvent.KEYCODE_NUMPAD_ENTER
                         || keyEvent.getAction() == KeyEvent.KEYCODE_DPAD_CENTER){
-                   // LoadNewPurchaseOrder();
+                    LoadNewPurchaseOrder();
                 }
 
                 return false;
