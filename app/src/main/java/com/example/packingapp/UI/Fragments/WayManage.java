@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.packingapp.R;
 import com.example.packingapp.databinding.ManageWayBinding;
 import com.example.packingapp.model.ResponseWay;
 import com.example.packingapp.viewmodel.WayViewModel;
@@ -53,7 +54,7 @@ public class WayManage extends Fragment {
             if (way.size() == 0) {
                 for (int i = 0; i < responseWay.getRecords().size(); i++) {
                     if (i == 0)
-                        way.add("Select Way ID");
+                        way.add(getResources().getString(R.string.choice_way_id));
                     way.add(responseWay.getRecords().get(i).getDirection_ID());
                 }
             }
@@ -99,7 +100,7 @@ public class WayManage extends Fragment {
                     binding.Status.setText(responseWay.getRecords().get(position - 1).getStatus().toString());
                     binding.Stations.setText(responseWay.getRecords().get(position - 1).getStations().toString());
                     binding.EstimationTime.setText(responseWay.getRecords().get(position - 1).getEstimation_Time().toString());
-                    binding.create.setText("Update");
+                    binding.create.setText("تعديل");
                     State = "update";
                 }
             }
@@ -134,7 +135,7 @@ public class WayManage extends Fragment {
 
         wayViewModel.updateData(binding.WayID.getSelectedItem().toString(), binding.NameArabic.getText().toString(), binding.NameEnglish.getText().toString(), binding.Status.getText().toString(), binding.EstimationTime.getText().toString(), binding.Stations.getText().toString(), binding.DriverID.getSelectedItem().toString(), binding.VechileID.getSelectedItem().toString());
         wayViewModel.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show());
-        binding.create.setText("Create");
+        binding.create.setText("اضافه");
         State = "create";
         clear();
 

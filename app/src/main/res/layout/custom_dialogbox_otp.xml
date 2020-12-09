@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/light_gray"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -16,62 +16,7 @@
             android:orientation="vertical">
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_default"
-                android:id="@+id/zebraHeader"
-                android:padding="@dimen/margin_default"
-                android:background="@android:color/white"
-                android:layout_marginLeft="@dimen/margin_default"
-                android:layout_marginRight="@dimen/margin_default"
-                android:elevation="@dimen/elevation_default">
 
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:src="@drawable/zebralogo"
-                    android:layout_alignParentTop="false"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentBottom="false"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/zebraLogo" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/zebraLogo"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="@dimen/margin_small">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/zebra_technologies_corp"
-                        android:textSize="18sp"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/zebra_address_line_1"
-                        android:textSize="14sp"
-                        android:textColor="@android:color/black"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/launchpad_link"
-                        android:text="@string/zebra_address_line_2"
-                        android:textSize="14sp"
-                        android:textColor="@android:color/black"/>
-
-
-                </LinearLayout>
-
-            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -200,7 +145,8 @@
                     android:background="@android:color/white"
                     android:layout_width="fill_parent"
                     android:textStyle="bold"
-                    android:text="Test"
+                    android:text="@string/print"
+                    android:textSize="@dimen/font_size_for_button_of_app"
                     android:textColor="@color/zebra_blue"
                     android:layout_height="40dp" />
 
@@ -216,23 +162,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/selectedPrinterFragmentContainer"
             android:layout_alignParentTop="true" />
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/selectedPrinterFragmentContainer">
-
-            <ImageView
-                android:layout_width="139dp"
-                android:layout_height="48dp"
-                android:layout_gravity="bottom"
-                android:layout_margin="@dimen/std_container_margin"
-                android:src="@drawable/zebra_logo_black"
-                android:id="@+id/zebraFooterLogo" />
-
-        </FrameLayout>
 
     </RelativeLayout>
 

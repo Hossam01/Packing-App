@@ -1,17 +1,14 @@
 package com.example.packingapp.UI;
 
+import android.os.Bundle;
+import android.widget.RadioGroup;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.os.Bundle;
-import android.widget.RadioGroup;
-import android.widget.Toast;
-
 import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityAddAndEditBinding;
-import com.example.packingapp.viewmodel.DriverViewModel;
-import com.example.packingapp.viewmodel.WayViewModel;
 
 public class AddAndEditActivity extends AppCompatActivity {
 
@@ -36,7 +33,6 @@ public class AddAndEditActivity extends AppCompatActivity {
                     }
                         else if (test.equals("way"))
                         navController.navigate(R.id.action_wayManage_to_vehicleManage);
-                        Toast.makeText(getApplicationContext(),"Vehicle",Toast.LENGTH_SHORT).show();
                         test="vehicle";
                         break;
                     case R.id.radio1:
@@ -44,7 +40,6 @@ public class AddAndEditActivity extends AppCompatActivity {
                            navController.navigate(R.id.action_vehicleManage_to_driverManage);
                         else if (test.equals("way"))
                            navController.navigate(R.id.action_wayManage_to_driverManage);
-                        Toast.makeText(getApplicationContext(),"Driver",Toast.LENGTH_SHORT).show();
                         test="driver";
                         break;
                     case R.id.radio2:
@@ -52,7 +47,6 @@ public class AddAndEditActivity extends AppCompatActivity {
                             navController.navigate(R.id.action_driverManage_to_wayManage);
                         else if (test.equals("vehicle"))
                             navController.navigate(R.id.action_vehicleManage_to_wayManage);
-                        Toast.makeText(getApplicationContext(),"Way",Toast.LENGTH_SHORT).show();
                         test="way";
                         break;
                 }
@@ -63,5 +57,10 @@ public class AddAndEditActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

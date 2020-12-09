@@ -33,7 +33,8 @@
             android:layout_marginTop="50dp"
             android:paddingEnd="20dp"
             android:paddingStart="20dp"
-            android:textSize="@dimen/font_size_for_text_of_app"
+            android:textSize="@dimen/font_size_for_button_of_app"
+
             />
         <Button
             android:id="@+id/btn_loading_last_purchase_order"
@@ -45,7 +46,7 @@
             android:layout_marginTop="50dp"
             android:paddingEnd="20dp"
             android:paddingStart="20dp"
-            android:textSize="@dimen/font_size_for_text_of_app"
+            android:textSize="@dimen/font_size_for_button_of_app"
             />
 
         <Button
@@ -58,20 +59,20 @@
             android:layout_marginTop="50dp"
             android:paddingEnd="20dp"
             android:paddingStart="20dp"
-            android:textSize="@dimen/font_size_for_text_of_app"
+            android:textSize="@dimen/font_size_for_button_of_app"
             />
 
         <Button
             android:id="@+id/btn_edit_packages"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="تعديل"
-            android:background="@drawable/bg_btn"
-            android:textColor="@color/textcolor_btns"
+            android:layout_height="36dp"
             android:layout_marginTop="50dp"
-            android:paddingEnd="20dp"
+            android:background="@drawable/bg_btn"
             android:paddingStart="20dp"
-            android:textSize="@dimen/font_size_for_text_of_app"
+            android:paddingEnd="20dp"
+            android:text="تعديل"
+            android:textColor="@color/textcolor_btns"
+            android:textSize="@dimen/font_size_for_button_of_app"
             />
 
         <ProgressBar

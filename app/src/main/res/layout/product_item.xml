@@ -23,8 +23,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/item_qty"
-            android:text="Product Name"
-            android:textSize="18sp"
+            android:text="@string/Product_Name"
+            android:textSize="@dimen/font_size_for_text_of_app"
             android:gravity="center"/>
 
         <TextView
@@ -36,8 +36,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/item_name"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="QTY"
-            android:textSize="18sp"
+            android:textSize="@dimen/font_size_for_text_of_app"
+
             android:gravity="center"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp" />

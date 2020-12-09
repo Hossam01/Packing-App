@@ -31,7 +31,7 @@
         android:layout_marginTop="20dp"
         android:paddingEnd="20dp"
         android:paddingStart="20dp"
-        android:textSize="@dimen/font_size_for_text_of_app"
+        android:textSize="@dimen/font_size_for_button_of_app"
         />
 
     <Button
@@ -44,7 +44,7 @@
         android:layout_marginTop="20dp"
         android:paddingEnd="20dp"
         android:paddingStart="20dp"
-        android:textSize="@dimen/font_size_for_text_of_app"
+        android:textSize="@dimen/font_size_for_button_of_app"
         />
 
     <Button
@@ -57,7 +57,7 @@
         android:layout_marginTop="20dp"
         android:paddingEnd="20dp"
         android:paddingStart="20dp"
-        android:textSize="@dimen/font_size_for_text_of_app"
+        android:textSize="@dimen/font_size_for_button_of_app"
         />
 
 
@@ -71,7 +71,7 @@
         android:layout_marginTop="20dp"
         android:paddingEnd="20dp"
         android:paddingStart="20dp"
-        android:textSize="@dimen/font_size_for_text_of_app"
+        android:textSize="@dimen/font_size_for_button_of_app"
         android:visibility="gone"/>
 
     <Button

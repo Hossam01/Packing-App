@@ -14,6 +14,7 @@
         android:background="@color/endofday_header_bg"
         android:text="@string/success_header_of_driver"
         android:textColor="@color/white"
+        android:textSize="@dimen/font_size_for_text_of_app"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -23,6 +24,8 @@
         android:gravity="center"
         android:text="@string/success_header_of_driver"
         android:textColor="@color/black"
+        android:textSize="@dimen/font_size_for_text_of_app"
+
         app:layout_constraintTop_toBottomOf="@+id/txt_success_header" />
 
     <TextView
@@ -33,6 +36,8 @@
         android:gravity="center_vertical"
         android:text="@string/failed_header_of_driver"
         android:textColor="@color/white"
+        android:textSize="@dimen/font_size_for_text_of_app"
+
         app:layout_constraintTop_toBottomOf="@id/txt_success_value" />
 
     <TextView
@@ -42,5 +47,7 @@
         android:gravity="center"
         android:text="@string/failed_header_of_driver"
         android:textColor="@color/black"
+        android:textSize="@dimen/font_size_for_text_of_app"
+
         app:layout_constraintTop_toBottomOf="@+id/txt_failed_header" />
 </androidx.constraintlayout.widget.ConstraintLayout>

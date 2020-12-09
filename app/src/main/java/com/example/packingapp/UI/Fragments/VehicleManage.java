@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.packingapp.R;
 import com.example.packingapp.databinding.ManageVehicleBinding;
 import com.example.packingapp.model.ResponseVehicle;
 import com.example.packingapp.viewmodel.VehicleViewModel;
@@ -47,7 +48,7 @@ public class VehicleManage extends Fragment {
             if (categories.size()==0) {
                 for (int i = 0; i < responseVehicle.getRecords().size(); i++) {
                     if (i == 0)
-                        categories.add("Select Vehicle ID");
+                        categories.add(getResources().getString(R.string.choice_vehicle_id));
                     categories.add(responseVehicle.getRecords().get(i).getVechileID());
 
                 }
@@ -64,7 +65,7 @@ public class VehicleManage extends Fragment {
                     binding.NameEnglish.setText(responseVehicle.getRecords().get(position - 1).getNameEnglish().toString());
                     binding.LienceNumber.setText(responseVehicle.getRecords().get(position - 1).getLienceNumber().toString());
                     binding.Weight.setText(responseVehicle.getRecords().get(position - 1).getWeight().toString());
-                    binding.create.setText("Update");
+                    binding.create.setText("تعديل");
                     State = "update";
                 }
             }
@@ -97,7 +98,7 @@ public class VehicleManage extends Fragment {
     public void update() {
         vehicleViewModel.updateData(binding.VechileID.getSelectedItem().toString(), binding.NameArabic.getText().toString(), binding.NameEnglish.getText().toString(), binding.LienceNumber.getText().toString(), binding.Weight.getText().toString());
         vehicleViewModel.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getActivity(), message.getMessage().toString(), Toast.LENGTH_SHORT).show());
-        binding.create.setText("Create");
+        binding.create.setText("اضافه");
         State = "create";
         clear();
 

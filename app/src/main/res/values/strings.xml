@@ -35,6 +35,7 @@
     <string name="National">الرقم القومي</string>
     <string name="EmployeeID">رقم الموظف</string>
     <string name="choice_driver_id">اختار رقم السائق</string>
+    <string name="choice_way_id">اختار رقم الوجهه</string>
     <string name="confirm_recieved_trackingnumber">تاكيد الاستلام</string>
     <string name="show_my_orders_in_runtimesheet">عرض اوامر التوصيل</string>
     <string name="show_my_orders_end_of_day">تقرير نهايه اليوم</string>
@@ -112,4 +113,9 @@
     <string name="Send_SMS">إرسال</string>
     <string name="Reject">تاكيد رفض الاستلام</string>
     <string name="Confirm_Passcode">تاكيد الكود السري</string>
+    <string name="choice_vehicle_id">اختار رقم المركبه</string>
+    <string name="Product_Name">اسم المنتج</string>
+    <string name="QTY">الكميه</string>
+    <string name="Assign_item">تعيين العناصر للحقيبة</string>
+    <string name="title">نظام التعبئة والشحن والتوصيل</string>
 </resources>
