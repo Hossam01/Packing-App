@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView android:id="@+id/scrol"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrol"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android"
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -235,15 +234,16 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="@string/Vechile_ID"
-        android:textSize="@dimen/font_size_for_text_of_app"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout9" />
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="@string/Vechile_ID"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout9" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout6"

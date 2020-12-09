@@ -31,7 +31,7 @@
             android:checked="true"
             android:paddingLeft="@dimen/_16sdp"
             android:paddingTop="@dimen/_3sdp"
-            android:paddingRight="11dp"
+            android:paddingRight="9dp"
             android:paddingBottom="@dimen/_3sdp"
             android:text="@string/Vechile"
             android:textSize="@dimen/font_size_for_text_of_app"

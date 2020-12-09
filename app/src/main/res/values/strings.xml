@@ -20,14 +20,14 @@
     <string name="enter_barcode">أدخل الباركود</string>
     <string name="enter_valid_barcode">هذا الباركود غير موجود</string>
     <string name="delete_dialoge">هل أنت متأكد من أنك تريد حذف</string>
-    <string name="message_not_equalfornoofpaclkageandcountoftrackingnumbers">No of tracking number that entered isn\'t equal packed package</string>
+    <string name="message_not_equalfornoofpaclkageandcountoftrackingnumbers">رقم التتبع الذي تم إدخاله لا يساوي حزمة معبأة</string>
     <string name="message_equalfornoofpaclkageandcountoftrackingnumbers">No of tracking number that entered is equal packed package</string>
-    <string name="there_is_no_trackednumber_scanned">there is no tracking number scanned.</string>
+    <string name="there_is_no_trackednumber_scanned">لا يوجد رقم تتبع تم مسحه ضوئيًا.</string>
     <string name="updte_zone_if_exist">"تم أدخال المنطقه مختلفه عما تم من قبل..هل تريد التعديل "</string>
     <string name="delete_last_assign">حذف أخر عمليه</string>
     <string name="show_assign_orders_to_driver">عرض الشحنات حسب السائق</string>
     <string name="enter_tracking_number">أدخل كود تتبع الشحنه</string>
-    <string name="enter_valid_tracking_number">أدخل سريال صحيح </string>
+    <string name="enter_valid_tracking_number">أدخل رقم تتبع صحيح </string>
 
     <string name="enter">أدخال</string>
     <string name="confirm_assign_orders_to_driver">Confirm ِAnd Print Assign Orders To Driver</string>
@@ -118,6 +118,9 @@
     <string name="QTY">الكميه</string>
     <string name="Assign_item">تعيين العناصر للحقيبة</string>
     <string name="title">نظام التعبئة والشحن والتوصيل</string>
+    <string name="notadd">لم يتم اضافه عناصر</string>
+    <string name="done">تم إضافة إلى موجود</string>
+    <string name="confirm">تم</string>
     <string name="order_not_found">Order not found</string>
     <string name="required_header_of_driver">اجمالى المبلغ المطلوب</string>
 </resources>

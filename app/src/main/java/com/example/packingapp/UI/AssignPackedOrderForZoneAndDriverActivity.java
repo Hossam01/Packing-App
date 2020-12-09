@@ -176,7 +176,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
             }
         }else {
             if (binding.editTrackingnumberZone.getText().toString().isEmpty()) {
-                binding.editTrackingnumberZone.setError("أدخل السريال");
+                binding.editTrackingnumberZone.setError("أدخل رقم تتبع الشحنه");
                 binding.editTrackingnumberZone.requestFocus();
             }else if (binding.editZone.getText().toString().isEmpty()){
                 binding.editZone.setError("أدخل المنطقه");
@@ -494,7 +494,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                                     binding.editZone.setText("");
                                     binding.editZone.setError(null);
                                     database.userDao().UpdatezoneForORDER_NO(OrderNumber, Zone1);
-                                    Toast.makeText(context, "تم", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context,getResources().getString(R.string.confirm), Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
@@ -677,7 +677,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                     if (Drivers_IDs_list.size() == 0) {
                         for (int i = 0; i < responseDriver.getRecords().size(); i++) {
                             if (i == 0)
-                                Drivers_IDs_list.add("Select ID Driver");
+                                Drivers_IDs_list.add(getResources().getString(R.string.choice_driver_id));
                             Drivers_IDs_list.add(responseDriver.getRecords().get(i).getDriverID()+"&"+
                                     responseDriver.getRecords().get(i).getNameArabic());
                         }

@@ -113,7 +113,7 @@ public class AssignItemToPackagesActivity extends AppCompatActivity {
                         itemAdapter.ClearRVAfterAssign();
                         ListOfBarcodesToAssign.clear();
                     }else {
-                        Toast.makeText(AssignItemToPackagesActivity.this, "Done Add To Exist ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AssignItemToPackagesActivity.this, getResources().getString(R.string.done), Toast.LENGTH_SHORT).show();
                         database.userDao().updatetrackingnumberforListOfItems(AddNewPackageORAddForExistPackage, ListOfBarcodesToAssign);
                         //ToDo Clear all lists after assign
                         Intent GoBackToEditItemsOfPackage=new Intent(AssignItemToPackagesActivity.this,EditPackageItemsActivity.class);
@@ -122,7 +122,7 @@ public class AssignItemToPackagesActivity extends AppCompatActivity {
                         finish();
                     }
                 }else {
-                    Toast.makeText(AssignItemToPackagesActivity.this, "لم يتم أضافه عناصر", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AssignItemToPackagesActivity.this, getResources().getString(R.string.notadd), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -189,6 +189,12 @@ public class AssignItemToPackagesActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         itemAdapter.clearAdapterData();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(getApplicationContext(), GetOrderDatactivity.class);
+        startActivity(i);
     }
 
     private String Calculatcheckdigitforscales(String toString) {

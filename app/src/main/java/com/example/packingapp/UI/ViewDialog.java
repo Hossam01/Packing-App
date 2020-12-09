@@ -385,7 +385,7 @@ public class ViewDialog {
                                 "^FO400,260^GB1,40,1^FS" +
                                 "^FO200,260^GB1,40,1^FS" +
                                 "^CF0,5" +
-                                "^AZN,35,20^AAN,15,10^FO90,320^BCN,85,Y,N^FD>" + " " + DetailsList.get(0).getTrackingNumber() + "^FS^PQ1" +
+                                "^AZN,35,20^AAN,15,10^FO90,320^BCN,85,Y,N^FD" + " " + DetailsList.get(0).getTrackingNumber() + "^FS^PQ1" +
                                 "^FO600,320^BQN,2,4^FD" + "   " + DetailsList.get(0).getTrackingNumber() + "^FS" +
                                 "^FO480,450^GB300,80,1^FS" +
                                 "^FO600,450^GB1,80,1^FS" +
