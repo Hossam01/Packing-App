@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">PackingApp</string>
     <string name="enter_your_name">اسم المستخدم</string>
-    <string name="enter_your_password">الرقم السري</string>
+    <string name="enter_your_password">كلمة المرور</string>
     <string name="way">الوجهة</string>
     <string name="NameArabic">الاسم بالعربي</string>
     <string name="NameEnglish">الاسم بالانجليزي</string>
@@ -101,8 +101,8 @@
     <string name="Supervisor">اداره حركه السيارات</string>
     <string name="newOrder">ادخل امر شراء جديد</string>
     <string name="edit">تعديل</string>
-    <string name="loadnewOrder">تحميل امر شراء جديد</string>
-    <string name="loadlastOrder">تحميل اخر امر شراء</string>
+    <string name="loadnewOrder">تحميل البيانات</string>
+    <string name="loadlastOrder">تحميل آخر أمر البيع</string>
     <string name="serial">كود تتبع الشحنه</string>
     <string name="search">بحث</string>
     <string name="Show_Assign_Orders_To_Zone">عرض الشحنات حسب المنطقة</string>
@@ -116,7 +116,7 @@
     <string name="choice_vehicle_id">اختار رقم المركبه</string>
     <string name="Product_Name">اسم المنتج</string>
     <string name="QTY">الكميه</string>
-    <string name="Assign_item">تعيين العناصر للحقيبة</string>
+    <string name="Assign_item">تسكين العناصر</string>
     <string name="title">نظام التعبئة والشحن والتوصيل</string>
     <string name="notadd">لم يتم اضافه عناصر</string>
     <string name="done">تم إضافة إلى موجود</string>

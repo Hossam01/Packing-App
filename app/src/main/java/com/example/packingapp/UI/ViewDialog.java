@@ -276,7 +276,11 @@ public class ViewDialog {
                     OrderDataModuleDBHeader orderDataModuleDBHeader = database.userDao().getHeaderToUpload();
                     try {
 
-                        String name = "^XA" +
+                        String name =
+                                "^XA"+
+                                "~JA"+
+                                "^XZ"+
+                                "^XA" +
                                 "^CWZ,E:TT0003M_.TTF^FS" +
                                 "^CF0,10" +
                                 "^FO30,30^CI28^AZN,20,15^FDفرع زايد^FS" +
@@ -300,7 +304,7 @@ public class ViewDialog {
                                 "^FO100,150^CI28^AZN,20,15^FD" + orderDataModuleDBHeader.getCustomer_address_detail() + "^FS" +
                                 "^CF0,15" +
                                 "^FO250,270^CI28^AZN,20,15^FDرقم الشحنه^FS" +
-                                "^FO100,270^FD1of" + trackingnumbersListDBS.size() + "^FS" +
+                                "^FO100,270^FD1^FS" +
                                 "^FO600,230^CI28^AZN,20,15^FD تحقيق الهوية ^FS" +
                                 "^CF0,25" +
                                 "^FO400,230^FD " + orderDataModuleDBHeader.getGrand_total() + " ^FS" +
@@ -311,7 +315,7 @@ public class ViewDialog {
                                 "^FO220,550^CI28^AZN,20,15^FDالاجمالي^FS" +
                                 "^FO650,465^CI28^AZN,20,15^FDرقم الطلب^FS" +
                                 "^FO640,505^CI28^AZN,20,15^FDعدد القطع^FS" +
-                                "^FO540,505^CI28^AZN,20,15^FD" + database.userDao().getDetailsTrackingnumberToUpload().size() + "^FS" +
+                                "^FO540,505^CI28^AZN,20,15^FD" + database.userDao().getDetailsTrackingnumberToUpload(DetailsList.get(0).getTrackingNumber()).size() + "^FS" +
                                 "^FO500,465^CI28^AZN,20,15^FD" + orderDataModuleDBHeader.getOrder_number() + "^FS" +
                                 "^FO80,465^CI28^AZN,20,15^FD" + totel + "^FS" +
                                 "^FO100,505^CI28^AZN,20,15^FD" + orderDataModuleDBHeader.getShipping_fees() + "^FS\n" +
@@ -413,6 +417,7 @@ public class ViewDialog {
                                 "^FO30,990^GB750,1^FS" +
                                 "^FO30,1020^GB750,1^FS" +
                                 "^FO30,1050^GB750,1^FS" +
+                                "^CF0,5" +
                                 "^XZ";
                         configLabel = name.getBytes();
                     } catch (NullPointerException e) {

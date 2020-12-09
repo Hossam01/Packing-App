@@ -44,7 +44,7 @@ public class DriverManage extends Fragment {
         driverViewModel.fetchDataDriver();
         categories = new ArrayList<String>();
         List<String> driver = new ArrayList<String>();
-        
+
 
         ArrayAdapter spinnerAdapterDriver = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, driver);
         spinnerAdapterDriver.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -56,7 +56,7 @@ public class DriverManage extends Fragment {
                 for (int i = 0; i < responseDriver.getRecords().size(); i++) {
                     if (i == 0)
                         driver.add(getResources().getString(R.string.choice_driver_id));
-                    driver.add(responseDriver.getRecords().get(i).getEmployeeID());
+                    driver.add(responseDriver.getRecords().get(i).getDriverID()+"&"+responseDriver.getRecords().get(i).getNameArabic());
                 }
             }
             this.responseDriver = responseDriver;
@@ -127,7 +127,9 @@ public class DriverManage extends Fragment {
     }
 
     public void update() {
-        driverViewModel.updateData(binding.DriverID.getSelectedItem().toString(), binding.NameArabic.getText().toString(), binding.NameEnglish.getText().toString(), binding.Status.getText().toString(), binding.Company.getText().toString(), binding.Phone.getText().toString(), binding.Address.getText().toString(), binding.VechileID.getSelectedItem().toString(),binding.National.getText().toString(),binding.Employeeid.getText().toString());
+        String currentString = binding.DriverID.getSelectedItem().toString();
+        String[] separated = currentString.split("&");
+        driverViewModel.updateData(separated[0], binding.NameArabic.getText().toString(), binding.NameEnglish.getText().toString(), binding.Status.getText().toString(), binding.Company.getText().toString(), binding.Phone.getText().toString(), binding.Address.getText().toString(), binding.VechileID.getSelectedItem().toString(),binding.National.getText().toString(),binding.Employeeid.getText().toString());
         driverViewModel.mutableLiveData.observe(getViewLifecycleOwner(), message -> Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show());
         binding.create.setText("اضافه");
         State = "create";
