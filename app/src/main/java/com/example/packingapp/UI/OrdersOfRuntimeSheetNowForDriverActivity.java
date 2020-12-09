@@ -33,7 +33,7 @@ DriverOrdersAdapter driverOrdersAdapter;
 
     GetDriverOrdersViewModel getDriverOrdersViewModel ;
     AppDatabase database;
- 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
