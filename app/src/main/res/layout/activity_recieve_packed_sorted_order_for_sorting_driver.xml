@@ -9,34 +9,80 @@
     android:background="@color/main_background_color"
     tools:context=".UI.GetOrderDatactivity">
 
-    <EditText
-        android:id="@+id/edit_trackingnumber"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_tracking_number"
-        android:textColor="@color/txt_color"
-        android:textColorHint="@color/txt_color_hint"
-        android:textSize="@dimen/font_size_for_text_of_app"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
-        />
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:layoutDirection="rtl">
 
-    <Button
-        android:id="@+id/btn_loading_new_purchase_order"
-        android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/edit_trackingnumber"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_tracking_number"
+            android:textColor="@color/txt_color"
+            android:textColorHint="@color/txt_color_hint"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            />
+
+        <Button
+            android:id="@+id/btn_loading_new_purchase_order"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/search"
+            android:background="@drawable/bg_btn"
+            android:textColor="@color/textcolor_btns"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:textSize="@dimen/font_size_for_button_of_app"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/search"
-        android:background="@drawable/bg_btn"
-        android:textColor="@color/textcolor_btns"
+        android:orientation="horizontal"
+        android:weightSum="2"
         android:layout_marginTop="20dp"
-        android:paddingEnd="20dp"
-        android:paddingStart="20dp"
-        android:textSize="@dimen/font_size_for_button_of_app"
-        />
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp">
 
+        <Button
+            android:id="@+id/btn_delete_last_trackingnumbers"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_last_assign"
+            android:background="@drawable/bg_btn"
+            android:textColor="@color/textcolor_btns"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:textSize="@dimen/font_size_for_button_of_app"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp" />
+
+        <Button
+            android:id="@+id/btn_edit_packages"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_btn"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="تعديل"
+            android:textColor="@color/textcolor_btns"
+            android:textSize="@dimen/font_size_for_button_of_app"
+            />
+
+    </LinearLayout>
     <Button
         android:id="@+id/btn_update_order_status"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/confirm_recieved_trackingnumber"
         android:background="@drawable/bg_btn"
@@ -45,20 +91,11 @@
         android:paddingEnd="20dp"
         android:paddingStart="20dp"
         android:textSize="@dimen/font_size_for_button_of_app"
-        />
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"/>
 
-    <Button
-        android:id="@+id/btn_delete_last_trackingnumbers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/delete_last_assign"
-        android:background="@drawable/bg_btn"
-        android:textColor="@color/textcolor_btns"
-        android:layout_marginTop="20dp"
-        android:paddingEnd="20dp"
-        android:paddingStart="20dp"
-        android:textSize="@dimen/font_size_for_button_of_app"
-        />
+
+
 
 
     <Button

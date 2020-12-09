@@ -50,7 +50,6 @@ public class EndOfDayActivity extends AppCompatActivity {
 
 //                        driverPackages_Header_dbList.addAll(driverPackages_respones_Header_recycler.getRecords());
 //                        driverOrdersAdapter.notifyDataSetChanged();
-
                         for (int i=0;i<responeEndOfDay.getEndOfDayModule().size();i++){
                             if (responeEndOfDay.getEndOfDayModule().get(i).getSTATUS().equalsIgnoreCase("Rejected under inspection")){
                                 FailedList.add(responeEndOfDay.getEndOfDayModule().get(i));
@@ -62,7 +61,7 @@ public class EndOfDayActivity extends AppCompatActivity {
                         }
 
                         binding.txtSuccessValue.setText(String.valueOf(SuccessValue));
-                        binding.txtRequiredValue.setText(String.valueOf(SuccessValue));                         
+                        binding.txtRequiredValue.setText(String.valueOf(SuccessValue));
                         binding.txtFailedValue.setText(String.valueOf(FailedValue));
 
 

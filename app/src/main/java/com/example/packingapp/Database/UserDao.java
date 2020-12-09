@@ -7,6 +7,7 @@ import com.example.packingapp.model.GetOrderResponse.OrderDataModuleDBHeader;
 import com.example.packingapp.model.PackedPackageItemsModule;
 import com.example.packingapp.model.PackedPackageModule;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
+import com.example.packingapp.model.RecievedPackageModule;
 import com.example.packingapp.model.RecordsItem;
 import com.example.packingapp.model.TrackingnumbersListDB;
 
@@ -153,6 +154,12 @@ public interface UserDao {
 
     @Query("SELECT * FROM RecievePackedModule")
     List<RecievePackedModule> getorderNORecievePackedModule();
+
+    @Query("SELECT * FROM RecievePackedModule")
+    List<RecievedPackageModule> getAllRecievedPackages();
+
+    @Query("DELETE FROM RecievePackedModule where Tracking_Number=:Tracking_Number")
+    void deleteRecievePackedModule_ForTrackingNumber( String Tracking_Number);
 
     @Insert(onConflict = REPLACE)
     void insertDriverOrders(List<DriverPackages_Header_DB> driverPackages_Header_dblist);

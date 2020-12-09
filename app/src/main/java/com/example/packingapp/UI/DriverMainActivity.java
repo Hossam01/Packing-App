@@ -1,13 +1,10 @@
 package com.example.packingapp.UI;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.packingapp.Database.AppDatabase;
-import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityDriverMainBinding;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,10 +26,10 @@ public class DriverMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                new AlertDialog.Builder(DriverMainActivity.this)
-                        .setTitle(getString(R.string.delete_last_assigned_order_of_driver))
-                        .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
+//                new AlertDialog.Builder(DriverMainActivity.this)
+//                        .setTitle(getString(R.string.delete_last_assigned_order_of_driver))
+//                        .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int whichButton) {
                                 //TODO why you delete
                                 database.userDao().deleteRecievePackedModule();
                                 database.userDao().deleteDriverPackages_Header_DB();
@@ -40,15 +37,15 @@ public class DriverMainActivity extends AppCompatActivity {
                                 Intent gotoconfirmrecieve = new Intent(DriverMainActivity.this,RecievedPackedAndSortedOrderForSortingAndDriverActivity.class);
                                 gotoconfirmrecieve.putExtra("RecievePackedOrConfirmForDriver","ConfirmForDriver");
                                 startActivity(gotoconfirmrecieve);
-                            }
-                        })
-                        .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                Intent gotoconfirmrecieve = new Intent(DriverMainActivity.this,RecievedPackedAndSortedOrderForSortingAndDriverActivity.class);
-                                gotoconfirmrecieve.putExtra("RecievePackedOrConfirmForDriver","ConfirmForDriver");
-                                startActivity(gotoconfirmrecieve);
-                            }
-                        }).show();
+//                            }
+//                        })
+//                        .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int whichButton) {
+//                                Intent gotoconfirmrecieve = new Intent(DriverMainActivity.this,RecievedPackedAndSortedOrderForSortingAndDriverActivity.class);
+//                                gotoconfirmrecieve.putExtra("RecievePackedOrConfirmForDriver","ConfirmForDriver");
+//                                startActivity(gotoconfirmrecieve);
+//                            }
+//                        }).show();
 
 
             }
@@ -58,21 +55,21 @@ public class DriverMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                new AlertDialog.Builder(DriverMainActivity.this)
-                        .setTitle(getString(R.string.delete_last_assigned_order_of_driver))
-                        .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
+//                new AlertDialog.Builder(DriverMainActivity.this)
+//                        .setTitle(getString(R.string.delete_last_assigned_order_of_driver))
+//                        .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int whichButton) {
                                 database.userDao().deleteDriverPackages_Header_DB();
                                 database.userDao().deleteDriverPackages_Details_DB();
                                 Intent go=new Intent(DriverMainActivity.this ,OrdersOfRuntimeSheetNowForDriverActivity.class);
                                 startActivity(go);
-                            }
-                        })
-                        .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                dialog.cancel();
-                            }
-                        }).show();
+//                            }
+//                        })
+//                        .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int whichButton) {
+//                                dialog.cancel();
+//                            }
+//                        }).show();
 
             }
         });

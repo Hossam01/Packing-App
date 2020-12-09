@@ -3,6 +3,7 @@ package com.example.packingapp.UI;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -71,6 +72,14 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
             }
         });
 
+        binding.btnEditPackages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent GoToEditRecievedPackages=new Intent(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this,
+                        EditPackagesForRecievingActivity.class);
+                startActivity(GoToEditRecievedPackages);
+            }
+        });
 
         binding.btnUpdateOrderStatus.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.AssignItemToPackagesActivity"
-    android:background="@color/main_bg">
+    android:background="@color/main_background_color">
 
     <EditText
         android:id="@+id/edit_barcode"
