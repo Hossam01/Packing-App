@@ -118,4 +118,6 @@
     <string name="QTY">الكميه</string>
     <string name="Assign_item">تعيين العناصر للحقيبة</string>
     <string name="title">نظام التعبئة والشحن والتوصيل</string>
+    <string name="order_not_found">Order not found</string>
+    <string name="required_header_of_driver">اجمالى المبلغ المطلوب</string>
 </resources>

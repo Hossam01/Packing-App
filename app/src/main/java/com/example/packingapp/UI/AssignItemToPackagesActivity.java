@@ -9,9 +9,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.example.packingapp.Adapter.ItemAdapter;
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.R;
@@ -22,6 +19,9 @@ import com.example.packingapp.model.TrackingnumbersListDB;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class AssignItemToPackagesActivity extends AppCompatActivity {
     private static final String TAG = "ItemActivity";
@@ -130,10 +130,27 @@ public class AssignItemToPackagesActivity extends AppCompatActivity {
 
     private void SearchOfBarcode() {
         if (!binding.editBarcode.getText().toString().isEmpty()) {
+            List<ItemsOrderDataDBDetails> itemsOrderDataDBDetailsList =new ArrayList<>();
+            String KQTY,GQTY,TotalQTYFor23 , BarcodeFor23  , Depart;
+            KQTY="00";
+            GQTY="000";
+            TotalQTYFor23="";
+            BarcodeFor23="";
+            Depart=binding.editBarcode.getText().toString().substring(0,2);
+            if (Depart.equalsIgnoreCase("23")
+                    && binding.editBarcode.getText().toString().length() ==13) {
+                KQTY = binding.editBarcode.getText().toString().substring(7, 9);
+                GQTY = binding.editBarcode.getText().toString().substring(9, 12);
+                TotalQTYFor23 = KQTY + "." + GQTY;
+                //BarcodeFor23 = et_Barcode.getText().toString().replace(TotalQTYFor23.replace(".", ""), "00000");
+                BarcodeFor23 = binding.editBarcode.getText().toString().substring(0, 7);
+                itemsOrderDataDBDetailsList = database.userDao().getItem_scales(BarcodeFor23+"%");
+                Calculatcheckdigitforscales(binding.editBarcode.getText().toString().substring(0,7)+"00000");
 
-            List<ItemsOrderDataDBDetails> itemsOrderDataDBDetailsList =database.userDao().getItem(binding.editBarcode.getText().toString());
+            }else {
+                itemsOrderDataDBDetailsList = database.userDao().getItem(binding.editBarcode.getText().toString());
 //                    product = new Product("laptop", "5");
-
+            }
             if (itemsOrderDataDBDetailsList.size() >0 ) {
                 List<ItemsOrderDataDBDetails> Adapterlist = itemAdapter.ReturnListOfAdapter();
                 List<String> listClone = new ArrayList<>();
@@ -172,5 +189,28 @@ public class AssignItemToPackagesActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         itemAdapter.clearAdapterData();
+    }
+
+    private String Calculatcheckdigitforscales(String toString) {
+        String Barcode;
+        int  chkdigit;
+        Log.e("zzzbarodd1 ",""+toString.charAt(1));
+        Log.e("zzzbarodd1 ",""+Integer.valueOf(toString.charAt(1)));
+        Log.e("zzzbarodd1.2 ",""+Integer.valueOf(toString.substring(1,2)));
+        Log.e("zzzbarodd11 ",""+toString.charAt(11));
+        Log.e("zzzbarodd11.12 ",""+Integer.valueOf(toString.substring(11,12)));
+        int odd  = Integer.valueOf(toString.substring(1,2)) + Integer.valueOf(toString.substring(3,4)) + Integer.valueOf(toString.substring(5,6)) + Integer.valueOf(toString.substring(7,8)) + Integer.valueOf(toString.substring(9,10)) + Integer.valueOf(toString.substring(11,12));
+        int eveen  = Integer.valueOf(toString.substring(0,1)) + Integer.valueOf(toString.substring(2,3)) + Integer.valueOf(toString.substring(4,5)) + Integer.valueOf(toString.substring(6,7)) + Integer.valueOf(toString.substring(8,9)) + Integer.valueOf(toString.substring(10,11));
+
+        Log.e("zzzbarodd",""+odd);
+        Log.e("zzzbareveen",""+eveen);
+        if ((((odd * 3) + eveen) % 10) != 0 )
+            chkdigit = 10 - (((odd * 3) + eveen) % 10) ;
+        else
+            chkdigit = 0 ;
+
+        Barcode=toString +chkdigit;
+        Log.e("zzzbarcode",""+Barcode);
+        return Barcode;
     }
 }

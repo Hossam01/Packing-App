@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    tools:context=".UI.EndOfDayActivity">
+    tools:context=".UI.EndOfDayActivity"
+    android:background="@color/main_background_color">
 
     <TextView
         android:id="@+id/txt_success_header"
@@ -25,7 +26,6 @@
         android:text="@string/success_header_of_driver"
         android:textColor="@color/black"
         android:textSize="@dimen/font_size_for_text_of_app"
-
         app:layout_constraintTop_toBottomOf="@+id/txt_success_header" />
 
     <TextView
@@ -50,4 +50,25 @@
         android:textSize="@dimen/font_size_for_text_of_app"
 
         app:layout_constraintTop_toBottomOf="@+id/txt_failed_header" />
+
+    <TextView
+        android:id="@+id/txt_required_header"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/endofday_header_bg"
+        android:text="@string/required_header_of_driver"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_for_text_of_app"
+        app:layout_constraintTop_toBottomOf="@+id/txt_failed_value" />
+
+    <TextView
+        android:id="@+id/txt_required_value"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="@string/required_header_of_driver"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_size_for_text_of_app"
+        app:layout_constraintTop_toBottomOf="@+id/txt_required_header" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -62,6 +62,7 @@ public class EndOfDayActivity extends AppCompatActivity {
                         }
 
                         binding.txtSuccessValue.setText(String.valueOf(SuccessValue));
+                        binding.txtRequiredValue.setText(String.valueOf(SuccessValue));                         
                         binding.txtFailedValue.setText(String.valueOf(FailedValue));
 
 

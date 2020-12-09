@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Looper;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -80,8 +79,8 @@ public class ViewDialog {
         String mac = settings.getString(bluetoothAddressKey, "");
         macAddressEditText.setText(mac);
 
-        TextView t2 = (TextView) dialog.findViewById(R.id.launchpad_link);
-        t2.setMovementMethod(LinkMovementMethod.getInstance());
+//        TextView t2 = (TextView) dialog.findViewById(R.id.launchpad_link);
+//        t2.setMovementMethod(LinkMovementMethod.getInstance());
 
         statusField = (TextView) dialog.findViewById(R.id.statusText);
 
