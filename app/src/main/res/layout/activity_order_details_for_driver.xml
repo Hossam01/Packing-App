@@ -69,17 +69,53 @@
 
     <androidx.recyclerview.widget.RecyclerView
      android:id="@+id/rv_customer_items"
-    android:layout_height="200dp"
+    android:layout_height="140dp"
     android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@id/include_header_of_rv"
         />
+
+    <LinearLayout
+        android:id="@+id/linear_total_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/rv_customer_items"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:id="@+id/txt_total_price"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/total_price"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/linear_reschedule_confirm_deleivery"
+            android:gravity="center"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/total_price"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/linear_reschedule_confirm_deleivery" />
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linear_reschedule_confirm_deleivery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/rv_customer_items"
+        app:layout_constraintTop_toBottomOf="@+id/linear_total_price"
         android:weightSum="2"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp">
@@ -117,6 +153,7 @@
         android:textSize="@dimen/font_size_for_text_of_app"
         android:textStyle="bold"
         />
+
     <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -14,7 +14,7 @@
             android:id="@+id/edit_magentoorder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="أدخل أمر الشراء"
+            android:hint="@string/txt_enter_number"
             android:inputType="number"
             android:textColor="@color/txt_color"
             android:textColorHint="@color/txt_color_hint"

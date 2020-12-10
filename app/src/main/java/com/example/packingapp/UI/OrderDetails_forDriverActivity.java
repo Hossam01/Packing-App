@@ -14,15 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.packingapp.Adapter.DriverOrderpackagesAdapter;
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.ItemclickforRecycler;
@@ -40,6 +31,15 @@ import com.example.packingapp.viewmodel.OrderDetailsForDriverViewModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class OrderDetails_forDriverActivity extends AppCompatActivity {
     private static final String TAG = "OrderDetails_forDriverA";
@@ -128,6 +128,7 @@ private static final int REQUEST_PHONE_CALL = 1;
 
                         driverPackages_details_dbList.addAll(driverPackages_respones_details_recycler.getRecords());
                         driverOrderpackagesAdapter.notifyDataSetChanged();
+                        totalPriceFUN(driverPackages_respones_details_recycler.getRecords());
                     }
                 });
     }
@@ -313,6 +314,7 @@ private static final int REQUEST_PHONE_CALL = 1;
                     Log.e(TAG, "onClickre: "+ driverPackages_details_dbList_Reject.size());
                     driverOrderpackagesAdapter.notifyDataSetChanged();
                     driverOrderpackagesAdapter_Reject.notifyDataSetChanged();
+                    totalPriceFUN(driverPackages_details_dbList);
 
                     alertDialog.dismiss();
 
@@ -381,5 +383,14 @@ private static final int REQUEST_PHONE_CALL = 1;
         });
 
 
+    }
+    void totalPriceFUN(    List<DriverPackages_Details_DB> driverPackages_details_dbList_price){
+        Double TotalPrice=0.0;
+        for(int i=0 ; i<driverPackages_details_dbList.size();i++){
+            TotalPrice+=Double.valueOf(driverPackages_details_dbList_price.get(i).getPACKAGE_PRICE());
+            Log.e(TAG, "totalPriceFUN: "+ TotalPrice);
+        }
+
+        binding.txtTotalPrice.setText(String.valueOf(TotalPrice));
     }
 }

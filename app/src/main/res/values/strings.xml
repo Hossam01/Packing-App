@@ -134,4 +134,6 @@
     <string name="order_not_found">Order not found</string>
     <string name="required_header_of_driver">اجمالى المبلغ المطلوب</string>
     <string name="rejected_packages">الشحنات المرفوضه</string>
+    <string name="txt_enter_number">أدخل أمر البيع</string>
+    <string name="total_price">اجمالى السعر</string>
 </resources>
