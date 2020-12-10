@@ -275,6 +275,10 @@ public class ViewDialog {
 
                     OrderDataModuleDBHeader orderDataModuleDBHeader = database.userDao().getHeaderToUpload();
                     try {
+                        String string = DetailsList.get(0).getTrackingNumber();
+                        String[] parts = string.split("-");
+                        String part1 = parts[0]; // 004
+                        String part2 = parts[1];
 
                         String name =
                                 "^XA"+
@@ -282,6 +286,8 @@ public class ViewDialog {
                                 "^XZ"+
                                 "^XA" +
                                 "^CWZ,E:TT0003M_.TTF^FS" +
+                                "^CF0,5" +
+                                "^AZN,35,20^AAN,15,10^FO90,320^BCN,85,Y,N^FD" + "" + DetailsList.get(0).getTrackingNumber() + "^FS" +
                                 "^CF0,10" +
                                 "^FO30,30^CI28^AZN,20,15^FDفرع زايد^FS" +
                                 "^FO700,30^CI28^AZN,20,15^FDفرع زايد^FS" +
@@ -304,7 +310,7 @@ public class ViewDialog {
                                 "^FO100,150^CI28^AZN,20,15^FD" + orderDataModuleDBHeader.getCustomer_address_detail() + "^FS" +
                                 "^CF0,15" +
                                 "^FO250,270^CI28^AZN,20,15^FDرقم الشحنه^FS" +
-                                "^FO100,270^FD1^FS" +
+                                "^FO100,270^FD"+part2.substring(1)+"^FS" +
                                 "^FO600,230^CI28^AZN,20,15^FD تحقيق الهوية ^FS" +
                                 "^CF0,25" +
                                 "^FO400,230^FD " + orderDataModuleDBHeader.getGrand_total() + " ^FS" +
@@ -388,8 +394,6 @@ public class ViewDialog {
                                 "^FO500,260^GB1,40,1^FS" +
                                 "^FO400,260^GB1,40,1^FS" +
                                 "^FO200,260^GB1,40,1^FS" +
-                                "^CF0,5" +
-                                "^AZN,35,20^AAN,15,10^FO90,320^BCN,85,Y,N^FD" + " " + DetailsList.get(0).getTrackingNumber() + "^FS^PQ1" +
                                 "^FO600,320^BQN,2,4^FD" + "   " + DetailsList.get(0).getTrackingNumber() + "^FS" +
                                 "^FO480,450^GB300,80,1^FS" +
                                 "^FO600,450^GB1,80,1^FS" +
