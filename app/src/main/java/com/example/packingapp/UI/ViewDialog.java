@@ -55,6 +55,7 @@ public class ViewDialog {
     private TextView statusField;
     Dialog dialog;
     Activity activity;
+    byte[] configLabel="".getBytes();
     public void showDialog(Activity activity){
         this.activity=activity;
         dialog = new Dialog(activity);
@@ -210,7 +211,9 @@ public class ViewDialog {
 
             if (printerStatus.isReadyToPrint) {
                 ArrayList<ItemsOrderDataDBDetails> print = new ArrayList<>();
-                for (int i=0;i<database.userDao().getTrackingnumberDB().size();i++) {
+                for (int i=0;i<database.userDao().getTrackingnumberDB().size();i++)
+                {
+                  configLabel="".getBytes();
                     print.clear();
                     for (int j=0;j<database.userDao().getDetailsTrackingnumberToUpload().size();j++) {
                         if (database.userDao().getTrackingnumberDB().get(i).getTrackingNumber().equals(database.userDao().getDetailsTrackingnumberToUpload().get(j).getTrackingNumber())) {
@@ -218,7 +221,9 @@ public class ViewDialog {
                             print.add(itemsOrderDataDBDetails);
                         }
                     }
-                        byte[] configLabel = getConfigLabel(print);
+
+                       configLabel = getConfigLabel(print);
+                        Log.e("label", configLabel.toString());
                         connection.write(configLabel);
                         setStatus("Sending Data", Color.BLUE);
 
@@ -279,15 +284,11 @@ public class ViewDialog {
                         String[] parts = string.split("-");
                         String part1 = parts[0]; // 004
                         String part2 = parts[1];
-
-                        String name =
-                                "^XA"+
-                                "~JA"+
-                                "^XZ"+
-                                "^XA" +
+                        String name ="";
+                        name = "^XA" +
                                 "^CWZ,E:TT0003M_.TTF^FS" +
                                 "^CF0,5" +
-                                "^AZN,35,20^AAN,15,10^FO90,320^BCN,85,Y,N^FD" + "" + DetailsList.get(0).getTrackingNumber() + "^FS" +
+                                "^AZN,35,20^AAN,15,10^FO90,320^BCN,85,Y,N^FD" + "" + DetailsList.get(0).getTrackingNumber() + "^FS^PQ1" +
                                 "^CF0,10" +
                                 "^FO30,30^CI28^AZN,20,15^FDفرع زايد^FS" +
                                 "^FO700,30^CI28^AZN,20,15^FDفرع زايد^FS" +
@@ -394,7 +395,7 @@ public class ViewDialog {
                                 "^FO500,260^GB1,40,1^FS" +
                                 "^FO400,260^GB1,40,1^FS" +
                                 "^FO200,260^GB1,40,1^FS" +
-                                "^FO600,320^BQN,2,4^FD" + "   " + DetailsList.get(0).getTrackingNumber() + "^FS" +
+                                "^FO600,340^BQN,2,2^FD"+"  " + DetailsList.get(0).getTrackingNumber() + "^FS" +
                                 "^FO480,450^GB300,80,1^FS" +
                                 "^FO600,450^GB1,80,1^FS" +
                                 "^FO480,490^GB300,1^FS" +
@@ -421,9 +422,9 @@ public class ViewDialog {
                                 "^FO30,990^GB750,1^FS" +
                                 "^FO30,1020^GB750,1^FS" +
                                 "^FO30,1050^GB750,1^FS" +
-                                "^CF0,5" +
                                 "^XZ";
                         configLabel = name.getBytes();
+                        Log.e("command",name);
                     } catch (NullPointerException e) {
                 }
                 } else if (printerLanguage == PrinterLanguage.CPCL) {
@@ -431,7 +432,6 @@ public class ViewDialog {
                     configLabel = cpclConfigLabel.getBytes();
                 }
             } catch(ConnectionException e){
-                configLabel = "^XA ^CF0,10 ^FO30,30^CI28^AZN,20,15^FDفرع زايد^FS^FO700,30^CI28^AZN,20,15^FDفرع زايد^FS^FX^FO30,50^GB750,80,1^FS^FO500,50^GB1,80,1^FS ^FO500,50^GB1,80,1^FS^FO500,90^GB280,1^FS^FO30,130^GB750,80,1^FS^FO500,50^GB1,160,1^FS ^CF0,15FO590,65^CI28^AZN,20,15^FDشركة الشحن^FS^FO600,105^CI28^AZN,20,15^FDمدينه العميل^FS^FO600,160^CI28^AZN,20,15^FDمنطقه العميل^FS^FO570,270^CI28^AZN,20,15^FDعدد الشحنات في الطلب^FS^FO450,270^CI28^AZN,20,15^FD7^FS^FO250,270^CI28^AZN,20,15^FDرقم الشحنه^FS^FO100,270^FD2 of 7^FS^FO600,230^CI28^AZN,20,15^FD تحقيق الهوية ^FS^FO400,230^FD 570.30 ^FS^FO100,230^CI28^AZN,20,15^FD طريقه الدفع ^FS ^FO200,465^CI28^AZN,20,15^FDاجمالي الطلب^FS^FO180,505^CI28^AZN,20,15^FDتكلفه الشحن^FS^FO220,550^CI28^AZN,20,15^FDالاجمالي^FS^FO650,465^CI28^AZN,20,15^FDرقم الطلب^FS^FO640,505^CI28^AZN,20,15^FDعدد القطع^FS^FO590,610^CI28^AZN,20,15^FDاسم المنتج^FS^FO200,610^CI28^AZN,20,15^FDاسم المنتج^FS^FO405,610^CI28^AZN,20,15^FDالكميه^FS^FO35,610^CI28^AZN,20,15^FDالكميه^FS^FO50,640^CI28^AZN,20,15^FD3^FS^FO50,670^CI28^AZN,20,15^FD3^FS^FO50,700^CI28^AZN,20,15^FD3^FS ^FO50,730^CI28^AZN,20,15^FD3^FS^FO50,760^CI28^AZN,20,15^FD3^FS^FO50,790^CI28^AZN,20,15^FD3^FS^FO50,820^CI28^AZN,20,15^FD3^FS^FO50,850^CI28^AZN,20,15^FD3^FS^FO50,880^CI28^AZN,20,15^FD3^FS^FO50,910^CI28^AZN,20,15^FD3^FS^FO50,940^CI28^AZN,20,15^FD3^FS^FO50,970^CI28^AZN,20,15^FD3^FS^FO50,1000^CI28^AZN,20,15^FD3^FS^FO50,1030^CI28^AZN,20,15^FD3^FS^FO50,1060^CI28^AZN,20,15^FD3^FS^FO420,640^CI28^AZN,20,15^FD3^FS^FO420,670^CI28^AZN,20,15^FD3^FS^FO420,700^CI28^AZN,20,15^FD3^FS^FO420,730^CI28^AZN,20,15^FD3^FS^FO420,760^CI28^AZN,20,15^FD3^FS^FO420,790^CI28^AZN,20,15^FD3^FS^FO420,820^CI28^AZN,20,15^FD3^FS^FO420,850^CI28^AZN,20,15^FD3^FS^FO420,880^CI28^AZN,20,15^FD3^FS^FO420,910^CI28^AZN,20,15^FD3^FS^FO420,940^CI28^AZN,20,15^FD3^FS^FO420,970^CI28^AZN,20,15^FD3^FS^FO420,1000^CI28^AZN,20,15^FD3^FS^FO420,1030^CI28^AZN,20,15^FD3^FS^FO420,1060^CI28^AZN,20,15^FD3^FS^FO730,640^CI28^AZN,20,15^FDmilk^FS^FO730,670^CI28^AZN,20,15^FDmilk^FS^FO730,700^CI28^AZN,20,15^FDmilk^FS^FO730,730^CI28^AZN,20,15^FDmilk^FS ^FO730,760^CI28^AZN,20,15^FDmilk^FS^FO730,790^CI28^AZN,20,15^FDmilk^FS\n^FO730,820^CI28^AZN,20,15^FDmilk^FS^FO730,850^CI28^AZN,20,15^FDmilk^FS^FO730,880^CI28^AZN,20,15^FDmilk^FS^FO730,910^CI28^AZN,20,15^FDmilk^FS^FO730,940^CI28^AZN,20,15^FDmilk^FS^FO730,970^CI28^AZN,20,15^FDmilk^FS ^FO730,1000^CI28^AZN,20,15^FDmilk^FS ^FO730,1030^CI28^AZN,20,15^FDmilk^FS ^FO730,1060^CI28^AZN,20,15^FDmilk^FS ^FO370,640^CI28^AZN,20,15^FDmilk^FS ^FO370,670^CI28^AZN,20,15^FDmilk^FS ^FO370,700^CI28^AZN,20,15^FDmilk^FS ^FO370,730^CI28^AZN,20,15^FDmilk^FS ^FO370,760^CI28^AZN,20,15^FDmilk^FS ^FO370,790^CI28^AZN,20,15^FDmilk^FS ^FO370,820^CI28^AZN,20,15^FDmilk^FS ^FO370,850^CI28^AZN,20,15^FDmilk^FS ^FO370,880^CI28^AZN,20,15^FDmilk^FS ^FO370,910^CI28^AZN,20,15^FDmilk^FS ^FO370,940^CI28^AZN,20,15^FDmilk^FS ^FO370,970^CI28^AZN,20,15^FDmilk^FS ^FO370,1000^CI28^AZN,20,15^FDmilk^FS ^FO370,1030^CI28^AZN,20,15^FDmilk^FS ^FO370,1060^CI28^AZN,20,15^FDmilk^FS ^FO30,260^GB750,40,1^FS ^FO500,260^GB1,40,1^FS ^FO400,260^GB1,40,1^FS ^FO200,260^GB1,40,1^FS ^AZN,35,20^AAN,15,10^FO90,320^BCN,85,Y,N^FD>;H1506070807080^FS^PQ1 ^FO600,320^BQN,2,4^FDH1506070807080^FS ^FO480,450^GB300,80,1^FS ^FO600,450^GB1,80,1^FS ^FO480,490^GB300,1^FS ^FO30,450^GB300,130,1^FS ^FO150,450^GB1,130,1^FS ^FO30,490^GB300,1^FS ^FO30,530^GB300,1^FS ^FO30,600^GB750,500,1^FS ^FO90,600^GB1,500,1^FS ^FO400,600^GB1,500,1^FS ^FO460,600^GB1,500,1^FS ^FO30,630^GB750,1^FS ^FO30,660^GB750,1^FS ^FO30,690^GB750,1^FS ^FO30,720^GB750,1^FS ^FO30,750^GB750,1^FS ^FO30,780^GB750,1^FS ^FO30,810^GB750,1^FS ^FO30,840^GB750,1^FS ^FO30,870^GB750,1^FS ^FO30,900^GB750,1^FS ^FO30,930^GB750,1^FS ^FO30,960^GB750,1^FS ^FO30,990^GB750,1^FS ^FO30,1020^GB750,1^FS ^FO30,1050^GB750,1^FS^XZ".getBytes();
             }
 
         return configLabel;

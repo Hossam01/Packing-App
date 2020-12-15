@@ -9,6 +9,10 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityGetOrderDataBinding;
@@ -20,10 +24,6 @@ import com.example.packingapp.model.ResponseUpdateStatus;
 import com.example.packingapp.viewmodel.GetOrderDataViewModel;
 
 import java.util.List;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 public class GetOrderDatactivity extends AppCompatActivity {
     ActivityGetOrderDataBinding binding;
@@ -116,10 +116,10 @@ public class GetOrderDatactivity extends AppCompatActivity {
             public void onClick(View v) {
                 ViewDialog alert = new ViewDialog();
                 alert.showDialog(GetOrderDatactivity.this);
-                UploadHeader();
-                UploadDetails();
-                //TODO Update staatus on magento
-                UpdateStatus();
+//                UploadHeader();
+//                UploadDetails();
+//                //TODO Update staatus on magento
+//                UpdateStatus();
             }
         });
 
