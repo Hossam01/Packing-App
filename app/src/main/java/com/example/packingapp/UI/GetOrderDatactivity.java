@@ -53,7 +53,6 @@ public class GetOrderDatactivity extends AppCompatActivity {
                         || keyEvent.getAction() == KeyEvent.KEYCODE_DPAD_CENTER){
                     LoadNewPurchaseOrder();
                 }
-
                 return false;
             }
         });
