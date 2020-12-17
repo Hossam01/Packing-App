@@ -3,11 +3,13 @@ package com.example.packingapp.UI;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,12 +21,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
@@ -34,7 +30,6 @@ import com.example.packingapp.model.ResponseDriver;
 import com.example.packingapp.model.ResponseSms;
 import com.example.packingapp.model.ResponseUpdateStatus;
 import com.example.packingapp.model.TimeSheet.RecordsItem;
-import com.example.packingapp.model.TimeSheet.Response;
 import com.example.packingapp.viewmodel.AssignPackedOrderToZoneViewModel;
 import com.onbarcode.barcode.android.AndroidColor;
 import com.onbarcode.barcode.android.Code93;
@@ -48,6 +43,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity {
     private static final String TAG = "AssignPackedOrderForZon";
@@ -240,8 +241,21 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
             public void onClick(View v) {
                 Log.e(TAG, "onClick:spi "+binding.spinerDriverId.getSelectedItemPosition());
                 Log.e(TAG, "onClick:spic  "+binding.spinerDriverId.getSelectedItem().toString());
+//                Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+//                browserIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//
+//                browserIntent.setDataAndType(Uri.parse("/storage/emulated/0/HyperOne.pdf"), "application/pdf");
+//                startActivity(browserIntent);
+
+               // File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/HyperOne.pdf");
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+//                intent.setDataAndType(Uri.parse("/storage/emulated/0/HyperOne.pdf"), "application/pdf");
+                intent.setDataAndType(Uri.parse("/storage/emulated/0/HyperOne.pdf"), "*/*");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
+
                 //TODO apply validation to spinner driver id
-                if (binding.spinerDriverId.getSelectedItemPosition()!=0) {
+               /* if (binding.spinerDriverId.getSelectedItemPosition()!=0) {
                     List<RecievePackedModule> recievePackedORDER_NO_Distinctlist = database.userDao().getRecievePacked_ORDER_NO_Distinct();
                     List<RecievePackedModule> NOTrecievedPackedORDERlist = new ArrayList<>();
                     if (recievePackedORDER_NO_Distinctlist.size() > 0) {
@@ -293,7 +307,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 }else {
                     Toast.makeText(context, getResources().getString(R.string.choice_driver_id), Toast.LENGTH_SHORT).show();
                 }
-
+*/
             }
         });
 
@@ -751,6 +765,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
         ActivityCompat.requestPermissions(this, new String[]{"android.permission.WRITE_EXTERNAL_STORAGE"}, 0);
         createPdf(items);
 
+        //TODO use phone number of customer
       //  String CustomerPhone =items.get(0).getCUSTOMER_PHONE().toString().replace("+2","");
         String CustomerPhone ="01065286596";
         SendSMS(CustomerPhone,"Your Order In His Way");

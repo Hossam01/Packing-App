@@ -255,6 +255,8 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                 Log.e(TAG, "onClick: " + NOtrackingnumber);
 
                 List<RecievePackedModule> recievePackedlist = database.userDao().getRecievePacked_ORDER_NO(OrderNumber);
+                Log.e(TAG, "onClick: OrdrecievePackedlist " + recievePackedlist.size());
+
                 if (recievePackedlist.size() == 0) {
                     binding.editTrackingnumber.setError(null);
 
@@ -266,6 +268,8 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
 
                     //    Toast.makeText(RecievePackedOrderForSortingActivity.this, "تم", Toast.LENGTH_SHORT).show();
                 } else {
+                    Log.e(TAG, "LoadNewPurchaseOrder: "+binding.editTrackingnumber.getText().toString() );
+                    Log.e(TAG, "LoadNewPurchaseOrder: "+recievePackedlist.get(0).getNO_OF_PACKAGES() );
                     if (database.userDao().getRecievePacked_Tracking_Number(binding.editTrackingnumber.getText().toString())
                             .size() == 0 && Integer.valueOf(recievePackedlist.get(0).getNO_OF_PACKAGES()) >=
                             Integer.valueOf(NOtrackingnumber)) {

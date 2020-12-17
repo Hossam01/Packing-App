@@ -124,6 +124,7 @@ public class AssignItemToPackagesActivity extends AppCompatActivity {
                 }else {
                     Toast.makeText(AssignItemToPackagesActivity.this, getResources().getString(R.string.notadd), Toast.LENGTH_SHORT).show();
                 }
+                binding.editBarcode.requestFocus();
             }
         });
     }
@@ -171,18 +172,23 @@ public class AssignItemToPackagesActivity extends AppCompatActivity {
                     binding.editBarcode.requestFocus();
                 } else {
                     binding.editBarcode.setError(getResources().getString(R.string.enterbefor));
+                    binding.editBarcode.setText("");
                     binding.editBarcode.requestFocus();
+
                 }
 
             }else {
                 Toast.makeText(AssignItemToPackagesActivity.this, getResources().getString(R.string.enter_valid_barcode), Toast.LENGTH_SHORT).show();
                 binding.editBarcode.setError(getResources().getString(R.string.enter_valid_barcode));
+                binding.editBarcode.setText("");
                 binding.editBarcode.requestFocus();
             }
+            binding.editBarcode.requestFocus();
         } else {
             binding.editBarcode.setError(getResources().getString(R.string.enter_barcode));
             binding.editBarcode.requestFocus();
         }
+        binding.editBarcode.requestFocus();
     }
 
     @Override

@@ -1,12 +1,5 @@
 package com.example.packingapp.Database;
 
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
-import androidx.room.Update;
-
 import com.example.packingapp.model.DriverModules.DriverPackages_Details_DB;
 import com.example.packingapp.model.DriverModules.DriverPackages_Header_DB;
 import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
@@ -20,6 +13,12 @@ import com.example.packingapp.model.TrackingnumbersListDB;
 
 import java.util.List;
 
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+import androidx.room.Update;
 import io.reactivex.Observable;
 
 import static androidx.room.OnConflictStrategy.REPLACE;
@@ -35,7 +34,6 @@ public interface UserDao {
 
     @Insert(onConflict = REPLACE)
     void insertUser(RecordsItem mUser);
-
 
     @Delete
     void delete(RecordsItem mUser);
@@ -120,17 +118,48 @@ public interface UserDao {
     @Query("UPDATE itemsOrderDataDBDetails SET TrackingNumber = :tracking WHERE  sku in (:items) ")
      void updatetrackingnumberforListOfItems(String tracking , List<String> items);
 
+    @Query("UPDATE itemsOrderDataDBDetails SET TrackingNumber = :tracking WHERE  sku in (:items) ")
+    void DeleteTrackingNumberFromDetailstable_using_sku(String tracking , List<String> items);
+
     @Query("SELECT DISTINCT TrackingNumber FROM itemsOrderDataDBDetails where TrackingNumber is not null or TrackingNumber !=''")
     List<PackedPackageModule> getAllPckages();
 
     @Query("SELECT * FROM itemsOrderDataDBDetails where TrackingNumber =:TrackingNumber")
     List<PackedPackageItemsModule> getItemsOfTrackingNumber(String TrackingNumber);
 
+    @Query("SELECT sku FROM itemsOrderDataDBDetails where TrackingNumber =:TrackingNumber")
+    List<String> getskuOfTrackingNumber(String TrackingNumber);
+
     @Query("UPDATE itemsOrderDataDBDetails SET TrackingNumber = NULL WHERE  TrackingNumber in (:tracking) ")
     void DeleteTrackingNumber(String tracking );
 
-    @Query("UPDATE TrackingnumbersListDB SET TrackingNumber = NULL WHERE  TrackingNumber in (:tracking) ")
+    //@Query("UPDATE TrackingnumbersListDB SET TrackingNumber = NULL WHERE  TrackingNumber in (:tracking) ")
+    @Query("DELETE FROM TrackingnumbersListDB WHERE  TrackingNumber in (:tracking) ")
     void DeleteTrackingNumberFromtrackingtable(String tracking );
+
+    @Query("DELETE FROM TrackingnumbersListDB WHERE  uid in (:uid) ")
+    void DeleteTrackingNumberFromtrackingtable_using_uid (int uid );
+
+    @Query("SELECT uid FROM TrackingnumbersListDB WHERE  TrackingNumber =:tracking ")
+    int GetUID(String tracking );
+
+    @Query(" SELECT TrackingNumber from TrackingnumbersListDB WHERE  uid >(\n" +
+            "  SELECT uid from TrackingnumbersListDB where TrackingNumber = :tracking ORDER BY TrackingNumber \n" +
+            "  ) ")
+    List<String> GetTrackingNumbersAfterDeleteOne(String tracking );
+
+    @Query(" SELECT  CAST(substr( TrackingNumber,instr( TrackingNumber ,'-')+1 , 1000 )" +
+            " AS INT)-1  AS NewTrackingNumber  FROM TrackingnumbersListDB \n" +
+            "WHERE  uid >(\n" +
+            "  SELECT uid from TrackingnumbersListDB where TrackingNumber = :tracking " +
+            "  )  ")
+    List<Integer> GetNewTrackingNumbersAfterDeleteOne(String tracking );
+
+    @Query("UPDATE TrackingnumbersListDB SET TrackingNumber = :trackingnew WHERE  TrackingNumber =:trackinglast ")
+    void updatetrackingnumberAfterDeleteOne_ListDB(String trackingnew ,String trackinglast);
+
+    @Query("UPDATE itemsOrderDataDBDetails SET TrackingNumber = :trackingnew WHERE  TrackingNumber =:trackinglast ")
+    void updatetrackingnumberAfterDeleteOne_Details(String trackingnew ,String trackinglast);
 
     @Query("UPDATE itemsOrderDataDBDetails SET TrackingNumber = NULL WHERE  sku in (:Barcode) ")
     void DeleteTrackingNumberForItem(String Barcode );

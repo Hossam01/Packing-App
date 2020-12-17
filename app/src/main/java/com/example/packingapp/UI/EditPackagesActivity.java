@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 import com.example.packingapp.Adapter.PackedPackagesAdapter;
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.R;
@@ -156,10 +157,52 @@ public class EditPackagesActivity extends AppCompatActivity {
                                 .setTitle(getString(R.string.delete_dialoge))
                                 .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
-                                        database.userDao().DeleteTrackingNumber(TrackingnumberToEditORDelete);
-                                        database.userDao().DeleteTrackingNumberFromtrackingtable(TrackingnumberToEditORDelete);
+//                                        database.userDao().DeleteTrackingNumber(TrackingnumberToEditORDelete);
+//                                        database.userDao().DeleteTrackingNumberFromtrackingtable(TrackingnumberToEditORDelete);
+                                        int UID_to_delete =database.userDao().GetUID(TrackingnumberToEditORDelete);
+                                        Log.e(TAG, "onClick: UID_to_delete "+UID_to_delete );
+                                        List<String> sku_to_remove =database.userDao().getskuOfTrackingNumber(TrackingnumberToEditORDelete);
+                                        Log.e(TAG, "onClick:sku_to_remove "+sku_to_remove.size() );
+                                        List<String> AfterTrackingNumberDeleted_list=database.userDao().
+                                                GetTrackingNumbersAfterDeleteOne(TrackingnumberToEditORDelete);
+                                        Log.e(TAG, "onClick:LastTrackingNumber "+AfterTrackingNumberDeleted_list.size() );
 
+                                        List<Integer> NewTrackingNumber_NUM=database.userDao().
+                                                GetNewTrackingNumbersAfterDeleteOne(TrackingnumberToEditORDelete);
+                                        Log.e(TAG, "onClick:NewTrackingNumber_NUM "+NewTrackingNumber_NUM.size() );
+                                        List<String> NewTrackingNumber=new ArrayList<>();
+
+                                        for (int i=0;i<NewTrackingNumber_NUM.size();i++) {
+                                            int num=NewTrackingNumber_NUM.get(i);
+                                            if (num < 10) {
+                                                String Trackingnumber = database.userDao().getOrderNumber() + "-0" + num;
+                                                NewTrackingNumber.add(Trackingnumber);
+                                                Log.e(TAG, "onClick:NewTrackingNumber "+NewTrackingNumber.get(i));
+//                                                database.userDao().Insertrackingnumber(new TrackingnumbersListDB(Trackingnumber));
+//                                                database.userDao().updatetrackingnumberforListOfItems(Trackingnumber, ListOfBarcodesToAssign);
+                                                database.userDao().updatetrackingnumberAfterDeleteOne_Details(Trackingnumber, AfterTrackingNumberDeleted_list.get(i));
+                                                database.userDao().updatetrackingnumberAfterDeleteOne_ListDB(Trackingnumber, AfterTrackingNumberDeleted_list.get(i));
+                                                Log.e(TAG, "onClick:Trackingnumber "+Trackingnumber );
+                                                Log.e(TAG, "onClick:LastTrackingNumber "+AfterTrackingNumberDeleted_list.get(i) );
+                                            } else {
+                                                String Trackingnumber = database.userDao().getOrderNumber() + "-" + num;
+                                                NewTrackingNumber.add(Trackingnumber);
+                                                Log.e(TAG, "onClick:NewTrackingNumber "+NewTrackingNumber.get(i) );
+                                                //TODO can we do update for list after finish using NewTrackingNumber list
+                                                database.userDao().updatetrackingnumberAfterDeleteOne_Details(Trackingnumber, AfterTrackingNumberDeleted_list.get(i));
+                                                database.userDao().updatetrackingnumberAfterDeleteOne_ListDB(Trackingnumber, AfterTrackingNumberDeleted_list.get(i));
+                                                Log.e(TAG, "onClick:Trackingnumber "+Trackingnumber );
+                                                Log.e(TAG, "onClick:LastTrackingNumber "+AfterTrackingNumberDeleted_list.get(i) );
+
+//                                                database.userDao().Insertrackingnumber(new TrackingnumbersListDB(Trackingnumber));
+//                                                database.userDao().updatetrackingnumberforListOfItems(Trackingnumber, ListOfBarcodesToAssign);
+                                            }
+                                        }
+
+                                        database.userDao().DeleteTrackingNumberFromtrackingtable_using_uid(UID_to_delete);
+                                        database.userDao().DeleteTrackingNumberFromDetailstable_using_sku(null , sku_to_remove);
                                         CreateORUpdateRecycleView();
+//                                        packedPackagesAdapter.notifyDataSetChanged();
                                     }
                                 })
                                 .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {

@@ -22,10 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="450dp"
             android:orientation="horizontal"
-
             android:scrollbarAlwaysDrawHorizontalTrack="true"
             android:background="@drawable/module_bg_packages"
-
             >
             <LinearLayout
                 android:layout_width="match_parent"
