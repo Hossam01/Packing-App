@@ -28,9 +28,14 @@ public class RecievePackedModule {
         @SerializedName("Tracking_Number")
         private String Tracking_Number;
 
+    @ColumnInfo(name ="DRIVER_ID")
+    @SerializedName("DRIVER_ID")
+    private String DRIVER_ID;
+
+
     @ColumnInfo(name ="Zone")
-    @SerializedName("Zone")
-    private String Zone;
+        @SerializedName("Zone")
+        private String Zone;
 
 
     public RecievePackedModule() {
@@ -91,6 +96,14 @@ public class RecievePackedModule {
         Tracking_Number = tracking_Number;
     }
 
+    public String getDRIVER_ID() {
+        return DRIVER_ID;
+    }
+
+    public void setDRIVER_ID(String DRIVER_ID) {
+        this.DRIVER_ID = DRIVER_ID;
+    }
+
     public String getZone() {
         return Zone;
     }
@@ -98,4 +111,6 @@ public class RecievePackedModule {
     public void setZone(String zone) {
         Zone = zone;
     }
+
+
 }

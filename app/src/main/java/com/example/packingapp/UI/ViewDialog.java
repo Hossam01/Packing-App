@@ -216,8 +216,15 @@ public class ViewDialog {
                   configLabel="".getBytes();
                     print.clear();
                     for (int j=0;j<database.userDao().getDetailsTrackingnumberToUpload().size();j++) {
-                        if (database.userDao().getTrackingnumberDB().get(i).getTrackingNumber().equals(database.userDao().getDetailsTrackingnumberToUpload().get(j).getTrackingNumber())) {
-                            ItemsOrderDataDBDetails itemsOrderDataDBDetails = new ItemsOrderDataDBDetails(database.userDao().getDetailsTrackingnumberToUpload().get(j).getName(),database.userDao().getDetailsTrackingnumberToUpload().get(j).getPrice(),database.userDao().getDetailsTrackingnumberToUpload().get(j).getQuantity(),database.userDao().getDetailsTrackingnumberToUpload().get(j).getSku(),database.userDao().getDetailsTrackingnumberToUpload().get(j).getUnite(),database.userDao().getDetailsTrackingnumberToUpload().get(j).getTrackingNumber());
+                        if (database.userDao().getTrackingnumberDB().get(i).getTrackingNumber().equals(
+                                database.userDao().getDetailsTrackingnumberToUpload().get(j).getTrackingNumber())) {
+                            ItemsOrderDataDBDetails itemsOrderDataDBDetails = new ItemsOrderDataDBDetails(
+                                    database.userDao().getDetailsTrackingnumberToUpload().get(j).getName(),
+                                    database.userDao().getDetailsTrackingnumberToUpload().get(j).getPrice(),
+                                    database.userDao().getDetailsTrackingnumberToUpload().get(j).getQuantity(),
+                                    database.userDao().getDetailsTrackingnumberToUpload().get(j).getSku(),
+                                    database.userDao().getDetailsTrackingnumberToUpload().get(j).getUnite(),
+                                    database.userDao().getDetailsTrackingnumberToUpload().get(j).getTrackingNumber());
                             print.add(itemsOrderDataDBDetails);
                         }
                     }

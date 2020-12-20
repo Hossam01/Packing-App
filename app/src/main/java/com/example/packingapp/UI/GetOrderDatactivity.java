@@ -1,5 +1,7 @@
 package com.example.packingapp.UI;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -113,8 +115,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
         binding.btnPrintAwb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewDialog alert = new ViewDialog();
-                alert.showDialog(GetOrderDatactivity.this);
+
                 UploadHeader();
                 UploadDetails();
 //                //TODO Update staatus on magento
@@ -138,7 +139,20 @@ public class GetOrderDatactivity extends AppCompatActivity {
 
     private void LoadNewPurchaseOrder() {
         if (!binding.editMagentoorder.getText().toString().isEmpty()) {
-            GETOrderData();
+            new AlertDialog.Builder(GetOrderDatactivity.this)
+                    .setTitle(getString(R.string.will_delete_last_order))
+                    .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            GETOrderData();
+                        }
+                    })
+                    .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            dialog.cancel();
+                        }
+                    }).show();
+
+
         }else {
             binding.editMagentoorder.setError(getResources().getString(R.string.enter));
         }
@@ -269,6 +283,8 @@ public class GetOrderDatactivity extends AppCompatActivity {
                     Toast.makeText(GetOrderDatactivity.this, ""+message.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "onChanged: "+message.getMessage() );
                     Toast.makeText(GetOrderDatactivity.this, getResources().getString(R.string.doneforheader), Toast.LENGTH_SHORT).show();
+                    ViewDialog alert = new ViewDialog();
+                    alert.showDialog(GetOrderDatactivity.this);
                 }
             });
         }else {
@@ -288,6 +304,7 @@ public class GetOrderDatactivity extends AppCompatActivity {
                 public void onChanged(ResponseUpdateStatus message) {
                     Toast.makeText(GetOrderDatactivity.this, ""+message.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "onChanged: "+message.getMessage() );
+
                 }
             });
 //        }else {

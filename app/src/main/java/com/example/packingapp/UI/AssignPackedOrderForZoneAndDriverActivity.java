@@ -3,13 +3,11 @@ package com.example.packingapp.UI;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -30,6 +28,7 @@ import com.example.packingapp.model.ResponseDriver;
 import com.example.packingapp.model.ResponseSms;
 import com.example.packingapp.model.ResponseUpdateStatus;
 import com.example.packingapp.model.TimeSheet.RecordsItem;
+import com.example.packingapp.model.TimeSheet.Response;
 import com.example.packingapp.viewmodel.AssignPackedOrderToZoneViewModel;
 import com.onbarcode.barcode.android.AndroidColor;
 import com.onbarcode.barcode.android.Code93;
@@ -248,14 +247,14 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
 //                startActivity(browserIntent);
 
                // File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/HyperOne.pdf");
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-//                intent.setDataAndType(Uri.parse("/storage/emulated/0/HyperOne.pdf"), "application/pdf");
-                intent.setDataAndType(Uri.parse("/storage/emulated/0/HyperOne.pdf"), "*/*");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                startActivity(intent);
+             /*/   Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.parse("/storage/emulated/0/HyperOne.pdf"), "application/pdf");
+//                intent.setDataAndType(Uri.parse("/storage/emulated/0/HyperOne.pdf"), "*/ // *");
+             //   intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+              //  startActivity(intent);
 
                 //TODO apply validation to spinner driver id
-               /* if (binding.spinerDriverId.getSelectedItemPosition()!=0) {
+               if (binding.spinerDriverId.getSelectedItemPosition()!=0) {
                     List<RecievePackedModule> recievePackedORDER_NO_Distinctlist = database.userDao().getRecievePacked_ORDER_NO_Distinct();
                     List<RecievePackedModule> NOTrecievedPackedORDERlist = new ArrayList<>();
                     if (recievePackedORDER_NO_Distinctlist.size() > 0) {
@@ -307,7 +306,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 }else {
                     Toast.makeText(context, getResources().getString(R.string.choice_driver_id), Toast.LENGTH_SHORT).show();
                 }
-*/
+
             }
         });
 
@@ -421,7 +420,6 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
             List<RecievePackedModule> recievePackedlist=  database.userDao().getRecievePacked_ORDER_NO(OrderNumber);
             if (recievePackedlist.size() == 0){
                 binding.editTrackingnumberZone.setError(null);
-
                 AssignToZone(binding.editTrackingnumberZone.getText().toString()
                         ,binding.editZone.getText().toString());
                 Log.e(TAG, "onClick: Ord "+OrderNumber );
@@ -631,6 +629,12 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 );
             }
            // Log.e(TAG, "UpdateStatus_zone_ON_83 zzzo : "+orderDataModuleDBHeaderkist.get(0).getZone() );
+
+            //TODO use phone number of customer
+            //  String CustomerPhone =items.get(0).getCUSTOMER_PHONE().toString().replace("+2","");
+            String CustomerPhone ="01065286596";
+            SendSMS(CustomerPhone,"Your Order In His Way");
+
         }else {
             Toast.makeText(context, getResources().getString(R.string.not_enter), Toast.LENGTH_SHORT).show();
         }
@@ -731,7 +735,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 binding.editTrackingnumberDriver.setText("");
                 binding.editTrackingnumberDriver.setError(null);
                 Log.e(TAG, "onClick: Trac "+binding.editTrackingnumberDriver.getText().toString() );
-               // Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
             }else {
                 binding.editTrackingnumberDriver.setError(getResources().getString(R.string.enterbefor));
                 binding.editTrackingnumberDriver.setText("");
@@ -764,11 +768,6 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
     private void PrintRunTimeSheet(List<RecordsItem> items) {
         ActivityCompat.requestPermissions(this, new String[]{"android.permission.WRITE_EXTERNAL_STORAGE"}, 0);
         createPdf(items);
-
-        //TODO use phone number of customer
-      //  String CustomerPhone =items.get(0).getCUSTOMER_PHONE().toString().replace("+2","");
-        String CustomerPhone ="01065286596";
-        SendSMS(CustomerPhone,"Your Order In His Way");
     }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void createPdf(List<RecordsItem> items) {

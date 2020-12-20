@@ -102,7 +102,7 @@
     <string name="newOrder">ادخل امر شراء جديد</string>
     <string name="edit">تعديل</string>
     <string name="loadnewOrder">تحميل البيانات</string>
-    <string name="loadlastOrder">تحميل آخر أمر البيع</string>
+    <string name="loadlastOrder">تحميل آخر أمر بيع</string>
     <string name="serial">كود تتبع الشحنه</string>
     <string name="search">بحث</string>
     <string name="Show_Assign_Orders_To_Zone">عرض الشحنات حسب المنطقة</string>
@@ -136,4 +136,5 @@
     <string name="rejected_packages">الشحنات المرفوضه</string>
     <string name="txt_enter_number">أدخل أمر البيع</string>
     <string name="total_price">اجمالى السعر</string>
+    <string name="will_delete_last_order">سوف يتم حذف أخر أمر بيع</string>
 </resources>
