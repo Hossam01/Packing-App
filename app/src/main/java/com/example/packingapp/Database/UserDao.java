@@ -4,6 +4,7 @@ import com.example.packingapp.model.DriverModules.DriverPackages_Details_DB;
 import com.example.packingapp.model.DriverModules.DriverPackages_Header_DB;
 import com.example.packingapp.model.GetOrderResponse.ItemsOrderDataDBDetails;
 import com.example.packingapp.model.GetOrderResponse.OrderDataModuleDBHeader;
+import com.example.packingapp.model.ModulesIDS;
 import com.example.packingapp.model.PackedPackageItemsModule;
 import com.example.packingapp.model.PackedPackageModule;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
@@ -35,6 +36,12 @@ public interface UserDao {
     @Insert(onConflict = REPLACE)
     void insertUser(RecordsItem mUser);
 
+    @Insert(onConflict = REPLACE)
+    void insertModules(List<ModulesIDS> mUser);
+
+    @Query("SELECT * FROM ModulesIDS")
+    List<ModulesIDS> getModules();
+
     @Delete
     void delete(RecordsItem mUser);
 
@@ -43,6 +50,9 @@ public interface UserDao {
 
     @Query("DELETE FROM user")
     void deleteAll();
+
+    @Query("DELETE FROM ModulesIDS")
+    void deleteAll_Modules();
 
 //    @Query(" INSERT INTO OrderDataModuleDBHeader VALUES(" +)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -238,5 +248,7 @@ public interface UserDao {
 
     @Query("SELECT * FROM TrackingnumbersListDB")
     List<TrackingnumbersListDB> countShipment();
+
+
 
 }

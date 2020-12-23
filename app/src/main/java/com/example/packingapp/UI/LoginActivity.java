@@ -6,15 +6,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityLoginBinding;
 import com.example.packingapp.model.ResponseLogin;
 import com.example.packingapp.viewmodel.LoginViewModel;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -49,8 +49,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(ResponseLogin responseLogin) {
                 database.userDao().deleteAll();
+                database.userDao().deleteAll_Modules();
                 Log.e(TAG, "onChanged: "+responseLogin.getRecords().get(0).getGroupID() );
+                Log.e(TAG, "onChanged: "+responseLogin.getModulesIDS().size() );
+
                 database.userDao().insertUser(responseLogin.getRecords().get(0));
+                database.userDao().insertModules(responseLogin.getModulesIDS());
 
                 if (responseLogin.getRecords().get(0).getGroupID().equalsIgnoreCase("1")){
                     Intent i = new Intent(getApplicationContext(), GetOrderDatactivity.class);

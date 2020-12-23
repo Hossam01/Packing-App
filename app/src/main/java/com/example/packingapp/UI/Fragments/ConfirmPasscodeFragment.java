@@ -133,7 +133,7 @@ FragmentConfirmPasscodeBinding binding;
                    }else {
                        UpdateStatus_Passcode_Header_ON_83("Has-Been-Delivered");
                        //TODO list for tracking number and reason and status for details
-                         UpdateStatus_Reason_Details_ON_83(driverPackages_details_dbList);
+                       UpdateStatus_Reason_Details_ON_83(driverPackages_details_dbList);
                        UpdateStatus("has_been_delivered");
                    }
 
@@ -210,7 +210,7 @@ FragmentConfirmPasscodeBinding binding;
                 }
             });
         } else {
-            Toast.makeText(getActivity(), "لم الرفع .. أضغط مره أخرى ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "لم يتم الرفع .. أضغط مره أخرى ", Toast.LENGTH_SHORT).show();
         }
 
     }

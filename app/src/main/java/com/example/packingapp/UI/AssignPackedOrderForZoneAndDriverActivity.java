@@ -67,7 +67,8 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
         setContentView(binding.getRoot());
         database=AppDatabase.getDatabaseInstance(this);
 
-        assignPackedOrderToZoneViewModel= ViewModelProviders.of(this).get(AssignPackedOrderToZoneViewModel.class);
+        assignPackedOrderToZoneViewModel= ViewModelProviders.of(this)
+                .get(AssignPackedOrderToZoneViewModel.class);
 
         GETDriverID();
 
@@ -116,6 +117,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                                     binding.editTrackingnumberZone.setError(null);
                                     binding.editZone.setError(null);
                                     binding.editZone.setText("");
+                                    binding.editTrackingnumberZone.requestFocus();
                                 }
                             })
                             .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
@@ -221,6 +223,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     database.userDao().deleteRecievePackedModule();
                                     binding.editTrackingnumberDriver.setError(null);
+                                    binding.editTrackingnumberDriver.requestFocus();
                                 }
                             })
                             .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
@@ -342,6 +345,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                                     if (binding.linearAssignOrderToZone.getVisibility() == View.GONE) {
                                         binding.linearAssignOrderToZone.setVisibility(View.VISIBLE);
                                         binding.linearAssignOrderToDriver.setVisibility(View.GONE);
+                                        binding.editTrackingnumberZone.requestFocus();
                                     } else if (binding.linearAssignOrderToZone.getVisibility() == View.VISIBLE) {
                                         binding.linearAssignOrderToZone.setVisibility(View.GONE);
                                         binding.linearAssignOrderToDriver.setVisibility(View.GONE);
@@ -358,6 +362,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                     if (binding.linearAssignOrderToZone.getVisibility() == View.GONE) {
                         binding.linearAssignOrderToZone.setVisibility(View.VISIBLE);
                         binding.linearAssignOrderToDriver.setVisibility(View.GONE);
+                        binding.editTrackingnumberZone.requestFocus();
                     } else if (binding.linearAssignOrderToZone.getVisibility() == View.VISIBLE) {
                         binding.linearAssignOrderToZone.setVisibility(View.GONE);
                         binding.linearAssignOrderToDriver.setVisibility(View.GONE);
@@ -380,6 +385,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                                     if (binding.linearAssignOrderToDriver.getVisibility() == View.GONE) {
                                         binding.linearAssignOrderToZone.setVisibility(View.GONE);
                                         binding.linearAssignOrderToDriver.setVisibility(View.VISIBLE);
+                                        binding.editTrackingnumberDriver.requestFocus();
                                     } else if (binding.linearAssignOrderToDriver.getVisibility() == View.VISIBLE) {
                                         binding.linearAssignOrderToZone.setVisibility(View.GONE);
                                         binding.linearAssignOrderToDriver.setVisibility(View.GONE);
@@ -396,6 +402,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                     if (binding.linearAssignOrderToDriver.getVisibility() == View.GONE) {
                         binding.linearAssignOrderToZone.setVisibility(View.GONE);
                         binding.linearAssignOrderToDriver.setVisibility(View.VISIBLE);
+                        binding.editTrackingnumberDriver.requestFocus();
                     } else if (binding.linearAssignOrderToDriver.getVisibility() == View.VISIBLE) {
                         binding.linearAssignOrderToZone.setVisibility(View.GONE);
                         binding.linearAssignOrderToDriver.setVisibility(View.GONE);
@@ -484,7 +491,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                     binding.editZone.setText("");
                     binding.editZone.setError(null);
                     Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
-
+                    binding.editTrackingnumberZone.requestFocus();
                    // Toast.makeText(context, "تم", Toast.LENGTH_SHORT).show();
                 } else {
                     new AlertDialog.Builder(AssignPackedOrderForZoneAndDriverActivity.this)
@@ -503,6 +510,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                                     binding.editTrackingnumberDriver.setError(null);
                                     binding.editZone.setText("");
                                     binding.editZone.setError(null);
+                                    binding.editTrackingnumberZone.requestFocus();
                                     database.userDao().UpdatezoneForORDER_NO(OrderNumber, Zone1);
                                     Toast.makeText(context,getResources().getString(R.string.confirm), Toast.LENGTH_SHORT).show();
                                 }

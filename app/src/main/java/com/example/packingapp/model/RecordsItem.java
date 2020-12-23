@@ -1,11 +1,11 @@
 package com.example.packingapp.model;
 
 
+import com.google.gson.annotations.SerializedName;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "user")
 public class RecordsItem {
 	@PrimaryKey(autoGenerate = true)
@@ -28,6 +28,7 @@ public class RecordsItem {
 	@ColumnInfo(name = "user_id")
 	@SerializedName("id")
 	private String user_id;
+
 	@ColumnInfo(name = "User_Description")
 	@SerializedName("User_Description")
 	private String userDescription;

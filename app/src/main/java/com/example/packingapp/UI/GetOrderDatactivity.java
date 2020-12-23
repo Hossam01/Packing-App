@@ -106,9 +106,15 @@ public class GetOrderDatactivity extends AppCompatActivity {
         binding.btnLoadingLastPurchaseOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), AssignItemToPackagesActivity.class);
-                i.putExtra("AddNewPackageORAddForExistPackage","New");
-                startActivity(i);
+                List<ItemsOrderDataDBDetails> itemsOrderDataDBDetailsList = database.userDao().getDetailsTrackingnumberToUpload();
+                if (itemsOrderDataDBDetailsList.size() >0) {
+                    Intent i = new Intent(getApplicationContext(), AssignItemToPackagesActivity.class);
+                    i.putExtra("AddNewPackageORAddForExistPackage","New");
+                    startActivity(i);
+                }else {
+                    Toast.makeText(GetOrderDatactivity.this, "لايوجد أمر بيع سابق", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -139,19 +145,23 @@ public class GetOrderDatactivity extends AppCompatActivity {
 
     private void LoadNewPurchaseOrder() {
         if (!binding.editMagentoorder.getText().toString().isEmpty()) {
-            new AlertDialog.Builder(GetOrderDatactivity.this)
-                    .setTitle(getString(R.string.will_delete_last_order))
-                    .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            GETOrderData();
-                        }
-                    })
-                    .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            dialog.cancel();
-                        }
-                    }).show();
-
+            List<ItemsOrderDataDBDetails> itemsOrderDataDBDetailsList = database.userDao().getDetailsTrackingnumberToUpload();
+            if (itemsOrderDataDBDetailsList.size() >0) {
+                new AlertDialog.Builder(GetOrderDatactivity.this)
+                        .setTitle(getString(R.string.will_delete_last_order))
+                        .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                GETOrderData();
+                            }
+                        })
+                        .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.cancel();
+                            }
+                        }).show();
+            }else {
+                GETOrderData();
+            }
 
         }else {
             binding.editMagentoorder.setError(getResources().getString(R.string.enter));

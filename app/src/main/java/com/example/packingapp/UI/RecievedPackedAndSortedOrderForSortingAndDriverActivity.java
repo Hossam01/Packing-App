@@ -17,6 +17,7 @@ import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityRecievePackedSortedOrderForSortingDriverBinding;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
+import com.example.packingapp.model.RecordsItem;
 import com.example.packingapp.model.ResponseUpdateStatus;
 import com.example.packingapp.viewmodel.RecievePackedOrderViewModel;
 
@@ -34,13 +35,16 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
     AppDatabase database;
     final Context context = this;
     String Zone ,trackingnumberIn , RecievePackedOrConfirmForDriver="";
-
+String DriverID="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding= ActivityRecievePackedSortedOrderForSortingDriverBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         database=AppDatabase.getDatabaseInstance(this);
+        RecordsItem recordsItem = database.userDao().getUserData_MU();
+        Log.e(TAG, "onCreate: "+recordsItem.getUser_id() );
+        DriverID = recordsItem.getUser_id();
 
         if (getIntent().getExtras() !=null){
             RecievePackedOrConfirmForDriver = getIntent().getExtras().getString("RecievePackedOrConfirmForDriver");
@@ -214,7 +218,17 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
                     }
                 }else if (RecievePackedOrConfirmForDriver.equalsIgnoreCase("ConfirmForDriver")) {
                     if (responseGetOrderData.getSTATUS().equalsIgnoreCase("sorted")) {
-                        AfterGetOrderData(responseGetOrderData ,  binding.editTrackingnumber.getText().toString());
+                        if (responseGetOrderData.getDRIVER_ID() != null) {
+                            if (responseGetOrderData.getDRIVER_ID().equalsIgnoreCase(DriverID)) {
+                                AfterGetOrderData(responseGetOrderData, binding.editTrackingnumber.getText().toString());
+                            }else {
+                                Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "لم يتم تسجيل هذا الامر لك", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }else {
+                            Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "لم يتم تسجيل هذا الامر لك", Toast.LENGTH_SHORT).show();
+                        }
+
                     }else {
                         Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "This Order in "+responseGetOrderData.getSTATUS()+" State", Toast.LENGTH_SHORT).show();
                         binding.editTrackingnumber.setError(null);
@@ -405,10 +419,6 @@ ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
 
 
     }
-
-
-
-
     /*
     private void AssignToZone(String trackingnumber1 ,String Zone1){
         String OrderNumber=
