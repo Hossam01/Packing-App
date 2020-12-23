@@ -1,8 +1,8 @@
 package com.example.packingapp.UI;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
@@ -79,7 +80,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
     }
 
     private void ButtonsClickListnerForAssignToZone() {
-        binding.editZone.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        binding.editTrackingnumberZone.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if(actionId == EditorInfo.IME_ACTION_SEARCH
@@ -103,8 +104,21 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 LoadingNewPurchaseOrderZone();
             }
         });
+        binding.btnShowLastTrackingnumbersZone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<RecievePackedModule>  recievePackedORDER_NO_Distinctlist=  database.userDao().getRecievePacked_ORDER_NO_Distinct();
+                if (recievePackedORDER_NO_Distinctlist.size()>0) {
+                    Intent GoToEditRecievedPackages=new Intent(AssignPackedOrderForZoneAndDriverActivity.this,
+                            EditPackagesForRecievingActivity.class);
+                    startActivity(GoToEditRecievedPackages);
+                }else {
+                    Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "لايوجد بيانات للعرض", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
-        binding.btnDeleteLastTrackingnumbersZone.setOnClickListener(new View.OnClickListener() {
+        /*binding.btnDeleteLastTrackingnumbersZone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 List<RecievePackedModule>  recievePackedORDER_NO_Distinctlist=  database.userDao().getRecievePacked_ORDER_NO_Distinct();
@@ -129,7 +143,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                     Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "لايوجد بيانات للحذف", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
 
         binding.btnConfirmAssignOrdersToZone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,7 +226,25 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
             }
         });
 
-        binding.btnDeleteLastTrackingnumbersDriver.setOnClickListener(new View.OnClickListener() {
+        binding.btnShowLastTrackingnumbersDriver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.btnShowLastTrackingnumbersDriver.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        List<RecievePackedModule>  recievePackedORDER_NO_Distinctlist=  database.userDao().getRecievePacked_ORDER_NO_Distinct();
+                        if (recievePackedORDER_NO_Distinctlist.size()>0) {
+                            Intent GoToEditRecievedPackages=new Intent(AssignPackedOrderForZoneAndDriverActivity.this,
+                                    EditPackagesForRecievingActivity.class);
+                            startActivity(GoToEditRecievedPackages);
+                        }else {
+                            Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "لايوجد بيانات للعرض", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+        /*binding.btnDeleteLastTrackingnumbersDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 List<RecievePackedModule>  recievePackedORDER_NO_Distinctlist=  database.userDao().getRecievePacked_ORDER_NO_Distinct();
@@ -236,7 +268,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 }
             }
         });
-
+*/
         binding.btnConfirmAssignOrdersToDriver.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -309,10 +341,16 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                 }else {
                     Toast.makeText(context, getResources().getString(R.string.choice_driver_id), Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
+        binding.btnRecallRunsheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO Call runtime sheet and insert it in localDB
+
+            }
+        });
     }
 
     private void LoadingNewPurchaseOrderDriver() {
@@ -345,7 +383,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                                     if (binding.linearAssignOrderToZone.getVisibility() == View.GONE) {
                                         binding.linearAssignOrderToZone.setVisibility(View.VISIBLE);
                                         binding.linearAssignOrderToDriver.setVisibility(View.GONE);
-                                        binding.editTrackingnumberZone.requestFocus();
+                                        binding.editZone.requestFocus();
                                     } else if (binding.linearAssignOrderToZone.getVisibility() == View.VISIBLE) {
                                         binding.linearAssignOrderToZone.setVisibility(View.GONE);
                                         binding.linearAssignOrderToDriver.setVisibility(View.GONE);
@@ -443,7 +481,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
             }else {
                 binding.editTrackingnumberZone.setError("تم أدخال هذا من قبل ");
                 binding.editTrackingnumberZone.setText("");
-                binding.editZone.setText("");
+//                binding.editZone.setText("");
                 binding.editTrackingnumberZone.requestFocus();
             }
             }else {
@@ -452,7 +490,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
         }else {
             binding.editTrackingnumberZone.setError(getString(R.string.enter_valid_tracking_number));
             binding.editTrackingnumberZone.setText("");
-            binding.editZone.setText("");
+//            binding.editZone.setText("");
             binding.editTrackingnumberZone.requestFocus();
 
         }
@@ -488,7 +526,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                     binding.editTrackingnumberZone.setError(null);
                     binding.editTrackingnumberDriver.setText("");
                     binding.editTrackingnumberDriver.setError(null);
-                    binding.editZone.setText("");
+//                    binding.editZone.setText("");
                     binding.editZone.setError(null);
                     Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
                     binding.editTrackingnumberZone.requestFocus();
@@ -508,7 +546,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
                                     binding.editTrackingnumberZone.setError(null);
                                     binding.editTrackingnumberDriver.setText("");
                                     binding.editTrackingnumberDriver.setError(null);
-                                    binding.editZone.setText("");
+//                                    binding.editZone.setText("");
                                     binding.editZone.setError(null);
                                     binding.editTrackingnumberZone.requestFocus();
                                     database.userDao().UpdatezoneForORDER_NO(OrderNumber, Zone1);
@@ -586,7 +624,7 @@ public class AssignPackedOrderForZoneAndDriverActivity extends AppCompatActivity
             binding.editTrackingnumberZone.setError(null);
             binding.editTrackingnumberDriver.setText("");
             binding.editTrackingnumberDriver.setError(null);
-            binding.editZone.setText("");
+//            binding.editZone.setText("");
             binding.editZone.setError(null);
             Toast.makeText(AssignPackedOrderForZoneAndDriverActivity.this, getResources().getString(R.string.confirm), Toast.LENGTH_SHORT).show();
             Log.e(TAG, "onChanged: insertAfterGetOrderData " + trackingnumber);

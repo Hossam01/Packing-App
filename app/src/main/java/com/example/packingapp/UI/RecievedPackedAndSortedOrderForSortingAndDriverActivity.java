@@ -12,11 +12,13 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.packingapp.Adapter.RecievedPackagesAdapter;
 import com.example.packingapp.Database.AppDatabase;
 import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityRecievePackedSortedOrderForSortingDriverBinding;
 import com.example.packingapp.model.RecievePacked.RecievePackedModule;
+import com.example.packingapp.model.RecievedPackageModule;
 import com.example.packingapp.model.RecordsItem;
 import com.example.packingapp.model.ResponseUpdateStatus;
 import com.example.packingapp.viewmodel.RecievePackedOrderViewModel;
@@ -27,12 +29,16 @@ import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class RecievedPackedAndSortedOrderForSortingAndDriverActivity extends AppCompatActivity {
 ActivityRecievePackedSortedOrderForSortingDriverBinding binding;
     private static final String TAG = "RecievePackedOrderForSo";
     RecievePackedOrderViewModel recievePackedOrderViewModel;
+    List<RecievedPackageModule> Po_Item_For_Recycly;
     AppDatabase database;
+    private RecievedPackagesAdapter recievedPackagesAdapter;
     final Context context = this;
     String Zone ,trackingnumberIn , RecievePackedOrConfirmForDriver="";
 String DriverID="";
@@ -57,6 +63,8 @@ String DriverID="";
                 LoadNewPurchaseOrder();
             }
         });
+
+        CreateORUpdateRecycleView();
 
         binding.editTrackingnumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -290,7 +298,7 @@ String DriverID="";
                         database.userDao().insertRecievePacked(new RecievePackedModule(
                                 recievePackedlist.get(0).getORDER_NO(), recievePackedlist.get(0).getNO_OF_PACKAGES(),
                                 binding.editTrackingnumber.getText().toString()));
-
+                        CreateORUpdateRecycleView();
                         Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
 
                         //    GETOrderData(binding.editTrackingnumber.getText().toString());
@@ -320,6 +328,26 @@ String DriverID="";
         }
     }
 
+    public void CreateORUpdateRecycleView(){
+        Po_Item_For_Recycly = new ArrayList<>();
+
+        Po_Item_For_Recycly=database.userDao().getAllRecievedPackages();
+        recievedPackagesAdapter = new RecievedPackagesAdapter(Po_Item_For_Recycly);
+
+        binding.recycleItemsView.setHasFixedSize(true);
+
+        // vertical RecyclerView
+        // keep movie_list_row.xml width to `match_parent`
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+
+        // horizontal RecyclerView
+        // keep movie_list_row.xml width to `wrap_content`
+        // RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+
+        binding.recycleItemsView.setLayoutManager(mLayoutManager);
+        binding.recycleItemsView.setAdapter(recievedPackagesAdapter);
+
+    }
 
     private void GETOrderData(String ordernumber ){
         recievePackedOrderViewModel.fetchdata(ordernumber);
@@ -337,6 +365,7 @@ String DriverID="";
                     trackingnumber));
             binding.editTrackingnumber.setError(null);
             binding.editTrackingnumber.setText("");
+            CreateORUpdateRecycleView();
             Toast.makeText(RecievedPackedAndSortedOrderForSortingAndDriverActivity.this, "تم", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(context, getResources().getString(R.string.invalidnumber), Toast.LENGTH_SHORT).show();

@@ -25,7 +25,7 @@
     <string name="there_is_no_trackednumber_scanned">لا يوجد رقم تتبع تم مسحه ضوئيًا.</string>
     <string name="updte_zone_if_exist">"تم أدخال المنطقه مختلفه عما تم من قبل..هل تريد التعديل "</string>
     <string name="delete_last_assign">حذف أخر عمليه</string>
-    <string name="show_assign_orders_to_driver">عرض الشحنات حسب السائق</string>
+    <string name="show_assign_orders_to_driver">الشحنات حسب السائق</string>
     <string name="enter_tracking_number">أدخل كود تتبع الشحنه</string>
     <string name="enter_valid_tracking_number">أدخل رقم تتبع صحيح </string>
 
@@ -105,7 +105,7 @@
     <string name="loadlastOrder">تحميل آخر أمر بيع</string>
     <string name="serial">كود تتبع الشحنه</string>
     <string name="search">بحث</string>
-    <string name="Show_Assign_Orders_To_Zone">عرض الشحنات حسب المنطقة</string>
+    <string name="Show_Assign_Orders_To_Zone">الشحنات حسب المنطقة</string>
     <string name="enter_zone">أدخل المنطقة</string>
     <string name="Reschedule">تحديد ميعاد آخر</string>
     <string name="Confirm_Deleivery">تأكيد الإستلام</string>
@@ -137,4 +137,6 @@
     <string name="txt_enter_number">أدخل أمر البيع</string>
     <string name="total_price">اجمالى السعر</string>
     <string name="will_delete_last_order">سوف يتم حذف أخر أمر بيع</string>
+    <string name="show_last_assign">تعديل</string>
+    <string name="recall_assign_orders_to_driver">أستدعاء</string>
 </resources>

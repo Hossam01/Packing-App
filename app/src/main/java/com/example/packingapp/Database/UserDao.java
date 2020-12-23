@@ -183,6 +183,9 @@ public interface UserDao {
     @Query("SELECT * FROM RecievePackedModule where Tracking_Number =:Tracking_Number")
     List<RecievePackedModule> getRecievePacked_Tracking_Number(String Tracking_Number);
 
+    @Query("SELECT * FROM RecievePackedModule where Tracking_Number =:Tracking_Number")
+    List<RecievedPackageModule> getRecievePacked_Tracking_Number_ForSearch(String Tracking_Number);
+
     @Query("SELECT DISTINCT( ORDER_NO ) ,NO_OF_PACKAGES  , uid FROM RecievePackedModule ")
     List<RecievePackedModule> getRecievePacked_ORDER_NO_Distinct();
 

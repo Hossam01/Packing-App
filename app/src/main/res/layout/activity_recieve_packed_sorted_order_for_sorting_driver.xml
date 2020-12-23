@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal|center_vertical"
+    android:gravity="center_horizontal"
     android:background="@color/main_background_color"
     tools:context=".UI.GetOrderDatactivity">
 
@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="4"
-        android:layoutDirection="rtl">
+        android:layoutDirection="rtl"
+        android:layout_marginTop="20dp">
 
         <EditText
             android:id="@+id/edit_trackingnumber"
@@ -96,10 +97,6 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"/>
 
-
-
-
-
     <Button
         android:id="@+id/btn_assign_orders_to_zone"
         android:layout_width="wrap_content"
@@ -133,5 +130,41 @@
         android:layout_height="wrap_content"
         android:visibility="gone"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/main_background_color"
+        android:layout_marginTop="20dp">
 
+        <HorizontalScrollView
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="horizontal"
+
+            android:scrollbarAlwaysDrawHorizontalTrack="true"
+            android:background="@drawable/module_bg_packages"
+
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="6dp">
+
+                <include layout="@layout/recycle_item_for_packed_packages_header"
+                    android:visibility="visible"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycle_items_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical"
+                    />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </LinearLayout>
 </LinearLayout>

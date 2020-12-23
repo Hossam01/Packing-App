@@ -4,13 +4,18 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.packingapp.Adapter.RecievedPackagesAdapter;
 import com.example.packingapp.Database.AppDatabase;
+import com.example.packingapp.Helper.Constant;
 import com.example.packingapp.R;
 import com.example.packingapp.databinding.ActivityEditPackagesForRecievingBinding;
+import com.example.packingapp.model.RecievePacked.RecievePackedModule;
 import com.example.packingapp.model.RecievedPackageModule;
 
 import java.util.ArrayList;
@@ -21,7 +26,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class EditPackagesForRecievingActivity extends AppCompatActivity {
-ActivityEditPackagesForRecievingBinding binding;
+    private static final String TAG = "EditPackagesForRecievin";
+    ActivityEditPackagesForRecievingBinding binding;
     List<RecievedPackageModule> Po_Item_For_Recycly;
     AppDatabase database;
     private RecievedPackagesAdapter recievedPackagesAdapter;
@@ -36,14 +42,79 @@ ActivityEditPackagesForRecievingBinding binding;
         setContentView(binding.getRoot());
         database= AppDatabase.getDatabaseInstance(this);
 
-        CreateORUpdateRecycleView();
+        binding.editTrackingnumber.requestFocus();
+
+        Po_Item_For_Recycly = new ArrayList<>();
+        Po_Item_For_Recycly=database.userDao().getAllRecievedPackages();
+        CreateORUpdateRecycleView(Po_Item_For_Recycly);
+
+        binding.editTrackingnumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_GO
+                        || actionId == EditorInfo.IME_ACTION_NEXT
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent == null
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_NUMPAD_ENTER
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_DPAD_CENTER){
+                    LoadNewPurchaseOrder();
+                }
+                return false;
+            }
+        });
+        binding.btnLoadingNewPurchaseOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoadNewPurchaseOrder();
+            }
+        });
+
     }
 
-    public void CreateORUpdateRecycleView(){
-        Po_Item_For_Recycly = new ArrayList<>();
+    private void LoadNewPurchaseOrder() {
+        String OrderNumber;
+        if (!binding.editTrackingnumber.getText().toString().isEmpty() &&
+                binding.editTrackingnumber.getText().toString().contains("-")) {
+            //  if (!my_match.find()) {
+            if (Constant.RegulerExpre_forTrackingNumbeer(binding.editTrackingnumber.getText().toString())) {
+                // Toast.makeText(context, "Special character not found in the string", Toast.LENGTH_SHORT).show();
+                OrderNumber =
+                        binding.editTrackingnumber.getText().toString().substring(0,
+                                binding.editTrackingnumber.getText().toString().indexOf("-"));
+                //TODO CHECK IF TRACKING NUMBER MORE THAN require no of packages
+                String NOtrackingnumber = binding.editTrackingnumber.getText().toString().substring(
+                        binding.editTrackingnumber.getText().toString().indexOf("-") + 1);
+                Log.e(TAG, "onClick: " + NOtrackingnumber);
 
-        Po_Item_For_Recycly=database.userDao().getAllRecievedPackages();
-        recievedPackagesAdapter = new RecievedPackagesAdapter(Po_Item_For_Recycly);
+                List<RecievePackedModule> recievePackedlist = database.userDao().getRecievePacked_ORDER_NO(OrderNumber);
+                Log.e(TAG, "onClick: OrdrecievePackedlist " + recievePackedlist.size());
+
+                if (recievePackedlist.size() > 0) {
+                    Po_Item_For_Recycly.clear();
+                    Po_Item_For_Recycly = database.userDao().getRecievePacked_Tracking_Number_ForSearch(binding.editTrackingnumber.getText().toString());
+                    CreateORUpdateRecycleView(Po_Item_For_Recycly);
+                } else {
+                    binding.editTrackingnumber.setError("هذا السيريال لم يتم أدخاله من قبل");
+                    binding.editTrackingnumber.requestFocus();
+//                    binding.editTrackingnumber.setText("");
+
+                }
+            }else {
+                Toast.makeText(EditPackagesForRecievingActivity.this, "Special character found in the string", Toast.LENGTH_SHORT).show();
+            }
+        }else {
+            binding.editTrackingnumber.setError(getString(R.string.enter_tracking_number));
+//            binding.editTrackingnumber.setText("");
+            binding.editTrackingnumber.requestFocus();
+        }
+    }
+
+    public void CreateORUpdateRecycleView(List<RecievedPackageModule> Po_Item_For_Recycly1){
+
+        recievedPackagesAdapter = new RecievedPackagesAdapter(Po_Item_For_Recycly1);
 
         binding.recycleItemsView.setHasFixedSize(true);
 
@@ -69,7 +140,6 @@ ActivityEditPackagesForRecievingBinding binding;
     @Override
     protected void onResume() {
         Log.e("lifecycle","onResume");
-        CreateORUpdateRecycleView();
         super.onResume();
     }
 
@@ -112,7 +182,10 @@ ActivityEditPackagesForRecievingBinding binding;
                                 .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
                                         database.userDao().deleteRecievePackedModule_ForTrackingNumber(TrackingnumberToEditORDelete);
-                                        CreateORUpdateRecycleView();
+                                        Po_Item_For_Recycly.clear();
+                                        Po_Item_For_Recycly=database.userDao().getAllRecievedPackages();
+                                        CreateORUpdateRecycleView(Po_Item_For_Recycly);
+                                        binding.editTrackingnumber.setText("");
                                     }
                                 })
                                 .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {

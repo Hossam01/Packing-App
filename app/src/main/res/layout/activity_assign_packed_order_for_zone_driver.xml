@@ -36,18 +36,16 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:visibility="gone">
+
             <EditText
-                android:id="@+id/edit_trackingnumber_zone"
+                android:id="@+id/edit_zone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/enter_tracking_number"
-                android:textColor="@color/txt_color"
+                android:hint="@string/enter_zone"
                 android:textColorHint="@color/txt_color_hint"
-                android:textSize="@dimen/font_size_for_text_of_app"
+                android:singleLine="true"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
-                android:singleLine="true"
-
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,12 +56,14 @@
                 android:layout_marginStart="15dp">
 
                 <EditText
-                    android:id="@+id/edit_zone"
+                    android:id="@+id/edit_trackingnumber_zone"
+                    android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     android:layout_weight="3"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_zone"
-                    android:textColorHint="#DDD"
+                    android:hint="@string/enter_tracking_number"
+                    android:textColor="@color/txt_color"
+                    android:textColorHint="@color/txt_color_hint"
+                    android:textSize="@dimen/font_size_for_text_of_app"
                     android:singleLine="true"
 
                     />
@@ -94,6 +94,20 @@
                     android:layout_marginStart="15dp">
 
                     <Button
+                        android:id="@+id/btn_show_last_trackingnumbers_zone"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="@string/show_last_assign"
+                        android:background="@drawable/bg_btn"
+                        android:textColor="@color/textcolor_btns"
+                        android:layout_marginTop="20dp"
+                        android:paddingEnd="20dp"
+                        android:paddingStart="20dp"
+                        android:textSize="@dimen/font_size_for_text_of_app"
+                        />
+<!--
+                    <Button
                         android:id="@+id/btn_delete_last_trackingnumbers_zone"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -106,7 +120,7 @@
                         android:paddingStart="20dp"
                         android:textSize="@dimen/font_size_for_text_of_app"
                         />
-
+-->
 
                     <Button
                         android:id="@+id/btn_confirm_assign_orders_to_zone"
@@ -154,6 +168,19 @@
             android:layout_marginBottom="15dp"
             android:visibility="gone"
             >
+
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/spiner_driver_id"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:textDirection="rtl"
+                android:textColor="@color/third_white"
+                android:backgroundTint="@color/third_white"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -190,17 +217,7 @@
 
                 </LinearLayout>
 
-            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                android:id="@+id/spiner_driver_id"
-                android:layout_width="fill_parent"
-                android:layout_height="35dp"
-                android:textSize="@dimen/font_size_for_text_of_app"
-                android:textDirection="rtl"
-                android:textColor="@color/third_white"
-                android:backgroundTint="@color/third_white"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"/>
+
 
 
 
@@ -214,11 +231,11 @@
                     android:layout_marginTop="20dp">
 
                     <Button
-                        android:id="@+id/btn_delete_last_trackingnumbers_driver"
+                        android:id="@+id/btn_show_last_trackingnumbers_driver"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="@string/delete_last_assign"
+                        android:text="@string/show_last_assign"
                         android:background="@drawable/bg_btn"
                         android:textColor="@color/textcolor_btns"
                         android:paddingEnd="20dp"
@@ -238,9 +255,23 @@
                         android:paddingEnd="20dp"
                         android:paddingStart="20dp"
                         android:textSize="@dimen/font_size_for_text_of_app"
-                        />
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp" />
 
                 </LinearLayout>
+            <Button
+                android:id="@+id/btn_recall_runsheet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recall_assign_orders_to_driver"
+                android:background="@drawable/bg_btn"
+                android:textColor="@color/textcolor_btns"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"/>
 
         </LinearLayout>
 
